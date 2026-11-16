@@ -26,3 +26,8 @@ All notable changes to the CISO Series Triage repo are logged here.
 - Set up the weekly CVE refresh as a Claude Code scheduled task: Fridays at 3:10 AM Eastern (12:10 AM Pacific, right after the rotation). It fetches from NVD, writes the bullets, builds, republishes the live game, logs here and pushes.
 - `fetch_cves.py build` now refuses to build if an Affects bullet contains a version number or any bullet hints at the score (critical, severity, CVSS, etc.).
 - Added `tools/make_artifact.py`, which writes the publishable copy to `.artifact/index.html` (git-ignored). — Rich
+
+## 2026-11-16 (5)
+- Weekly CVE refresh: the game now uses 106 CVEs published 2026-10-19 to 2026-11-16, pulled fresh from NVD. 9 are on CISA's KEV list.
+- Wrote new Affects/Flaw/Access/Impact bullets for 84 CVEs and kept the existing bullets for 22 that stayed in the pool. Entries for CVEs no longer in the pool were dropped.
+- Skipped 1 CVE with a description too thin to summarize: CVE-2026-76302 (Cisco software hardening release, no product or impact named). — Rich
