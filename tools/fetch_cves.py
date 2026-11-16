@@ -176,6 +176,17 @@ def cmd_build(a):
         print(f"Left out {len(missing)} without bullets: {', '.join(missing)}")
     if long:
         print("Bullets over 140 chars (they'll wrap to more lines):\n  " + "\n  ".join(long))
+    # Rules the cards depend on: no version numbers in Affects, no score or severity hints anywhere.
+    problems = []
+    for x in keep:
+        if re.search(r"\b\d+\.\d+", x["affects"]):
+            problems.append(f"{x['id']} affects has a version number: {x['affects']}")
+        for k in ("affects", "flaw", "access", "impact"):
+            if re.search(r"\b(critical|severe|severity|cvss|base score)\b|\b\d+\.\d\s*/\s*10\b", x[k], re.I):
+                problems.append(f"{x['id']} {k} hints at the score: {x[k]}")
+    if problems:
+        print("RULE PROBLEMS (fix data/bullets.json and run build again):\n  " + "\n  ".join(problems))
+        sys.exit(1)
 
 
 def main():

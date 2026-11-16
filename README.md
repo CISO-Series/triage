@@ -50,7 +50,12 @@ python3 tools/fetch_cves.py fetch --days 30
    python3 tools/fetch_cves.py build
    ```
 
-   This merges the pool and bullets into `index.html`. It lists any CVE left out for missing bullets and any bullet that runs long.
+   This merges the pool and bullets into `index.html`. It lists any CVE left out for missing bullets and any bullet that runs long. It refuses to build if any Affects bullet has a version number or any bullet hints at the score.
+4. **Publish:** `python3 tools/make_artifact.py` writes the publishable copy to `.artifact/index.html` (git-ignored), which is then republished to the live link.
+
+### Automatic weekly refresh
+
+A Claude Code scheduled task, **Triage weekly CVE refresh**, runs these steps on Rich's Mac every **Friday at 3:10 AM Eastern** (12:10 AM Pacific, just after the weekly rotation). It fetches, writes the bullets, builds, republishes the live link, logs the change here and pushes to GitHub. It runs while the Claude desktop app is open; if the app is closed at that time, it runs the next time the app opens. If the NVD fetch fails, it keeps last week's CVEs and changes nothing.
 
 **Refresh on Friday, at or just after the rotation.** The weekly queue is seeded from the week number *and* the data's fetch date. Refreshing mid-week would give later players a different queue from earlier ones, and would reset the official runs already played that week.
 

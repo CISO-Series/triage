@@ -21,3 +21,8 @@ All notable changes to the CISO Series Triage repo are logged here.
 - Layout: the two cards are the answer buttons, side by side with a VS marker (stacked on phones). The separate Higher/Lower buttons are gone, so the cards take about 93% of the game width. The picked card is marked ✓ or ✗ after the reveal, and CVE IDs link to NVD once scored.
 - Bullets rewritten for all 110 CVEs. **Affects** now names only the product (plus a component or configuration when it matters, never version numbers). A new **Access** bullet says what an attacker needs, and **Flaw** and **Impact** are fuller sentences. `fetch_cves.py build` now requires all four.
 - Difficulty is tighter: every pair is chosen fresh for its level, so P0 pairs land at 0.1–0.2 consistently. Saved progress uses a new key, so test runs under the old mechanic don't carry over. — Rich
+
+## 2026-11-16 (4)
+- Set up the weekly CVE refresh as a Claude Code scheduled task: Fridays at 3:10 AM Eastern (12:10 AM Pacific, right after the rotation). It fetches from NVD, writes the bullets, builds, republishes the live game, logs here and pushes.
+- `fetch_cves.py build` now refuses to build if an Affects bullet contains a version number or any bullet hints at the score (critical, severity, CVSS, etc.).
+- Added `tools/make_artifact.py`, which writes the publishable copy to `.artifact/index.html` (git-ignored). — Rich
