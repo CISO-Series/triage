@@ -15,3 +15,9 @@ All notable changes to the CISO Series Triage repo are logged here.
 - Bullets are written per CVE in `data/bullets.json` from NVD's full description. They never include the score or a severity word. Cards now also name the actual product (e.g. Pillow, Wagtail, Apache Kafka) instead of the language or a parent vendor.
 - Trimmed the pool to 110 CVEs (6 per vendor, 14 per score band) so each gets a careful summary. Dropped 2 CVEs whose NVD entries had no usable detail.
 - `fetch_cves.py` is now three steps: `fetch` writes `data/pool.json` with full descriptions, bullets go in `data/bullets.json`, and `build` merges them into `index.html`. — Rich
+
+## 2026-11-16 (3)
+- New mechanic: each round shows two CVEs with **both scores hidden**, and the player taps the one they think scores higher. Both scores are revealed, then a fresh pair comes up. This replaces higher-or-lower against a shown score, which made it unclear which CVE you were judging.
+- Layout: the two cards are the answer buttons, side by side with a VS marker (stacked on phones). The separate Higher/Lower buttons are gone, so the cards take about 93% of the game width. The picked card is marked ✓ or ✗ after the reveal, and CVE IDs link to NVD once scored.
+- Bullets rewritten for all 110 CVEs. **Affects** now names only the product (plus a component or configuration when it matters, never version numbers). A new **Access** bullet says what an attacker needs, and **Flaw** and **Impact** are fuller sentences. `fetch_cves.py build` now requires all four.
+- Difficulty is tighter: every pair is chosen fresh for its level, so P0 pairs land at 0.1–0.2 consistently. Saved progress uses a new key, so test runs under the old mechanic don't carry over. — Rich

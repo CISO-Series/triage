@@ -6,9 +6,11 @@
        and writes data/pool.json with each CVE's full NVD description.
 
   2. Write data/bullets.json: for every CVE in the pool, three short plain-English bullets
-       {"CVE-…": {"affects": "...", "flaw": "...", "impact": "...", "vendor": "(optional label)"}}
+       {"CVE-…": {"affects": "...", "flaw": "...", "access": "...", "impact": "...", "vendor": "(optional label)"}}
      These are written by a person (or Claude) from the full description, so nothing on a
-     card is ever truncated. Keep each bullet under about 90 characters, and never include the
+     card is ever truncated. "affects" names the product (and a component or configuration only
+     when it matters), with no version numbers. "access" is what an attacker needs (remote or
+     local, logged in or not, user interaction). Keep each bullet to one sentence, and never include the
      CVSS score or a severity word (some NVD descriptions quote them). "vendor" overrides the
      card's label when the auto-detected one is off (e.g. "Pillow" instead of "Python").
 
@@ -155,12 +157,12 @@ def cmd_build(a):
     keep, missing, long = [], [], []
     for x in pool["cves"]:
         b = bullets.get(x["id"])
-        if not b or not all(b.get(k) for k in ("affects", "flaw", "impact")):
+        if not b or not all(b.get(k) for k in ("affects", "flaw", "access", "impact")):
             missing.append(x["id"]); continue
-        long += [f"{x['id']} {k}: {len(b[k])} chars" for k in ("affects", "flaw", "impact") if len(b[k]) > 110]
+        long += [f"{x['id']} {k}: {len(b[k])} chars" for k in ("affects", "flaw", "access", "impact") if len(b[k]) > 140]
         keep.append({k: x[k] for k in ("id", "score", "sev", "vendor", "cwe", "pub", "kev")} |
                     {"vendor": b.get("vendor") or x["vendor"],   # optional override for a better label
-                     "affects": b["affects"], "flaw": b["flaw"], "impact": b["impact"]})
+                     "affects": b["affects"], "flaw": b["flaw"], "access": b["access"], "impact": b["impact"]})
     data = {"fetched": pool["fetched"], "days": pool["days"], "cves": keep}
     block = "<!--CVE-DATA-->\n<script type=\"application/json\" id=\"cve-data\">" + \
             json.dumps(data, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/") + \
@@ -173,7 +175,7 @@ def cmd_build(a):
     if missing:
         print(f"Left out {len(missing)} without bullets: {', '.join(missing)}")
     if long:
-        print("Bullets over 110 chars (they'll wrap to more lines):\n  " + "\n  ".join(long))
+        print("Bullets over 140 chars (they'll wrap to more lines):\n  " + "\n  ".join(long))
 
 
 def main():
