@@ -1,0 +1,168 @@
+#!/usr/bin/env python3
+"""Pull recent CVEs from NVD and bake a balanced pool into Triage's index.html.
+
+Run from the repo root:  python3 tools/fetch_cves.py [--days 30]
+
+- Source: NVD CVE API 2.0 (public, no key needed; requests are spaced out for its rate limit).
+- Also flags CVEs on CISA's Known Exploited Vulnerabilities (KEV) list.
+- Keeps CVEs that have a CVSS v3.1 base score and mention a recognizable vendor,
+  then balances the pool across the score range so "higher" isn't always the safe bet.
+- Rewrites the JSON block between the CVE-DATA markers in index.html.
+"""
+import argparse, json, random, re, sys, time, urllib.request
+from datetime import datetime, timedelta, timezone
+from pathlib import Path
+
+NVD = "https://services.nvd.nist.gov/rest/json/cves/2.0"
+KEV = "https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json"
+INDEX = Path(__file__).resolve().parent.parent / "index.html"
+UA = {"User-Agent": "triage-game-cve-fetch"}
+
+# Vendors/products people will recognize. The first match in a description is shown on the card.
+VENDORS = [
+    "Microsoft", "Windows", "Exchange", "SharePoint", "Azure", "Apple", "macOS", "iOS", "Google", "Chrome",
+    "Android", "Cisco", "Fortinet", "FortiOS", "FortiGate", "Palo Alto Networks", "PAN-OS", "Ivanti", "VMware",
+    "Citrix", "NetScaler", "Juniper", "F5", "BIG-IP", "SonicWall", "Check Point", "Zyxel", "TP-Link", "D-Link",
+    "Netgear", "ASUS", "Synology", "QNAP", "Oracle", "SAP", "Adobe", "Atlassian", "Confluence", "Jira",
+    "GitLab", "GitHub", "Jenkins", "Apache", "Tomcat", "Kafka", "Struts", "nginx", "OpenSSL", "OpenSSH",
+    "Linux kernel", "Mozilla", "Firefox", "Thunderbird", "WordPress", "Drupal", "Joomla", "IBM", "HPE",
+    "Dell", "Lenovo", "Intel", "AMD", "NVIDIA", "Qualcomm", "Samsung", "Siemens", "Schneider Electric",
+    "Rockwell", "Veeam", "SolarWinds", "Zoom", "Slack", "Salesforce", "ServiceNow", "Splunk", "Elastic",
+    "Kubernetes", "Docker", "Redis", "PostgreSQL", "MySQL", "MongoDB", "Grafana", "Moodle", "Roundcube",
+    "Zimbra", "Progress", "MOVEit", "WS_FTP", "Kemp", "Sophos", "Trend Micro", "ESET", "Bitdefender",
+    "CrowdStrike", "SentinelOne", "Okta", "Cloudflare", "AWS", "Amazon", "Node.js", "PHP", "Python",
+    "Go ", "Rust", "curl", "libxml2", "Ghostscript", "ImageMagick", "FFmpeg", "Vim", "Git ", "Erlang",
+    "Langflow", "Ollama", "ComfyUI", "n8n", "Next.js", "React", "Django", "Spring", "WatchGuard", "Ubiquiti",
+    "MikroTik", "Hikvision", "Dahua", "Commvault", "Veritas", "CyberArk", "BeyondTrust", "SysAid",
+    "ManageEngine", "Zoho", "Craft CMS", "Magento", "Adobe Commerce", "Microsoft Edge", "Office", "Outlook",
+]
+CANON = {"Windows": "Microsoft", "Exchange": "Microsoft", "SharePoint": "Microsoft", "Azure": "Microsoft",
+         "Office": "Microsoft", "Outlook": "Microsoft", "Microsoft Edge": "Microsoft", "macOS": "Apple",
+         "iOS": "Apple", "Chrome": "Google", "Android": "Google", "FortiOS": "Fortinet", "FortiGate": "Fortinet",
+         "PAN-OS": "Palo Alto Networks", "NetScaler": "Citrix", "BIG-IP": "F5", "Confluence": "Atlassian",
+         "Jira": "Atlassian", "Tomcat": "Apache", "Kafka": "Apache", "Struts": "Apache", "Firefox": "Mozilla",
+         "Thunderbird": "Mozilla", "MOVEit": "Progress", "WS_FTP": "Progress", "Magento": "Adobe",
+         "Adobe Commerce": "Adobe", "ManageEngine": "Zoho", "Go ": "Go", "Git ": "Git"}
+GENERIC = {"PHP", "Python", "Go", "Rust", "Node.js", "Git", "React", "Erlang"}
+PER_VENDOR = 10     # keep one vendor from flooding the pool
+PER_BUCKET = 32      # per 1.0-wide score bucket
+WP_PLUGIN = re.compile(r"plugin for WordPress", re.I)
+
+
+def get(url, tries=4):
+    for i in range(tries):
+        try:
+            with urllib.request.urlopen(urllib.request.Request(url, headers=UA), timeout=120) as r:
+                return json.load(r)
+        except Exception as e:  # NVD rate-limits with 403/503; back off and retry
+            if i == tries - 1:
+                raise
+            time.sleep(10 * (i + 1))
+
+
+def fetch_nvd(days):
+    end = datetime.now(timezone.utc).replace(microsecond=0)
+    start = end - timedelta(days=days)
+    fmt = lambda d: d.strftime("%Y-%m-%dT%H:%M:%S.000Z")
+    out, idx = [], 0
+    while True:
+        url = f"{NVD}?pubStartDate={fmt(start)}&pubEndDate={fmt(end)}&resultsPerPage=2000&startIndex={idx}"
+        d = get(url)
+        out += d["vulnerabilities"]
+        idx += d["resultsPerPage"]
+        print(f"  NVD: {idx}/{d['totalResults']}", file=sys.stderr)
+        if idx >= d["totalResults"] or not d["resultsPerPage"]:
+            return out
+        time.sleep(7)
+
+
+def short(desc, n=170):
+    desc = re.sub(r"\s+", " ", desc).strip()
+    if len(desc) <= n:
+        return desc
+    cut = desc[:n].rsplit(" ", 1)[0].rstrip(",;:")
+    return cut + "…"
+
+
+def pick_vendor(desc):
+    # Only the opening of the description names the affected product; later mentions are often
+    # just dependencies or examples ("...via curl"), which would mislabel the card.
+    head = desc[:70]
+    hits = [(m.start(), v) for v in VENDORS
+            for m in [re.search(r"(?<![\w-])" + re.escape(v.strip()) + r"(?![\w-])", head)] if m]
+    if not hits:
+        return None
+    # Language/runtime names often describe the bug class ("PHP Object Injection in <product>"),
+    # so a real product name wins when both appear.
+    specific = [h for h in hits if h[1].strip() not in GENERIC]
+    v = min(specific or hits)[1]
+    return CANON.get(v, v).strip()
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--days", type=int, default=30)
+    ap.add_argument("--seed", type=int, default=None)
+    a = ap.parse_args()
+
+    kev = set()
+    try:
+        kev = {v["cveID"] for v in get(KEV)["vulnerabilities"]}
+        print(f"  KEV: {len(kev)} known-exploited CVEs", file=sys.stderr)
+    except Exception as e:
+        print(f"  KEV fetch failed ({e}); continuing without it", file=sys.stderr)
+
+    cands = []
+    for item in fetch_nvd(a.days):
+        c = item["cve"]
+        if c.get("vulnStatus") == "Rejected":
+            continue
+        m = c.get("metrics", {}).get("cvssMetricV31") or []
+        if not m:
+            continue
+        m = next((x for x in m if x.get("type") == "Primary"), m[0])
+        desc = next((d["value"] for d in c.get("descriptions", []) if d["lang"] == "en"), "")
+        if not desc or "DISPUTED" in desc or WP_PLUGIN.search(desc):
+            continue
+        vendor = pick_vendor(desc)
+        if not vendor:
+            continue
+        cwe = next((d["value"] for w in c.get("weaknesses", []) for d in w.get("description", [])
+                    if d["value"].startswith("CWE-")), "")
+        cands.append({
+            "id": c["id"], "score": m["cvssData"]["baseScore"], "sev": m["cvssData"]["baseSeverity"],
+            "vendor": vendor, "desc": short(desc), "cwe": cwe, "pub": c["published"][:10],
+            "kev": c["id"] in kev,
+        })
+
+    rng = random.Random(a.seed)
+    rng.shuffle(cands)
+    cands.sort(key=lambda x: not x["kev"])          # exploited-in-the-wild first, they're the fun ones
+    per_vendor, per_bucket, seen_desc, pool = {}, {}, set(), []
+    for x in cands:
+        b = min(int(x["score"]), 9)
+        key = x["desc"][:60]
+        if per_vendor.get(x["vendor"], 0) >= PER_VENDOR or per_bucket.get(b, 0) >= PER_BUCKET or key in seen_desc:
+            continue
+        per_vendor[x["vendor"]] = per_vendor.get(x["vendor"], 0) + 1
+        per_bucket[b] = per_bucket.get(b, 0) + 1
+        seen_desc.add(key)
+        pool.append(x)
+    pool.sort(key=lambda x: x["id"])
+
+    data = {"fetched": datetime.now(timezone.utc).strftime("%Y-%m-%d"), "days": a.days, "cves": pool}
+    html = INDEX.read_text()
+    block = "<!--CVE-DATA-->\n<script type=\"application/json\" id=\"cve-data\">" + \
+            json.dumps(data, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/") + \
+            "</script>\n<!--/CVE-DATA-->"
+    html, n = re.subn(r"<!--CVE-DATA-->.*?<!--/CVE-DATA-->", lambda _: block, html, flags=re.S)
+    if n != 1:
+        sys.exit("Couldn't find the CVE-DATA markers in index.html.")
+    INDEX.write_text(html)
+    hist = " ".join(f"{b}:{per_bucket.get(b,0)}" for b in range(10))
+    print(f"Wrote {len(pool)} CVEs ({sum(x['kev'] for x in pool)} KEV) from {len(cands)} candidates. "
+          f"Score buckets {hist}. Vendors: {len(per_vendor)}")
+
+
+if __name__ == "__main__":
+    main()
