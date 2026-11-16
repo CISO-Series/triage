@@ -31,3 +31,11 @@ All notable changes to the CISO Series Triage repo are logged here.
 - Weekly CVE refresh: the game now uses 106 CVEs published 2026-10-19 to 2026-11-16, pulled fresh from NVD. 9 are on CISA's KEV list.
 - Wrote new Affects/Flaw/Access/Impact bullets for 84 CVEs and kept the existing bullets for 22 that stayed in the pool. Entries for CVEs no longer in the pool were dropped.
 - Skipped 1 CVE with a description too thin to summarize: CVE-2026-76302 (Cisco software hardening release, no product or impact named). — Rich
+
+## 2026-11-16 (6)
+- Reviewed every card against NVD's CVSS vector. About a quarter didn't give a practitioner enough to reason toward the score: "not published" bullets, file bugs that read as network attacks, and missing attack difficulty, scope change, or which kind of harm.
+- Rewrote all bullets so **Access** and **Impact** state, in plain words, what each CVE's CVSS vector says: how it's reached, login level, user interaction, whether it's hard to exploit, what can be read, changed or taken down (and what can't), and whether it reaches beyond the product. The score, vector and severity words are never shown.
+- `fetch_cves.py fetch` now saves each CVE's vector in `data/pool.json` (for writing and checking only; it never enters the game).
+- `fetch_cves.py build` now checks every card against its vector with fixed phrases and refuses to build on any mismatch. It also now checks before writing, so a failed build never touches `index.html`.
+- Dropped 6 CVEs whose description contradicts NVD's scoring or is too thin: CVE-2026-113032 (Chrome address bar, described local / scored remote), CVE-2026-113061 (Chrome Remote Desktop, nothing in the description backs the full-compromise scoring), CVE-2026-123218 (IBM Aspera, described as an authorized user / scored no login), CVE-2026-125120 (Mongoose, "skews counts" / scored full compromise), CVE-2026-99030 (Linux kernel leak the description says receivers drop / scored high leak), CVE-2026-76302 (Cisco hardening note). The game now has 101 CVEs.
+- Updated the weekly refresh task to write cards the same way. — Rich

@@ -10,7 +10,8 @@
    "cwe": "CWE-200",
    "pub": "2026-10-20",
    "kev": false,
-   "description": "Vulnerability in Oracle REST Data Services (component: Core). Supported versions that are affected are 24.2.0-26.1.0. Easily exploitable vulnerability allows low privileged attacker with network access via HTTP to compromise Oracle REST Data Services. While the vulnerability is in Oracle REST Data Services, attacks may significantly impact additional products (scope change). Successful attacks of this vulnerability can result in unauthorized read access to a subset of Oracle REST Data Services accessible data. CVSS 3.1 Base Score 5.0 (Confidentiality impacts). CVSS Vector: (CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:C/C:L/I:N/A:N)."
+   "description": "Vulnerability in Oracle REST Data Services (component: Core). Supported versions that are affected are 24.2.0-26.1.0. Easily exploitable vulnerability allows low privileged attacker with network access via HTTP to compromise Oracle REST Data Services. While the vulnerability is in Oracle REST Data Services, attacks may significantly impact additional products (scope change). Successful attacks of this vulnerability can result in unauthorized read access to a subset of Oracle REST Data Services accessible data. CVSS 3.1 Base Score 5.0 (Confidentiality impacts). CVSS Vector: (CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:C/C:L/I:N/A:N).",
+   "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:C/C:L/I:N/A:N"
   },
   {
    "id": "CVE-2026-101678",
@@ -20,7 +21,8 @@
    "cwe": "CWE-284",
    "pub": "2026-10-20",
    "kev": false,
-   "description": "Vulnerability in the MySQL Connectors product of Oracle MySQL (component: Connector/J). The supported version that is affected is 26.7.0. Easily exploitable vulnerability allows unauthenticated attacker with network access via multiple protocols to compromise MySQL Connectors. Successful attacks require human interaction from a person other than the attacker. Successful attacks of this vulnerability can result in unauthorized ability to cause a partial denial of service (partial DOS) of MySQL Connectors. CVSS 3.1 Base Score 4.3 (Availability impacts). CVSS Vector: (CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:L)."
+   "description": "Vulnerability in the MySQL Connectors product of Oracle MySQL (component: Connector/J). The supported version that is affected is 26.7.0. Easily exploitable vulnerability allows unauthenticated attacker with network access via multiple protocols to compromise MySQL Connectors. Successful attacks require human interaction from a person other than the attacker. Successful attacks of this vulnerability can result in unauthorized ability to cause a partial denial of service (partial DOS) of MySQL Connectors. CVSS 3.1 Base Score 4.3 (Availability impacts). CVSS Vector: (CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:L).",
+   "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:L"
   },
   {
    "id": "CVE-2026-101729",
@@ -30,7 +32,8 @@
    "cwe": "CWE-284",
    "pub": "2026-10-20",
    "kev": false,
-   "description": "Vulnerability in the MySQL Server, MySQL Cluster product of Oracle MySQL (component: Server: Replication). Supported versions that are affected are MySQL Server: 8.4.0-8.4.12, 9.7.0-9.7.3, 26.7.0-26.7.1; MySQL Cluster: 8.0.0-8.0.49, 8.4.0-8.4.12, 9.7.0-9.7.3 and 26.7.0-26.7.1. Easily exploitable vulnerability allows high privileged attacker with network access via multiple protocols to compromise MySQL Server, MySQL Cluster. Successful attacks of this vulnerability can result in unauthorized ability to cause a hang or frequently repeatable crash (complete DOS) of MySQL Server, MySQL Cluster. CVSS 3.1 Base Score 4.9 (Availability impacts). CVSS Vector: (CVSS:3.1/AV:N/AC:L/PR:H/UI:N/S:U/C:N/I:N/A:H)."
+   "description": "Vulnerability in the MySQL Server, MySQL Cluster product of Oracle MySQL (component: Server: Replication). Supported versions that are affected are MySQL Server: 8.4.0-8.4.12, 9.7.0-9.7.3, 26.7.0-26.7.1; MySQL Cluster: 8.0.0-8.0.49, 8.4.0-8.4.12, 9.7.0-9.7.3 and 26.7.0-26.7.1. Easily exploitable vulnerability allows high privileged attacker with network access via multiple protocols to compromise MySQL Server, MySQL Cluster. Successful attacks of this vulnerability can result in unauthorized ability to cause a hang or frequently repeatable crash (complete DOS) of MySQL Server, MySQL Cluster. CVSS 3.1 Base Score 4.9 (Availability impacts). CVSS Vector: (CVSS:3.1/AV:N/AC:L/PR:H/UI:N/S:U/C:N/I:N/A:H).",
+   "vector": "CVSS:3.1/AV:N/AC:L/PR:H/UI:N/S:U/C:N/I:N/A:H"
   },
   {
    "id": "CVE-2026-103515",
@@ -40,7 +43,8 @@
    "cwe": "CWE-863",
    "pub": "2026-10-22",
    "kev": false,
-   "description": "GitLab has remediated an issue in GitLab EE affecting all versions from 19.2 before 19.3.6, 19.4 before 19.4.3, and 19.5 before 19.5.1 that, when an instance administrator locked a group's Duo availability, an authenticated user with group Owner permissions could have re-enabled AI-backed data egress to a third-party service for that group and its descendant projects, due to insufficient granularity of the admin-lock enforcement controls."
+   "description": "GitLab has remediated an issue in GitLab EE affecting all versions from 19.2 before 19.3.6, 19.4 before 19.4.3, and 19.5 before 19.5.1 that, when an instance administrator locked a group's Duo availability, an authenticated user with group Owner permissions could have re-enabled AI-backed data egress to a third-party service for that group and its descendant projects, due to insufficient granularity of the admin-lock enforcement controls.",
+   "vector": "CVSS:3.1/AV:N/AC:L/PR:H/UI:N/S:U/C:N/I:L/A:N"
   },
   {
    "id": "CVE-2026-104353",
@@ -50,7 +54,8 @@
    "cwe": "CWE-78",
    "pub": "2026-10-27",
    "kev": false,
-   "description": "Adobe Campaign Classic (ACC) is affected by an Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection') vulnerability that could result in arbitrary code execution in the context of the current user. A low-privileged attacker could exploit this vulnerability to execute arbitrary code. Exploitation of this issue does not require user interaction. Scope is changed."
+   "description": "Adobe Campaign Classic (ACC) is affected by an Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection') vulnerability that could result in arbitrary code execution in the context of the current user. A low-privileged attacker could exploit this vulnerability to execute arbitrary code. Exploitation of this issue does not require user interaction. Scope is changed.",
+   "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:C/C:H/I:H/A:H"
   },
   {
    "id": "CVE-2026-105025",
@@ -60,7 +65,8 @@
    "cwe": "CWE-415",
    "pub": "2026-11-10",
    "kev": false,
-   "description": "Double free in Windows Advanced Rasterization Platform allows an authorized attacker to elevate privileges locally."
+   "description": "Double free in Windows Advanced Rasterization Platform allows an authorized attacker to elevate privileges locally.",
+   "vector": "CVSS:3.1/AV:L/AC:H/PR:L/UI:N/S:C/C:H/I:H/A:H"
   },
   {
    "id": "CVE-2026-105312",
@@ -70,7 +76,8 @@
    "cwe": "CWE-269",
    "pub": "2026-10-20",
    "kev": false,
-   "description": "A Kubernetes tenant with create permission on Console custom resources can set spec.containers.api.spec.image to an arbitrary container image. The operator deploys this image into a pod whose ServiceAccount is bound via ClusterRoleBinding to a ClusterRole granting cluster-wide get/list/watch on all Strimzi CRDs (including KafkaUsers), patch on Kafkas/KafkaRebalances, and cluster-monitoring-view. The attacker's code reads the projected SA token and gains cross-tenant Strimzi control-plane read+write access."
+   "description": "A Kubernetes tenant with create permission on Console custom resources can set spec.containers.api.spec.image to an arbitrary container image. The operator deploys this image into a pod whose ServiceAccount is bound via ClusterRoleBinding to a ClusterRole granting cluster-wide get/list/watch on all Strimzi CRDs (including KafkaUsers), patch on Kafkas/KafkaRebalances, and cluster-monitoring-view. The attacker's code reads the projected SA token and gains cross-tenant Strimzi control-plane read+write access.",
+   "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:C/C:H/I:H/A:L"
   },
   {
    "id": "CVE-2026-105614",
@@ -80,7 +87,8 @@
    "cwe": "CWE-789",
    "pub": "2026-10-28",
    "kev": false,
-   "description": "PostgreSQL Anonymizer's `anon.image_blur()` function doesn't check the declared dimension of the provided image, allowing an attacker to provide a small image with enormous declared dimensions. This vulnerability can be exploited to exhaust the memory of a backend and OOM-kill it (when ovecommit is on), which results in a cluster-wide crash recovery. The problem is resolved in PostgreSQL Anonymizer 3.3.0 and later versions."
+   "description": "PostgreSQL Anonymizer's `anon.image_blur()` function doesn't check the declared dimension of the provided image, allowing an attacker to provide a small image with enormous declared dimensions. This vulnerability can be exploited to exhaust the memory of a backend and OOM-kill it (when ovecommit is on), which results in a cluster-wide crash recovery. The problem is resolved in PostgreSQL Anonymizer 3.3.0 and later versions.",
+   "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:N/I:N/A:L"
   },
   {
    "id": "CVE-2026-105702",
@@ -90,7 +98,8 @@
    "cwe": "CWE-209",
    "pub": "2026-11-04",
    "kev": false,
-   "description": "IBM Db2 Genius Hub 1.1.2, 1.1.3, 1.1.4, 1.1.5 could allow a remote authenticated attacker to obtain sensitive information due to exposure of error messages containing internal implementation details."
+   "description": "IBM Db2 Genius Hub 1.1.2, 1.1.3, 1.1.4, 1.1.5 could allow a remote authenticated attacker to obtain sensitive information due to exposure of error messages containing internal implementation details.",
+   "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N"
   },
   {
    "id": "CVE-2026-106174",
@@ -100,7 +109,8 @@
    "cwe": "CWE-667",
    "pub": "2026-10-27",
    "kev": false,
-   "description": "A improper locking vulnerability in Fortinet FortiOS 8.0.0, FortiOS 7.6.4 through 7.6.6 may allow an unauthenticated attacker with network access to the device to cause a denial of service of the HTTPS management interface via crafted HTTP requests."
+   "description": "A improper locking vulnerability in Fortinet FortiOS 8.0.0, FortiOS 7.6.4 through 7.6.6 may allow an unauthenticated attacker with network access to the device to cause a denial of service of the HTTPS management interface via crafted HTTP requests.",
+   "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
   },
   {
    "id": "CVE-2026-107307",
@@ -110,7 +120,8 @@
    "cwe": "CWE-863",
    "pub": "2026-10-30",
    "kev": false,
-   "description": "Incorrect Authorization vulnerability in Drupal SmartLinker AI allows Forceful Browsing. This issue affects SmartLinker AI versions: from 0.0.0 to 1.0.3."
+   "description": "Incorrect Authorization vulnerability in Drupal SmartLinker AI allows Forceful Browsing. This issue affects SmartLinker AI versions: from 0.0.0 to 1.0.3.",
+   "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N"
   },
   {
    "id": "CVE-2026-108762",
@@ -120,7 +131,8 @@
    "cwe": "CWE-22",
    "pub": "2026-10-19",
    "kev": false,
-   "description": "Path-confinement bypass during metadata backup deletion in Apache Kylin. Impact most to the kylin services that are directly exposed to public network, which is not common. In-house kylin deployments are mostly not impacted. This issue affects Apache Kylin: from 4.0.0 through 5.0.4. Users are recommended to upgrade to version 5.0.5, which fixes the issue."
+   "description": "Path-confinement bypass during metadata backup deletion in Apache Kylin. Impact most to the kylin services that are directly exposed to public network, which is not common. In-house kylin deployments are mostly not impacted. This issue affects Apache Kylin: from 4.0.0 through 5.0.4. Users are recommended to upgrade to version 5.0.5, which fixes the issue.",
+   "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:L"
   },
   {
    "id": "CVE-2026-109618",
@@ -130,7 +142,8 @@
    "cwe": "CWE-416",
    "pub": "2026-10-21",
    "kev": true,
-   "description": "PHP uses longjmp() for out-of-memory (OOM) errors to exit the current context and abort handling of the request. Some contexts may not properly account for this scenario and leave request memory in an uninitialized state before performing an allocation. The subsequent request cleanup procedure may read or branch on this memory. Multiple OOM strategies can consistently trigger this condition and lead to remote code execution (RCE)."
+   "description": "PHP uses longjmp() for out-of-memory (OOM) errors to exit the current context and abort handling of the request. Some contexts may not properly account for this scenario and leave request memory in an uninitialized state before performing an allocation. The subsequent request cleanup procedure may read or branch on this memory. Multiple OOM strategies can consistently trigger this condition and lead to remote code execution (RCE).",
+   "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H"
   },
   {
    "id": "CVE-2026-109619",
@@ -140,7 +153,8 @@
    "cwe": "CWE-416",
    "pub": "2026-10-21",
    "kev": true,
-   "description": "PHP has various global state that temporarily points into request memory. In some scenarios, global state may not be correctly reset, or may be repopulated after being reset. The global state may then refer to request memory even after it has been freed. Subsequent requests may read or branch on this stale state before it is fully initialized. Multiple strategies can trigger this condition and produce remote code execution (RCE)."
+   "description": "PHP has various global state that temporarily points into request memory. In some scenarios, global state may not be correctly reset, or may be repopulated after being reset. The global state may then refer to request memory even after it has been freed. Subsequent requests may read or branch on this stale state before it is fully initialized. Multiple strategies can trigger this condition and produce remote code execution (RCE).",
+   "vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H"
   },
   {
    "id": "CVE-2026-109796",
@@ -150,7 +164,8 @@
    "cwe": "CWE-908",
    "pub": "2026-11-10",
    "kev": false,
-   "description": "SAP NetWeaver Application Server ABAP and ABAP Platform does not properly initialize memory in certain internal components. Under certain condition, an attacker with low privileges could disclose uninitialized memory contents under specific conditions. This results in a low impact on confidentiality. There is no impact on integrity and availability."
+   "description": "SAP NetWeaver Application Server ABAP and ABAP Platform does not properly initialize memory in certain internal components. Under certain condition, an attacker with low privileges could disclose uninitialized memory contents under specific conditions. This results in a low impact on confidentiality. There is no impact on integrity and availability.",
+   "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N"
   },
   {
    "id": "CVE-2026-110183",
@@ -160,7 +175,8 @@
    "cwe": "CWE-202",
    "pub": "2026-10-28",
    "kev": false,
-   "description": "PostgreSQL Anonymizer contains a vulnerability related to static masking and statistics persistence. Statistics pertaining to the original data remain visible in pg_stats until an ANALYZE operation is performed on the table, either manually or by autovacuum. This issue is fixed in PostgreSQL Anonymizer 3.3.0 and later versions."
+   "description": "PostgreSQL Anonymizer contains a vulnerability related to static masking and statistics persistence. Statistics pertaining to the original data remain visible in pg_stats until an ANALYZE operation is performed on the table, either manually or by autovacuum. This issue is fixed in PostgreSQL Anonymizer 3.3.0 and later versions.",
+   "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N"
   },
   {
    "id": "CVE-2026-111302",
@@ -170,7 +186,8 @@
    "cwe": "CWE-122",
    "pub": "2026-11-10",
    "kev": false,
-   "description": "Heap-based buffer overflow in Microsoft Office Word allows an unauthorized attacker to execute code locally."
+   "description": "Heap-based buffer overflow in Microsoft Office Word allows an unauthorized attacker to execute code locally.",
+   "vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H"
   },
   {
    "id": "CVE-2026-111503",
@@ -180,7 +197,8 @@
    "cwe": "CWE-89",
    "pub": "2026-10-30",
    "kev": false,
-   "description": "Dell OpenManage Enterprise, versions prior to 4.8.0, contains an Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection') vulnerability. A low privileged attacker with remote access could potentially exploit this vulnerability, leading to Information exposure."
+   "description": "Dell OpenManage Enterprise, versions prior to 4.8.0, contains an Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection') vulnerability. A low privileged attacker with remote access could potentially exploit this vulnerability, leading to Information exposure.",
+   "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:N/A:N"
   },
   {
    "id": "CVE-2026-112207",
@@ -190,7 +208,8 @@
    "cwe": "CWE-79",
    "pub": "2026-10-24",
    "kev": false,
-   "description": "The Download Monitor WordPress plugin before 5.3.4 does not properly validate that a clicked link belongs to the site before fetching it client-side and rendering part of the response in the page, which allows unauthenticated attackers to execute arbitrary JavaScript in the browser of any user who is tricked into clicking a crafted link."
+   "description": "The Download Monitor WordPress plugin before 5.3.4 does not properly validate that a clicked link belongs to the site before fetching it client-side and rendering part of the response in the page, which allows unauthenticated attackers to execute arbitrary JavaScript in the browser of any user who is tricked into clicking a crafted link.",
+   "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:L"
   },
   {
    "id": "CVE-2026-112381",
@@ -200,7 +219,8 @@
    "cwe": "CWE-476",
    "pub": "2026-10-21",
    "kev": false,
-   "description": "Apache Traffic Server can crash with a null pointer dereference when a client POST request is torn down via half-close while a chunked origin response is being reparsed from a reentrant write-ready callback, a timing-dependent race introduced by the CVE-2021-32564 flow-control backports. This issue affects Apache Traffic Server: 9.2.15, 10.1.4, 10.2.0. Users are recommended to upgrade to version 9.2.16, 10.1.5, or 10.2.1, which fix the issue."
+   "description": "Apache Traffic Server can crash with a null pointer dereference when a client POST request is torn down via half-close while a chunked origin response is being reparsed from a reentrant write-ready callback, a timing-dependent race introduced by the CVE-2021-32564 flow-control backports. This issue affects Apache Traffic Server: 9.2.15, 10.1.4, 10.2.0. Users are recommended to upgrade to version 9.2.16, 10.1.5, or 10.2.1, which fix the issue.",
+   "vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:H"
   },
   {
    "id": "CVE-2026-112937",
@@ -210,7 +230,8 @@
    "cwe": "CWE-367",
    "pub": "2026-10-20",
    "kev": false,
-   "description": "filelock is a platform-independent file lock for Python. From 4.1.0 until 4.2.1, ReadWriteLock can remove a randomized .filelock-* private-hard-link directory during cleanup, allowing another local user with rename access in a non-sticky parent to observe a live name or forge a dead-owner sweep name and rename a sibling directory onto it for deletion. This issue is fixed in version 4.2.1."
+   "description": "filelock is a platform-independent file lock for Python. From 4.1.0 until 4.2.1, ReadWriteLock can remove a randomized .filelock-* private-hard-link directory during cleanup, allowing another local user with rename access in a non-sticky parent to observe a live name or forge a dead-owner sweep name and rename a sibling directory onto it for deletion. This issue is fixed in version 4.2.1.",
+   "vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:H/A:L"
   },
   {
    "id": "CVE-2026-113026",
@@ -220,7 +241,8 @@
    "cwe": "CWE-221",
    "pub": "2026-10-20",
    "kev": false,
-   "description": "Information loss in PDF in Google Chrome on on Android prior to 156.0.8078.47 allowed a remote attacker to bypass web origin policy via a crafted HTML page. (Chromium security severity: Medium)"
+   "description": "Information loss in PDF in Google Chrome on on Android prior to 156.0.8078.47 allowed a remote attacker to bypass web origin policy via a crafted HTML page. (Chromium security severity: Medium)",
+   "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:N/A:N"
   },
   {
    "id": "CVE-2026-113032",
@@ -230,7 +252,8 @@
    "cwe": "CWE-20",
    "pub": "2026-10-20",
    "kev": false,
-   "description": "Improper input validation in Omnibox in Google Chrome on on Android prior to 156.0.8078.47 allowed a local attacker leveraging social engineering to bypass web origin policy via a co-installed app. (Chromium security severity: Medium)"
+   "description": "Improper input validation in Omnibox in Google Chrome on on Android prior to 156.0.8078.47 allowed a local attacker leveraging social engineering to bypass web origin policy via a co-installed app. (Chromium security severity: Medium)",
+   "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H"
   },
   {
    "id": "CVE-2026-113061",
@@ -240,7 +263,8 @@
    "cwe": "CWE-20",
    "pub": "2026-10-20",
    "kev": false,
-   "description": "Improper input validation in Chromoting in Google Chrome prior to 156.0.8078.47 allowed a remote attacker leveraging social engineering to bypass system access restrictions via crafted network traffic. (Chromium security severity: Low)"
+   "description": "Improper input validation in Chromoting in Google Chrome prior to 156.0.8078.47 allowed a remote attacker leveraging social engineering to bypass system access restrictions via crafted network traffic. (Chromium security severity: Low)",
+   "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H"
   },
   {
    "id": "CVE-2026-113272",
@@ -250,7 +274,8 @@
    "cwe": "CWE-863",
    "pub": "2026-10-20",
    "kev": false,
-   "description": "Incorrect authorization in Extensions in Google Chrome prior to 156.0.8078.47 allowed a remote attacker who had compromised the renderer process and leveraged social engineering to potentially execute arbitrary code outside the sandbox via a crafted Chrome extension. (Chromium security severity: Medium)"
+   "description": "Incorrect authorization in Extensions in Google Chrome prior to 156.0.8078.47 allowed a remote attacker who had compromised the renderer process and leveraged social engineering to potentially execute arbitrary code outside the sandbox via a crafted Chrome extension. (Chromium security severity: Medium)",
+   "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H"
   },
   {
    "id": "CVE-2026-113408",
@@ -260,7 +285,8 @@
    "cwe": "CWE-22",
    "pub": "2026-11-12",
    "kev": false,
-   "description": "Path traversal in Git allows writing to arbitrary file via cloning and committing to bad repository"
+   "description": "Path traversal in Git allows writing to arbitrary file via cloning and committing to bad repository",
+   "vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:N/I:L/A:N"
   },
   {
    "id": "CVE-2026-113580",
@@ -270,7 +296,8 @@
    "cwe": "CWE-94",
    "pub": "2026-11-10",
    "kev": false,
-   "description": "Adobe Experience Manager is affected by an Improper Control of Generation of Code ('Code Injection') vulnerability that could result in arbitrary code execution in the context of the current user. A low-privileged attacker could exploit this vulnerability to execute arbitrary code. Exploitation of this issue does not require user interaction. Scope is changed."
+   "description": "Adobe Experience Manager is affected by an Improper Control of Generation of Code ('Code Injection') vulnerability that could result in arbitrary code execution in the context of the current user. A low-privileged attacker could exploit this vulnerability to execute arbitrary code. Exploitation of this issue does not require user interaction. Scope is changed.",
+   "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:C/C:H/I:H/A:H"
   },
   {
    "id": "CVE-2026-113659",
@@ -280,7 +307,8 @@
    "cwe": "CWE-79",
    "pub": "2026-10-20",
    "kev": false,
-   "description": "ApostropheCMS is an open-source Node.js content management system. Prior to 4.33.0, an unauthenticated attacker can send a crafted link whose query string is automatically parsed by apos.http.parseQuery when an authenticated victim loads a page with the admin bundle. The parser accepts the special __proto__, constructor, and prototype path keys, allowing browser prototype mutation that can reach an unsafe DOM sink and execute script in the victim's session; anonymous visitors do not load the affected admin context. This issue is fixed in version 4.33.0."
+   "description": "ApostropheCMS is an open-source Node.js content management system. Prior to 4.33.0, an unauthenticated attacker can send a crafted link whose query string is automatically parsed by apos.http.parseQuery when an authenticated victim loads a page with the admin bundle. The parser accepts the special __proto__, constructor, and prototype path keys, allowing browser prototype mutation that can reach an unsafe DOM sink and execute script in the victim's session; anonymous visitors do not load the affected admin context. This issue is fixed in version 4.33.0.",
+   "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N"
   },
   {
    "id": "CVE-2026-113733",
@@ -290,7 +318,8 @@
    "cwe": "CWE-522",
    "pub": "2026-11-03",
    "kev": false,
-   "description": "An issue was discovered in Django 6.1 before 6.1.3 and 6.0 before 6.0.10. The `django.contrib.admin.utils.display_for_field()` function did not obfuscate the password field of user models other than `AUTH_USER_MODEL`, or of an `AUTH_USER_MODEL` inheriting its password field from a concrete parent model through multi-table inheritance, which allows authenticated staff users with only the view permission on such a model to obtain full password hashes via the read-only change form. Earlier, unsupported Django series (such as 5.1.x, 5.0.x, and 4.2.x) were not evaluated and may also be affected. Django would like to thank Aaron chen for reporting this issue."
+   "description": "An issue was discovered in Django 6.1 before 6.1.3 and 6.0 before 6.0.10. The `django.contrib.admin.utils.display_for_field()` function did not obfuscate the password field of user models other than `AUTH_USER_MODEL`, or of an `AUTH_USER_MODEL` inheriting its password field from a concrete parent model through multi-table inheritance, which allows authenticated staff users with only the view permission on such a model to obtain full password hashes via the read-only change form. Earlier, unsupported Django series (such as 5.1.x, 5.0.x, and 4.2.x) were not evaluated and may also be affected. Django would like to thank Aaron chen for reporting this issue.",
+   "vector": "CVSS:3.1/AV:N/AC:H/PR:H/UI:N/S:U/C:L/I:N/A:N"
   },
   {
    "id": "CVE-2026-114452",
@@ -300,7 +329,8 @@
    "cwe": "CWE-639",
    "pub": "2026-11-15",
    "kev": false,
-   "description": "The Membership Plugin WordPress plugin before 4.0.6 does not verify that the membership referenced in a saved-card payment request belongs to the user making it, allowing subscriber-level members to disclose another member's Stripe payment client secret and attach a payment method of their choosing to another member's pending payment."
+   "description": "The Membership Plugin WordPress plugin before 4.0.6 does not verify that the membership referenced in a saved-card payment request belongs to the user making it, allowing subscriber-level members to disclose another member's Stripe payment client secret and attach a payment method of their choosing to another member's pending payment.",
+   "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:L/A:N"
   },
   {
    "id": "CVE-2026-114643",
@@ -310,7 +340,8 @@
    "cwe": "CWE-694",
    "pub": "2026-10-22",
    "kev": false,
-   "description": "The MongoDB C# Driver writes GeoJSON extra members without checking whether their names collide with reserved GeoJSON members such as type and coordinates. An application that places user-supplied field names into these extra members can store documents with duplicate geometry fields, so the server and the driver resolve different values for the same record. Affected records can also become unreadable through the driver, interrupting application code that reads them."
+   "description": "The MongoDB C# Driver writes GeoJSON extra members without checking whether their names collide with reserved GeoJSON members such as type and coordinates. An application that places user-supplied field names into these extra members can store documents with duplicate geometry fields, so the server and the driver resolve different values for the same record. Affected records can also become unreadable through the driver, interrupting application code that reads them.",
+   "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:L/A:L"
   },
   {
    "id": "CVE-2026-114649",
@@ -320,7 +351,8 @@
    "cwe": "CWE-1025",
    "pub": "2026-10-22",
    "kev": false,
-   "description": "The MongoDB C# Driver compares TLS client certificates by issuer and serial number only when deciding whether two clients can share cached connections. In an application that creates clients from certificates supplied by different users, a user who provides a certificate copying another user's issuer and serial number, without that user's private key, can be given connections authenticated with the other user's certificate. Database operations can then run under the other user's identity, affecting the confidentiality and integrity of data that identity can access."
+   "description": "The MongoDB C# Driver compares TLS client certificates by issuer and serial number only when deciding whether two clients can share cached connections. In an application that creates clients from certificates supplied by different users, a user who provides a certificate copying another user's issuer and serial number, without that user's private key, can be given connections authenticated with the other user's certificate. Database operations can then run under the other user's identity, affecting the confidentiality and integrity of data that identity can access.",
+   "vector": "CVSS:3.1/AV:N/AC:H/PR:L/UI:N/S:U/C:H/I:H/A:N"
   },
   {
    "id": "CVE-2026-114655",
@@ -330,7 +362,8 @@
    "cwe": "CWE-74",
    "pub": "2026-10-22",
    "kev": false,
-   "description": "libmongocrypt builds requests to external key management services (AWS, Azure and GCP) by inserting values from key vault documents, KMS provider configuration and KMS responses into request lines, headers and signed request bodies without validating or encoding them for each context. A user with write access to the key vault collection can alter the structure of these requests, including adding members to request bodies and token claims that the library then signs with the application's credentials. This may result in key management operations being performed with parameters the application did not intend."
+   "description": "libmongocrypt builds requests to external key management services (AWS, Azure and GCP) by inserting values from key vault documents, KMS provider configuration and KMS responses into request lines, headers and signed request bodies without validating or encoding them for each context. A user with write access to the key vault collection can alter the structure of these requests, including adding members to request bodies and token claims that the library then signs with the application's credentials. This may result in key management operations being performed with parameters the application did not intend.",
+   "vector": "CVSS:3.1/AV:N/AC:H/PR:L/UI:N/S:U/C:H/I:L/A:N"
   },
   {
    "id": "CVE-2026-114728",
@@ -340,7 +373,8 @@
    "cwe": "CWE-184",
    "pub": "2026-10-22",
    "kev": false,
-   "description": "Roundcube Webmail before 1.6.20 and 1.7.x before 1.7.5 is affected by a remote content blocking bypass in the handling of FuncIRI attributes. rcube_washtml detected the CSS url() token with a pattern that enumerated only some of its escaped spellings, so values using other CSS escape sequences, for example \\000075rl( or u\\72 l(, were not recognized and remote content was loaded from an HTML message without the user's consent. Upstream fixed this in the commit “Fix remote content blocking bypass via CSS escapes in FuncIRI attributes (again)”, which resolves CSS escapes before matching and also inspects the `to`, `from` and `by` attributes."
+   "description": "Roundcube Webmail before 1.6.20 and 1.7.x before 1.7.5 is affected by a remote content blocking bypass in the handling of FuncIRI attributes. rcube_washtml detected the CSS url() token with a pattern that enumerated only some of its escaped spellings, so values using other CSS escape sequences, for example \\000075rl( or u\\72 l(, were not recognized and remote content was loaded from an HTML message without the user's consent. Upstream fixed this in the commit “Fix remote content blocking bypass via CSS escapes in FuncIRI attributes (again)”, which resolves CSS escapes before matching and also inspects the `to`, `from` and `by` attributes.",
+   "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N"
   },
   {
    "id": "CVE-2026-116153",
@@ -350,7 +384,8 @@
    "cwe": "CWE-190",
    "pub": "2026-10-25",
    "kev": false,
-   "description": "ImageMagick before 7.1.2-33 contains a heap buffer overflow vulnerability on 32-bit systems that allows attackers to overwrite heap memory when convex-hull information is requested. Attackers can supply crafted images processed with convex-hull calculations to corrupt heap memory, causing crashes or potential code execution."
+   "description": "ImageMagick before 7.1.2-33 contains a heap buffer overflow vulnerability on 32-bit systems that allows attackers to overwrite heap memory when convex-hull information is requested. Attackers can supply crafted images processed with convex-hull calculations to corrupt heap memory, causing crashes or potential code execution.",
+   "vector": "CVSS:3.1/AV:L/AC:H/PR:N/UI:R/S:U/C:N/I:N/A:L"
   },
   {
    "id": "CVE-2026-116159",
@@ -360,7 +395,8 @@
    "cwe": "CWE-401",
    "pub": "2026-10-25",
    "kev": false,
-   "description": "ImageMagick before 6.9.13-58 and 7.x before 7.1.2-33 contains a memory leak in the handling of the -cdl (color decision list) option, where allocated memory is not cleaned up after use. Attackers can supply input that causes the -cdl option to be processed, repeatedly leaking memory and degrading availability through resource exhaustion."
+   "description": "ImageMagick before 6.9.13-58 and 7.x before 7.1.2-33 contains a memory leak in the handling of the -cdl (color decision list) option, where allocated memory is not cleaned up after use. Attackers can supply input that causes the -cdl option to be processed, repeatedly leaking memory and degrading availability through resource exhaustion.",
+   "vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:L"
   },
   {
    "id": "CVE-2026-116310",
@@ -370,7 +406,8 @@
    "cwe": "CWE-416",
    "pub": "2026-11-12",
    "kev": false,
-   "description": "Use after free in PostgreSQL COPY FROM error reporting allows a database user to disclose portions of server memory, via a longer input row following an ignored or nullified conversion error. file_fdw reaches the same code path in affected version 18. Within major versions 17-18, minor versions before PostgreSQL 18.7 and 17.12 are affected. Versions before PostgreSQL 17 are unaffected."
+   "description": "Use after free in PostgreSQL COPY FROM error reporting allows a database user to disclose portions of server memory, via a longer input row following an ignored or nullified conversion error. file_fdw reaches the same code path in affected version 18. Within major versions 17-18, minor versions before PostgreSQL 18.7 and 17.12 are affected. Versions before PostgreSQL 17 are unaffected.",
+   "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N"
   },
   {
    "id": "CVE-2026-117621",
@@ -380,7 +417,8 @@
    "cwe": "CWE-79",
    "pub": "2026-10-28",
    "kev": false,
-   "description": "Jenkins 2.587 and earlier, LTS 2.580.1 and earlier computes on the agent the URL of the link shown in the workspace browser for each file and directory, resulting in a cross-site scripting (XSS) vulnerability exploitable by attackers in control of agent processes."
+   "description": "Jenkins 2.587 and earlier, LTS 2.580.1 and earlier computes on the agent the URL of the link shown in the workspace browser for each file and directory, resulting in a cross-site scripting (XSS) vulnerability exploitable by attackers in control of agent processes.",
+   "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N"
   },
   {
    "id": "CVE-2026-118100",
@@ -390,7 +428,8 @@
    "cwe": "CWE-200",
    "pub": "2026-10-30",
    "kev": false,
-   "description": "The BuddyForms WordPress plugin before 2.10.3 does not check that the requester is allowed to manage a form before exporting its configuration, allowing unauthenticated users to download any form's stored settings, including notification recipient email addresses and reCAPTCHA secret keys that are not shown on the public form."
+   "description": "The BuddyForms WordPress plugin before 2.10.3 does not check that the requester is allowed to manage a form before exporting its configuration, allowing unauthenticated users to download any form's stored settings, including notification recipient email addresses and reCAPTCHA secret keys that are not shown on the public form.",
+   "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N"
   },
   {
    "id": "CVE-2026-118527",
@@ -400,7 +439,8 @@
    "cwe": "CWE-340",
    "pub": "2026-11-03",
    "kev": true,
-   "description": "Use of predictable filenames in Ivanti Connect Secure before versions 25.1.1.3 and 22.8R2.6 allows a remote authenticated attacker to upload files with attacker-controlled content to a known location on disk."
+   "description": "Use of predictable filenames in Ivanti Connect Secure before versions 25.1.1.3 and 22.8R2.6 allows a remote authenticated attacker to upload files with attacker-controlled content to a known location on disk.",
+   "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:L/A:N"
   },
   {
    "id": "CVE-2026-118541",
@@ -410,7 +450,8 @@
    "cwe": "CWE-863",
    "pub": "2026-10-30",
    "kev": false,
-   "description": "Incorrect Authorization vulnerability in Drupal Commerce Core allows Forceful Browsing. This issue affects Commerce Core versions: from 0.0.0 to 2.41.0, from 3.0.0 to 3.3.13."
+   "description": "Incorrect Authorization vulnerability in Drupal Commerce Core allows Forceful Browsing. This issue affects Commerce Core versions: from 0.0.0 to 2.41.0, from 3.0.0 to 3.3.13.",
+   "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:L/A:N"
   },
   {
    "id": "CVE-2026-119303",
@@ -420,7 +461,8 @@
    "cwe": "CWE-862",
    "pub": "2026-11-11",
    "kev": false,
-   "description": "The NotificationX WordPress plugin before 3.3.7 does not perform any capability or nonce check on one of its REST routes, allowing unauthenticated users to update a NotificationX WordPress plugin before 3.3.7 option and to repeatedly trigger emails sent through the site's own mail server."
+   "description": "The NotificationX WordPress plugin before 3.3.7 does not perform any capability or nonce check on one of its REST routes, allowing unauthenticated users to update a NotificationX WordPress plugin before 3.3.7 option and to repeatedly trigger emails sent through the site's own mail server.",
+   "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N"
   },
   {
    "id": "CVE-2026-119673",
@@ -430,7 +472,8 @@
    "cwe": "CWE-59",
    "pub": "2026-11-03",
    "kev": false,
-   "description": "MongoDB Database Tools mongofiles does not resolve existing parent-directory symlinks when validating output paths for get_regex. An unauthorized user who can both upload a GridFS file and place a symlink in the operator's download working directory can cause a later retrieval to create a file containing unauthorized user-controlled data outside that directory, using the operator process's filesystem permissions. The issue can occur with default traversal and overwrite settings. Exploitation requires an operator to retrieve matching files from the affected working directory; the demonstrated default behavior creates a new file rather than overwriting an existing file. This issue affects MongoDB Database Tools versions 100.2.0 through versions before 100.20.1."
+   "description": "MongoDB Database Tools mongofiles does not resolve existing parent-directory symlinks when validating output paths for get_regex. An unauthorized user who can both upload a GridFS file and place a symlink in the operator's download working directory can cause a later retrieval to create a file containing unauthorized user-controlled data outside that directory, using the operator process's filesystem permissions. The issue can occur with default traversal and overwrite settings. Exploitation requires an operator to retrieve matching files from the affected working directory; the demonstrated default behavior creates a new file rather than overwriting an existing file. This issue affects MongoDB Database Tools versions 100.2.0 through versions before 100.20.1.",
+   "vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:R/S:U/C:N/I:L/A:N"
   },
   {
    "id": "CVE-2026-119929",
@@ -440,7 +483,8 @@
    "cwe": "CWE-416",
    "pub": "2026-11-10",
    "kev": false,
-   "description": "Use after free in Windows Installer allows an authorized attacker to elevate privileges locally."
+   "description": "Use after free in Windows Installer allows an authorized attacker to elevate privileges locally.",
+   "vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H"
   },
   {
    "id": "CVE-2026-119944",
@@ -450,7 +494,8 @@
    "cwe": "CWE-122",
    "pub": "2026-11-10",
    "kev": false,
-   "description": "Heap-based buffer overflow in Windows Mobile Device Management allows an unauthorized attacker to elevate privileges over a network."
+   "description": "Heap-based buffer overflow in Windows Mobile Device Management allows an unauthorized attacker to elevate privileges over a network.",
+   "vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:U/C:H/I:H/A:H"
   },
   {
    "id": "CVE-2026-119977",
@@ -460,7 +505,8 @@
    "cwe": "CWE-367",
    "pub": "2026-10-31",
    "kev": true,
-   "description": "WordPress Core is vulnerable to Remote Code Execution in versions 4.7 through 7.1.3. This is due to predictable, web-accessible staging paths used during full-package core upgrades. This makes it possible for unauthenticated attackers to execute code on the server during the upgrade window."
+   "description": "WordPress Core is vulnerable to Remote Code Execution in versions 4.7 through 7.1.3. This is due to predictable, web-accessible staging paths used during full-package core upgrades. This makes it possible for unauthenticated attackers to execute code on the server during the upgrade window.",
+   "vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H"
   },
   {
    "id": "CVE-2026-120012",
@@ -470,7 +516,8 @@
    "cwe": "CWE-209",
    "pub": "2026-11-10",
    "kev": false,
-   "description": "SAP Cloud SDK for AI (Node.js) could inadvertently include sensitive authentication credentials in error messages generated by certain internal operations under specific failure conditions. An attacker with low privileges and access to application logs or forwarded error output could obtain these credentials, but only after waiting for a suitable failure event triggered by a higher-privileged user and within the limited lifetime of the token, making exploitation complex. Successful exploitation could allow the attacker to reuse the disclosed credentials against the associated SAP service, resulting in a high impact on confidentiality, integrity and availability."
+   "description": "SAP Cloud SDK for AI (Node.js) could inadvertently include sensitive authentication credentials in error messages generated by certain internal operations under specific failure conditions. An attacker with low privileges and access to application logs or forwarded error output could obtain these credentials, but only after waiting for a suitable failure event triggered by a higher-privileged user and within the limited lifetime of the token, making exploitation complex. Successful exploitation could allow the attacker to reuse the disclosed credentials against the associated SAP service, resulting in a high impact on confidentiality, integrity and availability.",
+   "vector": "CVSS:3.1/AV:N/AC:H/PR:L/UI:N/S:U/C:H/I:H/A:H"
   },
   {
    "id": "CVE-2026-120244",
@@ -480,7 +527,8 @@
    "cwe": "CWE-908",
    "pub": "2026-11-01",
    "kev": false,
-   "description": "FFmpeg 2.1 through 9.0.2 contains an uninitialized memory disclosure vulnerability in pcx_decode_frame() in libavcodec/pcx.c that leaves scanline buffer bytes uncleared when input ends early. Attackers can supply a crafted truncated RLE-compressed or uncompressed PCX image to leak heap memory contents through the decoded pixels."
+   "description": "FFmpeg 2.1 through 9.0.2 contains an uninitialized memory disclosure vulnerability in pcx_decode_frame() in libavcodec/pcx.c that leaves scanline buffer bytes uncleared when input ends early. Attackers can supply a crafted truncated RLE-compressed or uncompressed PCX image to leak heap memory contents through the decoded pixels.",
+   "vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:H/I:N/A:N"
   },
   {
    "id": "CVE-2026-120423",
@@ -490,7 +538,8 @@
    "cwe": "CWE-354",
    "pub": "2026-11-06",
    "kev": false,
-   "description": "undici is an HTTP client for Node.js. In versions 7.15.0 through 7.30.1 and 8.0.0 through 8.12.3, fetch verifies Subresource Integrity metadata by splitting the integrity string on a single space, but the SRI grammar separates metadata by ASCII whitespace, which also includes the horizontal tab. An integrity value whose digest is preceded by a tab or other ASCII whitespace is parsed as a single unrecognized token and skipped, and when no recognized algorithm remains undici treats the integrity list as empty and accepts the response, so a server returning a body different from the pinned digest passes the check. An application that pins a response with a valid but whitespace-surrounded SRI value receives attacker-controlled bytes with no integrity error, and the attacker needs only to control the response body, not the integrity metadata. The issue is fixed in undici 7.30.2 and 8.12.4, and users should upgrade to one of those versions or later. As a workaround, supply SRI integrity metadata without surrounding whitespace, using a single space to separate multiple digests."
+   "description": "undici is an HTTP client for Node.js. In versions 7.15.0 through 7.30.1 and 8.0.0 through 8.12.3, fetch verifies Subresource Integrity metadata by splitting the integrity string on a single space, but the SRI grammar separates metadata by ASCII whitespace, which also includes the horizontal tab. An integrity value whose digest is preceded by a tab or other ASCII whitespace is parsed as a single unrecognized token and skipped, and when no recognized algorithm remains undici treats the integrity list as empty and accepts the response, so a server returning a body different from the pinned digest passes the check. An application that pins a response with a valid but whitespace-surrounded SRI value receives attacker-controlled bytes with no integrity error, and the attacker needs only to control the response body, not the integrity metadata. The issue is fixed in undici 7.30.2 and 8.12.4, and users should upgrade to one of those versions or later. As a workaround, supply SRI integrity metadata without surrounding whitespace, using a single space to separate multiple digests.",
+   "vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:H/A:N"
   },
   {
    "id": "CVE-2026-121181",
@@ -500,7 +549,8 @@
    "cwe": "CWE-416",
    "pub": "2026-11-03",
    "kev": false,
-   "description": "Use after free in Editing in Google Chrome prior to 157.0.8103.38 allowed a remote attacker to execute arbitrary code inside the sandbox via a crafted HTML page. (Chromium security severity: High)"
+   "description": "Use after free in Editing in Google Chrome prior to 157.0.8103.38 allowed a remote attacker to execute arbitrary code inside the sandbox via a crafted HTML page. (Chromium security severity: High)",
+   "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H"
   },
   {
    "id": "CVE-2026-121349",
@@ -510,7 +560,8 @@
    "cwe": "CWE-22",
    "pub": "2026-11-10",
    "kev": false,
-   "description": "Adobe Connect is affected by an Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal') vulnerability that could result in arbitrary code execution in the context of the current user. A low-privileged attacker could exploit this vulnerability to gain elevated access or control over the victim's account or session. Exploitation of this issue does not require user interaction. Scope is changed."
+   "description": "Adobe Connect is affected by an Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal') vulnerability that could result in arbitrary code execution in the context of the current user. A low-privileged attacker could exploit this vulnerability to gain elevated access or control over the victim's account or session. Exploitation of this issue does not require user interaction. Scope is changed.",
+   "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:C/C:H/I:H/A:N"
   },
   {
    "id": "CVE-2026-121415",
@@ -520,7 +571,8 @@
    "cwe": "CWE-20",
    "pub": "2026-11-03",
    "kev": false,
-   "description": "Parse Server before 8.6.111 and 9.0.0 before 9.10.6-alpha.3 on MongoDB skips field type validation for null-valued dot notation keys, allowing sub-documents to be written beneath Pointer, Number, String, Date, or Boolean fields. Any client with write access, including unauthenticated clients where public writes are permitted, can corrupt field values, make objects unreadable via internal date fields, or break atomic operations on number fields."
+   "description": "Parse Server before 8.6.111 and 9.0.0 before 9.10.6-alpha.3 on MongoDB skips field type validation for null-valued dot notation keys, allowing sub-documents to be written beneath Pointer, Number, String, Date, or Boolean fields. Any client with write access, including unauthenticated clients where public writes are permitted, can corrupt field values, make objects unreadable via internal date fields, or break atomic operations on number fields.",
+   "vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:L"
   },
   {
    "id": "CVE-2026-121673",
@@ -530,7 +582,8 @@
    "cwe": "CWE-416",
    "pub": "2026-11-10",
    "kev": false,
-   "description": "Use after free in Windows Filter Manager allows an authorized attacker to elevate privileges locally."
+   "description": "Use after free in Windows Filter Manager allows an authorized attacker to elevate privileges locally.",
+   "vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H"
   },
   {
    "id": "CVE-2026-122003",
@@ -540,7 +593,8 @@
    "cwe": "CWE-352",
    "pub": "2026-11-12",
    "kev": false,
-   "description": "The Abilities Bridge WordPress plugin before 1.4.2 does not require a valid nonce before re-authenticating a REST API request from the logged-in session cookie, allowing attackers to make a logged-in administrator perform any REST API action, including creating a new administrator account and taking over the site, by tricking them into opening a crafted page (CSRF)."
+   "description": "The Abilities Bridge WordPress plugin before 1.4.2 does not require a valid nonce before re-authenticating a REST API request from the logged-in session cookie, allowing attackers to make a logged-in administrator perform any REST API action, including creating a new administrator account and taking over the site, by tricking them into opening a crafted page (CSRF).",
+   "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H"
   },
   {
    "id": "CVE-2026-123158",
@@ -550,7 +604,8 @@
    "cwe": "CWE-394",
    "pub": "2026-11-05",
    "kev": true,
-   "description": "sshd in OpenSSH before 10.6p2 on Linux, when musl libc is used without PAM, lacks a workaround for a password authentication bypass (related to misinterpretation of whether a string is intended to be a password hash). For some configurations of accounts, any password between 256 and 1024 characters succeeds. An example of a platform using musl libc without PAM is Alpine Linux."
+   "description": "sshd in OpenSSH before 10.6p2 on Linux, when musl libc is used without PAM, lacks a workaround for a password authentication bypass (related to misinterpretation of whether a string is intended to be a password hash). For some configurations of accounts, any password between 256 and 1024 characters succeeds. An example of a platform using musl libc without PAM is Alpine Linux.",
+   "vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H"
   },
   {
    "id": "CVE-2026-123218",
@@ -560,7 +615,8 @@
    "cwe": "CWE-863",
    "pub": "2026-11-07",
    "kev": true,
-   "description": "IBM Aspera Faspex 5.0.0 through 5.0.19 could allow an authorized user to craft a specific message to bypass user authorization and gain full administrative privileges."
+   "description": "IBM Aspera Faspex 5.0.0 through 5.0.19 could allow an authorized user to craft a specific message to bypass user authorization and gain full administrative privileges.",
+   "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H"
   },
   {
    "id": "CVE-2026-12356",
@@ -570,7 +626,8 @@
    "cwe": "CWE-74",
    "pub": "2026-11-04",
    "kev": false,
-   "description": "IBM MQ 9.2.0.0 through 9.2.0.44 LTS, 9.3.0.0 through 9.3.0.42 LTS, 9.4.0.0 through 9.4.0.26 LTS, 9.4.0.0 through 9.4.5.1 CD, and 10.0.0.0 through 10.0.0.5 LTS and CD could allow an authenticated user with command queue access to execute arbitrary code by injecting malicious arguments into Ant script commands."
+   "description": "IBM MQ 9.2.0.0 through 9.2.0.44 LTS, 9.3.0.0 through 9.3.0.42 LTS, 9.4.0.0 through 9.4.0.26 LTS, 9.4.0.0 through 9.4.5.1 CD, and 10.0.0.0 through 10.0.0.5 LTS and CD could allow an authenticated user with command queue access to execute arbitrary code by injecting malicious arguments into Ant script commands.",
+   "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H"
   },
   {
    "id": "CVE-2026-124194",
@@ -580,7 +637,8 @@
    "cwe": "CWE-356",
    "pub": "2026-11-10",
    "kev": true,
-   "description": "Product ui does not warn user of unsafe actions in Microsoft Office Outlook allows an unauthorized attacker to perform spoofing over a network."
+   "description": "Product ui does not warn user of unsafe actions in Microsoft Office Outlook allows an unauthorized attacker to perform spoofing over a network.",
+   "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:N/A:N"
   },
   {
    "id": "CVE-2026-125100",
@@ -590,7 +648,8 @@
    "cwe": "CWE-190",
    "pub": "2026-11-09",
    "kev": false,
-   "description": "FFmpeg through 9.0.2 contains an integer overflow vulnerability in the OpenEXR decoder's decode_frame() in libavcodec/exr.c that miscalculates the tiled block count. Attackers can supply a crafted tiled OpenEXR image with large dimensions and small tiles to skip decoding and disclose uninitialized memory or stale frame data."
+   "description": "FFmpeg through 9.0.2 contains an integer overflow vulnerability in the OpenEXR decoder's decode_frame() in libavcodec/exr.c that miscalculates the tiled block count. Attackers can supply a crafted tiled OpenEXR image with large dimensions and small tiles to skip decoding and disclose uninitialized memory or stale frame data.",
+   "vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:L/I:N/A:N"
   },
   {
    "id": "CVE-2026-125120",
@@ -600,7 +659,8 @@
    "cwe": "CWE-943",
    "pub": "2026-11-09",
    "kev": false,
-   "description": "Mongoose is a MongoDB object modeling tool designed to work in an asynchronous environment. Prior to 6.13.11, 7.8.12, 8.24.3, and 9.9.2, Mongoose countDocuments() does not apply the configured sanitizeFilter query selector injection defense. An application that enables sanitizeFilter and passes attacker-controlled filter values to countDocuments() can therefore process query operator objects as operators rather than literal values, causing the count to include documents that should not match and potentially undermining authorization or application logic based on that count. This issue is fixed in versions 6.13.11, 7.8.12, 8.24.3, and 9.9.2."
+   "description": "Mongoose is a MongoDB object modeling tool designed to work in an asynchronous environment. Prior to 6.13.11, 7.8.12, 8.24.3, and 9.9.2, Mongoose countDocuments() does not apply the configured sanitizeFilter query selector injection defense. An application that enables sanitizeFilter and passes attacker-controlled filter values to countDocuments() can therefore process query operator objects as operators rather than literal values, causing the count to include documents that should not match and potentially undermining authorization or application logic based on that count. This issue is fixed in versions 6.13.11, 7.8.12, 8.24.3, and 9.9.2.",
+   "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H"
   },
   {
    "id": "CVE-2026-125206",
@@ -610,7 +670,8 @@
    "cwe": "CWE-127",
    "pub": "2026-11-09",
    "kev": false,
-   "description": "FFmpeg through 9.0.2 contains an out-of-bounds read vulnerability in the prores_ks encoder's get_alpha_data() that reads before the blocks buffer for interlaced frames with odd heights. Attackers can supply video with alpha and odd height encoded to interlaced ProRes 4444, causing out-of-bounds memory to be encoded into the output alpha plane."
+   "description": "FFmpeg through 9.0.2 contains an out-of-bounds read vulnerability in the prores_ks encoder's get_alpha_data() that reads before the blocks buffer for interlaced frames with odd heights. Attackers can supply video with alpha and odd height encoded to interlaced ProRes 4444, causing out-of-bounds memory to be encoded into the output alpha plane.",
+   "vector": "CVSS:3.1/AV:L/AC:H/PR:N/UI:R/S:U/C:L/I:N/A:N"
   },
   {
    "id": "CVE-2026-125217",
@@ -620,7 +681,8 @@
    "cwe": "CWE-908",
    "pub": "2026-11-09",
    "kev": false,
-   "description": "FFmpeg through 9.0.2 contains an uninitialized memory use vulnerability in roq_dpcm_encode_frame() in libavcodec/roqaudioenc.c that encodes stale heap contents when flushed early. Attackers can supply short audio streams under eight frames for RoQ DPCM transcoding, causing DPCM-quantized uninitialized heap data from frame_buffer to leak into output packets."
+   "description": "FFmpeg through 9.0.2 contains an uninitialized memory use vulnerability in roq_dpcm_encode_frame() in libavcodec/roqaudioenc.c that encodes stale heap contents when flushed early. Attackers can supply short audio streams under eight frames for RoQ DPCM transcoding, causing DPCM-quantized uninitialized heap data from frame_buffer to leak into output packets.",
+   "vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:L/I:N/A:N"
   },
   {
    "id": "CVE-2026-125243",
@@ -630,7 +692,8 @@
    "cwe": "CWE-908",
    "pub": "2026-11-09",
    "kev": false,
-   "description": "FFmpeg through 9.0.2 contains an uninitialized memory disclosure vulnerability in ff_jpegls_decode_picture() in libavcodec/jpeglsdec.c, which decodes 16-bit line-interleaved JPEG-LS scans as 8-bit samples. Attackers can supply a crafted single-component JPEG-LS image with the ILV byte set to 1, causing decoded GRAY16 frames to expose leftover heap memory."
+   "description": "FFmpeg through 9.0.2 contains an uninitialized memory disclosure vulnerability in ff_jpegls_decode_picture() in libavcodec/jpeglsdec.c, which decodes 16-bit line-interleaved JPEG-LS scans as 8-bit samples. Attackers can supply a crafted single-component JPEG-LS image with the ILV byte set to 1, causing decoded GRAY16 frames to expose leftover heap memory.",
+   "vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:L/I:N/A:N"
   },
   {
    "id": "CVE-2026-125258",
@@ -640,7 +703,8 @@
    "cwe": "CWE-369",
    "pub": "2026-11-09",
    "kev": false,
-   "description": "FFmpeg through 9.0.2 contains a division by zero vulnerability in dovi_configure_ext() in libavcodec/dovi_rpuenc.c that allows attackers to crash the process via an unvalidated frame rate denominator. Attackers can supply a crafted HEVC or AV1 input with a nonzero frame rate numerator and zero denominator to the dovi_rpu bitstream filter or libx265, libaom, or libsvtav1 encoders, causing denial of service."
+   "description": "FFmpeg through 9.0.2 contains a division by zero vulnerability in dovi_configure_ext() in libavcodec/dovi_rpuenc.c that allows attackers to crash the process via an unvalidated frame rate denominator. Attackers can supply a crafted HEVC or AV1 input with a nonzero frame rate numerator and zero denominator to the dovi_rpu bitstream filter or libx265, libaom, or libsvtav1 encoders, causing denial of service.",
+   "vector": "CVSS:3.1/AV:L/AC:H/PR:N/UI:R/S:U/C:N/I:N/A:H"
   },
   {
    "id": "CVE-2026-125341",
@@ -650,7 +714,8 @@
    "cwe": "CWE-79",
    "pub": "2026-11-10",
    "kev": false,
-   "description": "Winter CMS is a content management system built on the Laravel PHP framework. From 1.1.0 until 1.2.14, Backend\\Widgets\\Lists::evalImageTypeValue() interpolates the result of ImageResizer::filterGetUrl() into a single-quoted image source attribute without escaping it. In a third-party plugin that renders an attacker-influenced value through an image list column, an unsupported image value is returned verbatim, can break out of the attribute, and can inject event handlers that execute when a backend user views the list. Winter core ships no image list column, so a default installation is unaffected. This issue is fixed in version 1.2.14."
+   "description": "Winter CMS is a content management system built on the Laravel PHP framework. From 1.1.0 until 1.2.14, Backend\\Widgets\\Lists::evalImageTypeValue() interpolates the result of ImageResizer::filterGetUrl() into a single-quoted image source attribute without escaping it. In a third-party plugin that renders an attacker-influenced value through an image list column, an unsupported image value is returned verbatim, can break out of the attribute, and can inject event handlers that execute when a backend user views the list. Winter core ships no image list column, so a default installation is unaffected. This issue is fixed in version 1.2.14.",
+   "vector": "CVSS:3.1/AV:N/AC:H/PR:H/UI:R/S:U/C:N/I:L/A:N"
   },
   {
    "id": "CVE-2026-125350",
@@ -660,7 +725,8 @@
    "cwe": "CWE-416",
    "pub": "2026-11-10",
    "kev": true,
-   "description": "Use after free in XML in Google Chrome prior to 157.0.8103.50 allowed a remote attacker to execute arbitrary code inside the sandbox via a crafted HTML page. (Chromium security severity: High)"
+   "description": "Use after free in XML in Google Chrome prior to 157.0.8103.50 allowed a remote attacker to execute arbitrary code inside the sandbox via a crafted HTML page. (Chromium security severity: High)",
+   "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H"
   },
   {
    "id": "CVE-2026-126390",
@@ -670,7 +736,8 @@
    "cwe": "CWE-522",
    "pub": "2026-11-13",
    "kev": false,
-   "description": "n8n before 1.123.89 contains a credential leakage vulnerability in the NocoDB node that sends the configured NocoDB API token to attacker-chosen hosts when downloading attachments. Attackers with write access to a NocoDB attachment cell can insert a URL to their host, capturing the API token when the workflow executes with Download Attachments enabled."
+   "description": "n8n before 1.123.89 contains a credential leakage vulnerability in the NocoDB node that sends the configured NocoDB API token to attacker-chosen hosts when downloading attachments. Attackers with write access to a NocoDB attachment cell can insert a URL to their host, capturing the API token when the workflow executes with Download Attachments enabled.",
+   "vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:L/I:N/A:N"
   },
   {
    "id": "CVE-2026-12660",
@@ -680,7 +747,8 @@
    "cwe": "CWE-22",
    "pub": "2026-10-19",
    "kev": false,
-   "description": "IBM MQ Web Console could allow an authenticated administrator to write files outside the intended directory due to improper path validation."
+   "description": "IBM MQ Web Console could allow an authenticated administrator to write files outside the intended directory due to improper path validation.",
+   "vector": "CVSS:3.1/AV:N/AC:L/PR:H/UI:N/S:U/C:N/I:L/A:N"
   },
   {
    "id": "CVE-2026-128086",
@@ -690,7 +758,8 @@
    "cwe": "CWE-400",
    "pub": "2026-11-13",
    "kev": false,
-   "description": "OpenTelemetry-Go is the Go implementation of OpenTelemetry. From version 1.0.0-RC1 until version 1.47.0, baggage.Parse and propagation.Baggage.Extract eagerly materialize every W3C baggage property through parseMember, grow property slices, serialize members, and copy properties into internal/baggage.Item. A valid densely populated baggage header can therefore cause allocation traffic and retained memory disproportionate to its bounded input size. Remote impact requires baggage extraction to be enabled, attacker-controlled input to reach it, and extraction to run before authentication or on a public route; the evidence establishes increased allocation and garbage-collection pressure but not reliable process termination. This issue is fixed in version 1.47.0."
+   "description": "OpenTelemetry-Go is the Go implementation of OpenTelemetry. From version 1.0.0-RC1 until version 1.47.0, baggage.Parse and propagation.Baggage.Extract eagerly materialize every W3C baggage property through parseMember, grow property slices, serialize members, and copy properties into internal/baggage.Item. A valid densely populated baggage header can therefore cause allocation traffic and retained memory disproportionate to its bounded input size. Remote impact requires baggage extraction to be enabled, attacker-controlled input to reach it, and extraction to run before authentication or on a public route; the evidence establishes increased allocation and garbage-collection pressure but not reliable process termination. This issue is fixed in version 1.47.0.",
+   "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L"
   },
   {
    "id": "CVE-2026-128088",
@@ -700,7 +769,8 @@
    "cwe": "CWE-367",
    "pub": "2026-11-13",
    "kev": false,
-   "description": "russh is a Rust SSH client and server library that includes an SSH agent protocol implementation. Prior to version 0.65.1, try_sign() captures an Arc<PrivateKey> before awaiting Agent::confirm() and does not revalidate the shared lock state or key presence after the await. This is a distinct residual defect in the remediation for CVE-2026-116794. A peer, including a remote SSH server using agent forwarding, can begin a confirmation-constrained signature request while the agent is unlocked and receive the signature after another connection locks the agent if the stale confirmation returns true. New post-lock requests are rejected and private key material is not disclosed, but the pending operation bypasses the current lock state. This issue is fixed in version 0.65.1."
+   "description": "russh is a Rust SSH client and server library that includes an SSH agent protocol implementation. Prior to version 0.65.1, try_sign() captures an Arc<PrivateKey> before awaiting Agent::confirm() and does not revalidate the shared lock state or key presence after the await. This is a distinct residual defect in the remediation for CVE-2026-116794. A peer, including a remote SSH server using agent forwarding, can begin a confirmation-constrained signature request while the agent is unlocked and receive the signature after another connection locks the agent if the stale confirmation returns true. New post-lock requests are rejected and private key material is not disclosed, but the pending operation bypasses the current lock state. This issue is fixed in version 0.65.1.",
+   "vector": "CVSS:3.1/AV:L/AC:H/PR:L/UI:R/S:U/C:N/I:L/A:N"
   },
   {
    "id": "CVE-2026-129296",
@@ -710,7 +780,8 @@
    "cwe": "CWE-22",
    "pub": "2026-11-16",
    "kev": false,
-   "description": "mail-parser is a tool that parses emails by enhancing the Python standard library and extracting message details into a comprehensive object. From 3.8.0 until 4.6.0, the write_attachments() and write_sample() APIs use attacker-controlled attachment filenames without sufficient sanitization and path containment validation. Directory traversal sequences and absolute filesystem paths can cause an attachment to be written outside the intended output directory. An attacker can overwrite files accessible to the parsing process when an application extracts attachments from a crafted message. This issue is fixed in version 4.6.0."
+   "description": "mail-parser is a tool that parses emails by enhancing the Python standard library and extracting message details into a comprehensive object. From 3.8.0 until 4.6.0, the write_attachments() and write_sample() APIs use attacker-controlled attachment filenames without sufficient sanitization and path containment validation. Directory traversal sequences and absolute filesystem paths can cause an attachment to be written outside the intended output directory. An attacker can overwrite files accessible to the parsing process when an application extracts attachments from a crafted message. This issue is fixed in version 4.6.0.",
+   "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:H/A:N"
   },
   {
    "id": "CVE-2026-16240",
@@ -720,7 +791,8 @@
    "cwe": "CWE-134",
    "pub": "2026-11-12",
    "kev": false,
-   "description": "Use of externally-controlled format string in PostgreSQL pg_basebackup allows an attacker having already compromised a server to achieve disclosure from pg_basebackup memory, via backup manifest bytes. The vulnerability does not return the improperly-read bytes back to the attacker's server, so a successful attack would need separate implementation-specific secrets for that. Integrity impact is unlikely; in particular, the applicable formatter does not support %n. Versions before PostgreSQL 18.7, 17.12, 16.16, 15.20, and 14.25 are affected."
+   "description": "Use of externally-controlled format string in PostgreSQL pg_basebackup allows an attacker having already compromised a server to achieve disclosure from pg_basebackup memory, via backup manifest bytes. The vulnerability does not return the improperly-read bytes back to the attacker's server, so a successful attack would need separate implementation-specific secrets for that. Integrity impact is unlikely; in particular, the applicable formatter does not support %n. Versions before PostgreSQL 18.7, 17.12, 16.16, 15.20, and 14.25 are affected.",
+   "vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:L/I:N/A:N"
   },
   {
    "id": "CVE-2026-16884",
@@ -730,7 +802,8 @@
    "cwe": "CWE-611",
    "pub": "2026-11-07",
    "kev": false,
-   "description": "IBM API Connect 12.1.0.0 through 12.1.1.2 could allow a remote attacker to obtain sensitive information due to an XML external entity (XXE) injection."
+   "description": "IBM API Connect 12.1.0.0 through 12.1.1.2 could allow a remote attacker to obtain sensitive information due to an XML external entity (XXE) injection.",
+   "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:L/A:L"
   },
   {
    "id": "CVE-2026-17345",
@@ -740,7 +813,8 @@
    "cwe": "CWE-89",
    "pub": "2026-11-07",
    "kev": false,
-   "description": "IBM API Connect 10.0.8.0 through 10.0.8.12 and 12.1.0.0 through 12.1.1.2 could allow a remote authenticated attacker to obtain sensitive information due to improper neutralization of special elements used in an SQL command."
+   "description": "IBM API Connect 10.0.8.0 through 10.0.8.12 and 12.1.0.0 through 12.1.1.2 could allow a remote authenticated attacker to obtain sensitive information due to improper neutralization of special elements used in an SQL command.",
+   "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:C/C:H/I:N/A:N"
   },
   {
    "id": "CVE-2026-18128",
@@ -750,7 +824,8 @@
    "cwe": "CWE-319",
    "pub": "2026-11-10",
    "kev": false,
-   "description": "Cleartext transmission of sensitive information in the Agent of Ivanti Endpoint Manager before version 2024 SU8 allows a remote unauthenticated attacker to in a MITM position to read and modify HTTP traffic."
+   "description": "Cleartext transmission of sensitive information in the Agent of Ivanti Endpoint Manager before version 2024 SU8 allows a remote unauthenticated attacker to in a MITM position to read and modify HTTP traffic.",
+   "vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:U/C:H/I:H/A:N"
   },
   {
    "id": "CVE-2026-28328",
@@ -760,7 +835,8 @@
    "cwe": "CWE-863",
    "pub": "2026-10-20",
    "kev": false,
-   "description": "SolarWinds Observability Self-Hosted was found to be affected by a broken authorization schema that can allow low-privileged users to access and modify information beyond their assigned permissions."
+   "description": "SolarWinds Observability Self-Hosted was found to be affected by a broken authorization schema that can allow low-privileged users to access and modify information beyond their assigned permissions.",
+   "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H"
   },
   {
    "id": "CVE-2026-48830",
@@ -770,7 +846,8 @@
    "cwe": "CWE-287",
    "pub": "2026-10-21",
    "kev": false,
-   "description": "Improper authentication in Apache bRPC through 1.17.0 allows a remote unauthenticated attacker to bypass authentication for protected non-builtin HTTP endpoints by first sending a builtin HTTP request on the same HTTP/1.1 keep-alive connection. When ServerOptions.auth is enabled and builtin HTTP services are exposed on the public listener, a builtin request received as the first message on a socket may cause the connection to be treated as authenticated for later requests on that socket. Users are recommended to upgrade to version 1.18.0, which fixes this issue, or apply this PR separately: https://github.com/apache/brpc/pull/3308"
+   "description": "Improper authentication in Apache bRPC through 1.17.0 allows a remote unauthenticated attacker to bypass authentication for protected non-builtin HTTP endpoints by first sending a builtin HTTP request on the same HTTP/1.1 keep-alive connection. When ServerOptions.auth is enabled and builtin HTTP services are exposed on the public listener, a builtin request received as the first message on a socket may cause the connection to be treated as authenticated for later requests on that socket. Users are recommended to upgrade to version 1.18.0, which fixes this issue, or apply this PR separately: https://github.com/apache/brpc/pull/3308",
+   "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:N"
   },
   {
    "id": "CVE-2026-58663",
@@ -780,7 +857,8 @@
    "cwe": "CWE-287",
    "pub": "2026-10-21",
    "kev": false,
-   "description": "An authentication bypass vulnerability exists in Apache IoTDB's Thrift RPC service This issue affects Apache IoTDB: from 2.0.0 before 2.0.11. Users are recommended to upgrade to version 2.0.11, which fixes the issue."
+   "description": "An authentication bypass vulnerability exists in Apache IoTDB's Thrift RPC service This issue affects Apache IoTDB: from 2.0.0 before 2.0.11. Users are recommended to upgrade to version 2.0.11, which fixes the issue.",
+   "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H"
   },
   {
    "id": "CVE-2026-62011",
@@ -790,7 +868,8 @@
    "cwe": "CWE-502",
    "pub": "2026-10-29",
    "kev": false,
-   "description": "Unauthenticated PHP Object Injection in Bonbon <= 1.11 versions."
+   "description": "Unauthenticated PHP Object Injection in Bonbon <= 1.11 versions.",
+   "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H"
   },
   {
    "id": "CVE-2026-62014",
@@ -800,7 +879,8 @@
    "cwe": "CWE-502",
    "pub": "2026-10-29",
    "kev": false,
-   "description": "Unauthenticated PHP Object Injection in EmojiNation <= 1.0.12 versions."
+   "description": "Unauthenticated PHP Object Injection in EmojiNation <= 1.0.12 versions.",
+   "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H"
   },
   {
    "id": "CVE-2026-62131",
@@ -810,7 +890,8 @@
    "cwe": "CWE-502",
    "pub": "2026-10-29",
    "kev": false,
-   "description": "Unauthenticated PHP Object Injection in Zoho Flow <= 2.14.5 versions."
+   "description": "Unauthenticated PHP Object Injection in Zoho Flow <= 2.14.5 versions.",
+   "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H"
   },
   {
    "id": "CVE-2026-76287",
@@ -820,7 +901,8 @@
    "cwe": "CWE-639",
    "pub": "2026-10-21",
    "kev": false,
-   "description": "In Splunk Enterprise versions below 10.4.4, a user that holds a role with the preview_data_management_pipeline capability or edit_data_management_pipeline_job capability could read or delete Data Management SPL2 preview jobs and results outside their ownership scope. The vulnerability is possible because the Data Management Representational State Transfer (REST) API verifies the required capability but does not verify that the requested preview job belongs to the requester. The affected Data Management REST API is available only when the Edge Processor feature is turned on. The Edge Processor feature is turned off by default. For more information see Set up a data management control plane (https://help.splunk.com/en/splunk-enterprise/process-data-at-the-edge/use-edge-processors-for-splunk-enterprise/10.4/getting-started/set-up-a-data-management-control-plane) and Getting sample data for previewing data transformations (https://help.splunk.com/en/splunk-enterprise/process-data-at-the-edge/use-edge-processors-for-splunk-enterprise/10.4/working-with-pipelines/getting-sample-data-for-previewing-data-transformations) in the Splunk documentation."
+   "description": "In Splunk Enterprise versions below 10.4.4, a user that holds a role with the preview_data_management_pipeline capability or edit_data_management_pipeline_job capability could read or delete Data Management SPL2 preview jobs and results outside their ownership scope. The vulnerability is possible because the Data Management Representational State Transfer (REST) API verifies the required capability but does not verify that the requested preview job belongs to the requester. The affected Data Management REST API is available only when the Edge Processor feature is turned on. The Edge Processor feature is turned off by default. For more information see Set up a data management control plane (https://help.splunk.com/en/splunk-enterprise/process-data-at-the-edge/use-edge-processors-for-splunk-enterprise/10.4/getting-started/set-up-a-data-management-control-plane) and Getting sample data for previewing data transformations (https://help.splunk.com/en/splunk-enterprise/process-data-at-the-edge/use-edge-processors-for-splunk-enterprise/10.4/working-with-pipelines/getting-sample-data-for-previewing-data-transformations) in the Splunk documentation.",
+   "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:L/A:N"
   },
   {
    "id": "CVE-2026-76302",
@@ -830,7 +912,8 @@
    "cwe": "CWE-707",
    "pub": "2026-10-21",
    "kev": false,
-   "description": "As part of Cisco's ongoing commitment to proactive security and product quality, Cisco has conducted a comprehensive internal security review. This review resulted in a software hardening release that addresses multiple internally discovered vulnerabilities. The vulnerabilities tracked by CVE-2026-76302 are related to improper neutralization and are grouped under the Common Weakness Enumeration (CWE) CWE-707."
+   "description": "As part of Cisco's ongoing commitment to proactive security and product quality, Cisco has conducted a comprehensive internal security review. This review resulted in a software hardening release that addresses multiple internally discovered vulnerabilities. The vulnerabilities tracked by CVE-2026-76302 are related to improper neutralization and are grouped under the Common Weakness Enumeration (CWE) CWE-707.",
+   "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:C/C:H/I:H/A:H"
   },
   {
    "id": "CVE-2026-76308",
@@ -840,7 +923,8 @@
    "cwe": "CWE-862",
    "pub": "2026-10-21",
    "kev": false,
-   "description": "In Splunk SOAR versions below 8.7.0, an authenticated user could change the Enterprise Security edition through the Representational State Transfer (REST) API and cause Splunk SOAR to apply the license change. The vulnerability is possible because Splunk SOAR authenticates requests to manage the Enterprise Security edition but does not authorize the caller before it applies the license change. For more information see Using the REST API reference for Splunk SOAR (On-premises) (https://help.splunk.com/en/splunk-soar/soar-on-premises/rest-api-reference/8.7.0/using-the-splunk-soar-rest-api/using-the-rest-api-reference-for-splunk-soar-on-premises), Obtain and configure a Splunk SOAR (On-premises) license (https://help.splunk.com/en/splunk-soar/soar-on-premises/administer-soar-on-premises/8.7.0/configure-your-companys-settings-in-splunk-soar-on-premises/obtain-and-configure-a-splunk-soar-on-premises-license), and Integration of Splunk SOAR with Splunk Enterprise Security (https://help.splunk.com/en/splunk-enterprise-security-8/administer/8.7/automation-with-playbooks/integration-of-splunk-soar-with-splunk-enterprise-security) in the Splunk documentation."
+   "description": "In Splunk SOAR versions below 8.7.0, an authenticated user could change the Enterprise Security edition through the Representational State Transfer (REST) API and cause Splunk SOAR to apply the license change. The vulnerability is possible because Splunk SOAR authenticates requests to manage the Enterprise Security edition but does not authorize the caller before it applies the license change. For more information see Using the REST API reference for Splunk SOAR (On-premises) (https://help.splunk.com/en/splunk-soar/soar-on-premises/rest-api-reference/8.7.0/using-the-splunk-soar-rest-api/using-the-rest-api-reference-for-splunk-soar-on-premises), Obtain and configure a Splunk SOAR (On-premises) license (https://help.splunk.com/en/splunk-soar/soar-on-premises/administer-soar-on-premises/8.7.0/configure-your-companys-settings-in-splunk-soar-on-premises/obtain-and-configure-a-splunk-soar-on-premises-license), and Integration of Splunk SOAR with Splunk Enterprise Security (https://help.splunk.com/en/splunk-enterprise-security-8/administer/8.7/automation-with-playbooks/integration-of-splunk-soar-with-splunk-enterprise-security) in the Splunk documentation.",
+   "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:H/A:N"
   },
   {
    "id": "CVE-2026-76418",
@@ -850,7 +934,8 @@
    "cwe": "CWE-690",
    "pub": "2026-10-28",
    "kev": true,
-   "description": "A vulnerability in the Remote Access SSL VPN service of Cisco Secure Firewall Adaptive Security Appliance (ASA) Software and Cisco Secure Firewall Threat Defense (FTD) Software could allow an unauthenticated, remote attacker to cause the device to reload unexpectedly, resulting in a denial of service (DoS) condition. This vulnerability is due to logic errors when secondary authentication is configured on a tunnel group. An attacker could exploit this vulnerability by sending a crafted request when connecting to the SSL remote access VPN. A successful exploit could allow the attacker to cause the affected device to reload, resulting in a DoS condition."
+   "description": "A vulnerability in the Remote Access SSL VPN service of Cisco Secure Firewall Adaptive Security Appliance (ASA) Software and Cisco Secure Firewall Threat Defense (FTD) Software could allow an unauthenticated, remote attacker to cause the device to reload unexpectedly, resulting in a denial of service (DoS) condition. This vulnerability is due to logic errors when secondary authentication is configured on a tunnel group. An attacker could exploit this vulnerability by sending a crafted request when connecting to the SSL remote access VPN. A successful exploit could allow the attacker to cause the affected device to reload, resulting in a DoS condition.",
+   "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:N/I:N/A:H"
   },
   {
    "id": "CVE-2026-77777",
@@ -860,7 +945,8 @@
    "cwe": "CWE-1220",
    "pub": "2026-11-03",
    "kev": false,
-   "description": "ManageEngine Key Manager Plus versions before 7151 are vulnerable to an improper access control issue that allow authenticated users to modify another user's ACME certificate deployment credentials."
+   "description": "ManageEngine Key Manager Plus versions before 7151 are vulnerable to an improper access control issue that allow authenticated users to modify another user's ACME certificate deployment credentials.",
+   "vector": "CVSS:3.1/AV:N/AC:H/PR:L/UI:N/S:C/C:H/I:L/A:N"
   },
   {
    "id": "CVE-2026-82154",
@@ -870,7 +956,8 @@
    "cwe": "CWE-321",
    "pub": "2026-11-03",
    "kev": false,
-   "description": "Dell OS Recovery tool versions, prior to 2.4.4, contain a use of Hard-coded Cryptographic Key vulnerability. An unauthenticated attacker with physical access could potentially exploit this vulnerability, leading to Information Disclosure."
+   "description": "Dell OS Recovery tool versions, prior to 2.4.4, contain a use of Hard-coded Cryptographic Key vulnerability. An unauthenticated attacker with physical access could potentially exploit this vulnerability, leading to Information Disclosure.",
+   "vector": "CVSS:3.1/AV:P/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N"
   },
   {
    "id": "CVE-2026-82953",
@@ -880,7 +967,8 @@
    "cwe": "CWE-476",
    "pub": "2026-10-21",
    "kev": false,
-   "description": "NULL pointer dereference in the RTMP protocol implementation in Apache bRPC (version < 1.18.0) on all platforms allows remote attackers to crash the server (denial of service) via a crafted createStream command. Root Cause: When an RTMP service rejects a createStream request by returning a null stream from RtmpService::NewStream(), the server sends an error response to the client. If writing this rejection response fails (for example, because the client closes the connection immediately after sending the createStream command), the error-handling path in RtmpChunkStream::OnCreateStream() dereferences the null stream pointer to access stream->_onfail_id, causing the process to crash. Affected Scenarios: Run an Apache bRPC RTMP server whose RtmpService::NewStream() may return null (i.e., the service rejects createStream requests). A remote client that sends a createStream command and then closes the connection before the rejection response is written can crash the server. How to Fix: (Choose one of the following options) 1. Upgrade bRPC to version 1.18.0, which fixes this issue. 2. Apply this patch: https://github.com/apache/brpc/pull/3508"
+   "description": "NULL pointer dereference in the RTMP protocol implementation in Apache bRPC (version < 1.18.0) on all platforms allows remote attackers to crash the server (denial of service) via a crafted createStream command. Root Cause: When an RTMP service rejects a createStream request by returning a null stream from RtmpService::NewStream(), the server sends an error response to the client. If writing this rejection response fails (for example, because the client closes the connection immediately after sending the createStream command), the error-handling path in RtmpChunkStream::OnCreateStream() dereferences the null stream pointer to access stream->_onfail_id, causing the process to crash. Affected Scenarios: Run an Apache bRPC RTMP server whose RtmpService::NewStream() may return null (i.e., the service rejects createStream requests). A remote client that sends a createStream command and then closes the connection before the rejection response is written can crash the server. How to Fix: (Choose one of the following options) 1. Upgrade bRPC to version 1.18.0, which fixes this issue. 2. Apply this patch: https://github.com/apache/brpc/pull/3508",
+   "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L"
   },
   {
    "id": "CVE-2026-84916",
@@ -890,7 +978,8 @@
    "cwe": "CWE-862",
    "pub": "2026-10-22",
    "kev": false,
-   "description": "Missing Authorization vulnerability in Drupal Islandora allows Forceful Browsing. This issue affects Islandora versions: from 0.0.0 to 2.19.0."
+   "description": "Missing Authorization vulnerability in Drupal Islandora allows Forceful Browsing. This issue affects Islandora versions: from 0.0.0 to 2.19.0.",
+   "vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:L/I:N/A:N"
   },
   {
    "id": "CVE-2026-86364",
@@ -900,7 +989,8 @@
    "cwe": "CWE-330",
    "pub": "2026-11-11",
    "kev": false,
-   "description": "Dell Live Optics Collector, versions prior to 27.3.8.317 contains a Use of Insufficiently Random Values vulnerability. A low privileged attacker with local access could potentially exploit this vulnerability, leading to Information exposure."
+   "description": "Dell Live Optics Collector, versions prior to 27.3.8.317 contains a Use of Insufficiently Random Values vulnerability. A low privileged attacker with local access could potentially exploit this vulnerability, leading to Information exposure.",
+   "vector": "CVSS:3.1/AV:L/AC:H/PR:L/UI:N/S:U/C:H/I:N/A:N"
   },
   {
    "id": "CVE-2026-86365",
@@ -910,7 +1000,8 @@
    "cwe": "CWE-20",
    "pub": "2026-11-02",
    "kev": false,
-   "description": "Dell Alienware Command Center (AWCC), versions prior to 6.14.54.0, contain an Improper Input Validation vulnerability. A low privileged attacker with local access could potentially exploit this vulnerability, leading to Denial of Service."
+   "description": "Dell Alienware Command Center (AWCC), versions prior to 6.14.54.0, contain an Improper Input Validation vulnerability. A low privileged attacker with local access could potentially exploit this vulnerability, leading to Denial of Service.",
+   "vector": "CVSS:3.1/AV:L/AC:H/PR:L/UI:N/S:C/C:N/I:L/A:L"
   },
   {
    "id": "CVE-2026-86391",
@@ -920,7 +1011,8 @@
    "cwe": "CWE-290",
    "pub": "2026-10-28",
    "kev": false,
-   "description": "Dell PowerProtect Data Domain Management Center, Feature Release versions 7.7.1.0 through 8.8, LTS2024 release versions 7.13.1.0 through 7.13.1.80, LTS2025 release versions 8.3.1.0 through 8.3.1.40, LTS2026 release versions 8.6.1.0 through 8.6.1.20, contain an Authentication Bypass by Spoofing vulnerability. A low privileged attacker with remote access could potentially exploit this vulnerability, leading to Denial of service."
+   "description": "Dell PowerProtect Data Domain Management Center, Feature Release versions 7.7.1.0 through 8.8, LTS2024 release versions 7.13.1.0 through 7.13.1.80, LTS2025 release versions 8.3.1.0 through 8.3.1.40, LTS2026 release versions 8.6.1.0 through 8.6.1.20, contain an Authentication Bypass by Spoofing vulnerability. A low privileged attacker with remote access could potentially exploit this vulnerability, leading to Denial of service.",
+   "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:C/C:N/I:L/A:L"
   },
   {
    "id": "CVE-2026-86396",
@@ -930,7 +1022,8 @@
    "cwe": "CWE-78",
    "pub": "2026-10-28",
    "kev": false,
-   "description": "Dell PowerProtect Data Domain, Feature Release versions 7.7.1.0 through 8.8, LTS2024 release versions 7.13.1.0 through 7.13.1.80, LTS2025 release versions 8.3.1.0 through 8.3.1.40, LTS2026 release versions 8.6.1.0 through 8.6.1.20, contain an Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection') vulnerability. A low privileged attacker with remote access could potentially exploit this vulnerability, leading to command execution."
+   "description": "Dell PowerProtect Data Domain, Feature Release versions 7.7.1.0 through 8.8, LTS2024 release versions 7.13.1.0 through 7.13.1.80, LTS2025 release versions 8.3.1.0 through 8.3.1.40, LTS2026 release versions 8.6.1.0 through 8.6.1.20, contain an Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection') vulnerability. A low privileged attacker with remote access could potentially exploit this vulnerability, leading to command execution.",
+   "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H"
   },
   {
    "id": "CVE-2026-87330",
@@ -940,7 +1033,8 @@
    "cwe": "CWE-200",
    "pub": "2026-10-20",
    "kev": false,
-   "description": "Vulnerability in the JD Edwards EnterpriseOne Tools product of Oracle JD Edwards (component: E1 Dev Platform Tech - UNIX). Supported versions that are affected are 9.2.0.0-9.2.26.5. Easily exploitable vulnerability allows high privileged attacker with logon to the infrastructure where JD Edwards EnterpriseOne Tools executes to compromise JD Edwards EnterpriseOne Tools. Successful attacks of this vulnerability can result in unauthorized update, insert or delete access to some of JD Edwards EnterpriseOne Tools accessible data as well as unauthorized read access to a subset of JD Edwards EnterpriseOne Tools accessible data and unauthorized ability to cause a partial denial of service (partial DOS) of JD Edwards EnterpriseOne Tools. CVSS 3.1 Base Score 4.2 (Confidentiality, Integrity and Availability impacts). CVSS Vector: (CVSS:3.1/AV:L/AC:L/PR:H/UI:N/S:U/C:L/I:L/A:L)."
+   "description": "Vulnerability in the JD Edwards EnterpriseOne Tools product of Oracle JD Edwards (component: E1 Dev Platform Tech - UNIX). Supported versions that are affected are 9.2.0.0-9.2.26.5. Easily exploitable vulnerability allows high privileged attacker with logon to the infrastructure where JD Edwards EnterpriseOne Tools executes to compromise JD Edwards EnterpriseOne Tools. Successful attacks of this vulnerability can result in unauthorized update, insert or delete access to some of JD Edwards EnterpriseOne Tools accessible data as well as unauthorized read access to a subset of JD Edwards EnterpriseOne Tools accessible data and unauthorized ability to cause a partial denial of service (partial DOS) of JD Edwards EnterpriseOne Tools. CVSS 3.1 Base Score 4.2 (Confidentiality, Integrity and Availability impacts). CVSS Vector: (CVSS:3.1/AV:L/AC:L/PR:H/UI:N/S:U/C:L/I:L/A:L).",
+   "vector": "CVSS:3.1/AV:L/AC:L/PR:H/UI:N/S:U/C:L/I:L/A:L"
   },
   {
    "id": "CVE-2026-87951",
@@ -950,7 +1044,8 @@
    "cwe": "CWE-922",
    "pub": "2026-10-22",
    "kev": false,
-   "description": "Insecure Storage of Sensitive Information vulnerability in Drupal SAML SSO - Service Provider allows Retrieve Embedded Sensitive Data. This issue affects SAML SSO - Service Provider versions: from 0.0.0 to 3.2.0."
+   "description": "Insecure Storage of Sensitive Information vulnerability in Drupal SAML SSO - Service Provider allows Retrieve Embedded Sensitive Data. This issue affects SAML SSO - Service Provider versions: from 0.0.0 to 3.2.0.",
+   "vector": "CVSS:3.1/AV:N/AC:L/PR:H/UI:N/S:U/C:L/I:L/A:N"
   },
   {
    "id": "CVE-2026-87953",
@@ -960,7 +1055,8 @@
    "cwe": "CWE-918",
    "pub": "2026-10-22",
    "kev": false,
-   "description": "Server-Side Request Forgery (SSRF) vulnerability in Drupal SAML SSO - Service Provider allows Server Side Request Forgery. This issue affects SAML SSO - Service Provider versions: from 0.0.0 to 3.2.0."
+   "description": "Server-Side Request Forgery (SSRF) vulnerability in Drupal SAML SSO - Service Provider allows Server Side Request Forgery. This issue affects SAML SSO - Service Provider versions: from 0.0.0 to 3.2.0.",
+   "vector": "CVSS:3.1/AV:N/AC:H/PR:H/UI:N/S:U/C:L/I:L/A:N"
   },
   {
    "id": "CVE-2026-90628",
@@ -970,7 +1066,8 @@
    "cwe": "CWE-121",
    "pub": "2026-11-04",
    "kev": false,
-   "description": "An uncontrolled memory access in the PDF export code of Apache OpenOffice versions through 4.1.16 allows a crafted CFF font to cause a stack overflow problem, causing program crash or memory corruption, or even running other code. Users are recommended to upgrade to version 4.1.17, which fixes this issue."
+   "description": "An uncontrolled memory access in the PDF export code of Apache OpenOffice versions through 4.1.16 allows a crafted CFF font to cause a stack overflow problem, causing program crash or memory corruption, or even running other code. Users are recommended to upgrade to version 4.1.17, which fixes this issue.",
+   "vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:L"
   },
   {
    "id": "CVE-2026-91163",
@@ -980,7 +1077,8 @@
    "cwe": "CWE-209",
    "pub": "2026-11-04",
    "kev": false,
-   "description": "Warpgate is an open source SSH, HTTPS, and MySQL bastion host for Linux. Prior to 0.29.0, the Kubernetes protocol listener uses AcceptAnyClientCert in warpgate-protocol-kubernetes/src/server/client_certs.rs to accept certificates at the TLS layer and defer validation to warpgate-protocol-kubernetes/src/server/auth.rs, where authentication and lookup failures are rendered verbatim in an HTTP 500 response body. The Kubernetes application in warpgate-protocol-kubernetes/src/server/mod.rs lacks the outer request-logging wrapper used by the HTTP protocol, and failures in warpgate-protocol-kubernetes/src/server/handlers.rs can short-circuit before its inner log point. An unauthenticated network client can therefore induce failures and receive ASN.1/DER parser diagnostics or sea_orm database errors without the attempt being recorded in the gateway log. The disclosed information is limited to internal diagnostics, and no user-data, integrity, or availability impact is established. This issue is fixed in version 0.29.0."
+   "description": "Warpgate is an open source SSH, HTTPS, and MySQL bastion host for Linux. Prior to 0.29.0, the Kubernetes protocol listener uses AcceptAnyClientCert in warpgate-protocol-kubernetes/src/server/client_certs.rs to accept certificates at the TLS layer and defer validation to warpgate-protocol-kubernetes/src/server/auth.rs, where authentication and lookup failures are rendered verbatim in an HTTP 500 response body. The Kubernetes application in warpgate-protocol-kubernetes/src/server/mod.rs lacks the outer request-logging wrapper used by the HTTP protocol, and failures in warpgate-protocol-kubernetes/src/server/handlers.rs can short-circuit before its inner log point. An unauthenticated network client can therefore induce failures and receive ASN.1/DER parser diagnostics or sea_orm database errors without the attempt being recorded in the gateway log. The disclosed information is limited to internal diagnostics, and no user-data, integrity, or availability impact is established. This issue is fixed in version 0.29.0.",
+   "vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:L/I:N/A:N"
   },
   {
    "id": "CVE-2026-91340",
@@ -990,7 +1088,8 @@
    "cwe": "CWE-284",
    "pub": "2026-10-20",
    "kev": false,
-   "description": "Vulnerability in the Oracle Outside In Technology product of Oracle Fusion Middleware (component: Outside In Clean Content SDK). The supported version that is affected is 8.5.8. Easily exploitable vulnerability allows low privileged attacker with network access via HTTP to compromise Oracle Outside In Technology. Successful attacks of this vulnerability can result in takeover of Oracle Outside In Technology. CVSS 3.1 Base Score 8.8 (Confidentiality, Integrity and Availability impacts). CVSS Vector: (CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H)."
+   "description": "Vulnerability in the Oracle Outside In Technology product of Oracle Fusion Middleware (component: Outside In Clean Content SDK). The supported version that is affected is 8.5.8. Easily exploitable vulnerability allows low privileged attacker with network access via HTTP to compromise Oracle Outside In Technology. Successful attacks of this vulnerability can result in takeover of Oracle Outside In Technology. CVSS 3.1 Base Score 8.8 (Confidentiality, Integrity and Availability impacts). CVSS Vector: (CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H).",
+   "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H"
   },
   {
    "id": "CVE-2026-91364",
@@ -1000,7 +1099,8 @@
    "cwe": "CWE-284",
    "pub": "2026-10-20",
    "kev": false,
-   "description": "Vulnerability in the Siebel CRM Cloud Applications product of Oracle Siebel CRM (component: Siebel Cloud Manager). Supported versions that are affected are 22.3-26.9. Difficult to exploit vulnerability allows unauthenticated attacker with access to the physical communication segment attached to the hardware where the Siebel CRM Cloud Applications executes to compromise Siebel CRM Cloud Applications. Successful attacks of this vulnerability can result in unauthorized creation, deletion or modification access to critical data or all Siebel CRM Cloud Applications accessible data as well as unauthorized access to critical data or complete access to all Siebel CRM Cloud Applications accessible data. CVSS 3.1 Base Score 6.8 (Confidentiality and Integrity impacts). CVSS Vector: (CVSS:3.1/AV:A/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:N)."
+   "description": "Vulnerability in the Siebel CRM Cloud Applications product of Oracle Siebel CRM (component: Siebel Cloud Manager). Supported versions that are affected are 22.3-26.9. Difficult to exploit vulnerability allows unauthenticated attacker with access to the physical communication segment attached to the hardware where the Siebel CRM Cloud Applications executes to compromise Siebel CRM Cloud Applications. Successful attacks of this vulnerability can result in unauthorized creation, deletion or modification access to critical data or all Siebel CRM Cloud Applications accessible data as well as unauthorized access to critical data or complete access to all Siebel CRM Cloud Applications accessible data. CVSS 3.1 Base Score 6.8 (Confidentiality and Integrity impacts). CVSS Vector: (CVSS:3.1/AV:A/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:N).",
+   "vector": "CVSS:3.1/AV:A/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:N"
   },
   {
    "id": "CVE-2026-91398",
@@ -1010,7 +1110,8 @@
    "cwe": "CWE-284",
    "pub": "2026-10-20",
    "kev": false,
-   "description": "Vulnerability in the Oracle Java SE, Oracle GraalVM for JDK, Oracle GraalVM Enterprise Edition product of Oracle Java SE (component: Networking). Supported versions that are affected are Oracle Java SE: 8u503, 8u503-perf, 11.0.32.1, 17.0.20.1, 21.0.12.1, 25.0.4.1, 27; Oracle GraalVM for JDK: 17.0.20.1 and 21.0.12.1; Oracle GraalVM Enterprise Edition: 21.3.19.1.1. Difficult to exploit vulnerability allows unauthenticated attacker with network access via SOCKS5 to compromise Oracle Java SE, Oracle GraalVM for JDK, Oracle GraalVM Enterprise Edition. While the vulnerability is in Oracle Java SE, Oracle GraalVM for JDK, Oracle GraalVM Enterprise Edition, attacks may significantly impact additional products (scope change). Successful attacks of this vulnerability can result in unauthorized creation, deletion or modification access to critical data or all Oracle Java SE, Oracle GraalVM for JDK, Oracle GraalVM Enterprise Edition accessible data. Note: This vulnerability can be exploited by using APIs in the specified Component, e.g., through a web service which supplies data to the APIs. This vulnerability also applies to Java deployments, typically in clients running sandboxed Java Web Start applications or sandboxed Java applets, that load and run untrusted code (e.g., code that comes from the internet) and rely on the Java sandbox for security. CVSS 3.1 Base Score 6.8 (Integrity impacts). CVSS Vector: (CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:C/C:N/I:H/A:N)."
+   "description": "Vulnerability in the Oracle Java SE, Oracle GraalVM for JDK, Oracle GraalVM Enterprise Edition product of Oracle Java SE (component: Networking). Supported versions that are affected are Oracle Java SE: 8u503, 8u503-perf, 11.0.32.1, 17.0.20.1, 21.0.12.1, 25.0.4.1, 27; Oracle GraalVM for JDK: 17.0.20.1 and 21.0.12.1; Oracle GraalVM Enterprise Edition: 21.3.19.1.1. Difficult to exploit vulnerability allows unauthenticated attacker with network access via SOCKS5 to compromise Oracle Java SE, Oracle GraalVM for JDK, Oracle GraalVM Enterprise Edition. While the vulnerability is in Oracle Java SE, Oracle GraalVM for JDK, Oracle GraalVM Enterprise Edition, attacks may significantly impact additional products (scope change). Successful attacks of this vulnerability can result in unauthorized creation, deletion or modification access to critical data or all Oracle Java SE, Oracle GraalVM for JDK, Oracle GraalVM Enterprise Edition accessible data. Note: This vulnerability can be exploited by using APIs in the specified Component, e.g., through a web service which supplies data to the APIs. This vulnerability also applies to Java deployments, typically in clients running sandboxed Java Web Start applications or sandboxed Java applets, that load and run untrusted code (e.g., code that comes from the internet) and rely on the Java sandbox for security. CVSS 3.1 Base Score 6.8 (Integrity impacts). CVSS Vector: (CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:C/C:N/I:H/A:N).",
+   "vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:C/C:N/I:H/A:N"
   },
   {
    "id": "CVE-2026-91547",
@@ -1020,7 +1121,8 @@
    "cwe": "CWE-269",
    "pub": "2026-10-20",
    "kev": false,
-   "description": "Vulnerability in Oracle GoldenGate (component: Vendor Access Module). Supported versions that are affected are 19.1.0.0.0-19.32.0.0, 21.3-21.23 and 23.4-23.26.3.0.0. Easily exploitable vulnerability allows low privileged attacker with logon to the infrastructure where Oracle GoldenGate executes to compromise Oracle GoldenGate. Successful attacks of this vulnerability can result in unauthorized access to critical data or complete access to all Oracle GoldenGate accessible data. CVSS 3.1 Base Score 5.5 (Confidentiality impacts). CVSS Vector: (CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:N/A:N)."
+   "description": "Vulnerability in Oracle GoldenGate (component: Vendor Access Module). Supported versions that are affected are 19.1.0.0.0-19.32.0.0, 21.3-21.23 and 23.4-23.26.3.0.0. Easily exploitable vulnerability allows low privileged attacker with logon to the infrastructure where Oracle GoldenGate executes to compromise Oracle GoldenGate. Successful attacks of this vulnerability can result in unauthorized access to critical data or complete access to all Oracle GoldenGate accessible data. CVSS 3.1 Base Score 5.5 (Confidentiality impacts). CVSS Vector: (CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:N/A:N).",
+   "vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:N/A:N"
   },
   {
    "id": "CVE-2026-95745",
@@ -1030,7 +1132,8 @@
    "cwe": "CWE-400",
    "pub": "2026-11-03",
    "kev": false,
-   "description": "A vulnerability in the API of HPE Networking Fabric Composer could allow an unauthenticated remote attacker to conduct a denial of service attack. Successful exploitation could allow an attacker to cause the management services to become unavailable."
+   "description": "A vulnerability in the API of HPE Networking Fabric Composer could allow an unauthenticated remote attacker to conduct a denial of service attack. Successful exploitation could allow an attacker to cause the management services to become unavailable.",
+   "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
   },
   {
    "id": "CVE-2026-95776",
@@ -1040,7 +1143,8 @@
    "cwe": "CWE-22",
    "pub": "2026-11-03",
    "kev": false,
-   "description": "An authenticated path traversal vulnerability exists in the API of HPE Networking Fabric Composer, which could be exploited by an authenticated low-privileged user if certain preconditions outside of the attacker's control are met. Successful exploitation could allow an attacker to read certain files on the underlying operating system."
+   "description": "An authenticated path traversal vulnerability exists in the API of HPE Networking Fabric Composer, which could be exploited by an authenticated low-privileged user if certain preconditions outside of the attacker's control are met. Successful exploitation could allow an attacker to read certain files on the underlying operating system.",
+   "vector": "CVSS:3.1/AV:N/AC:H/PR:L/UI:N/S:U/C:L/I:N/A:N"
   },
   {
    "id": "CVE-2026-96384",
@@ -1050,7 +1154,8 @@
    "cwe": "CWE-863",
    "pub": "2026-10-22",
    "kev": false,
-   "description": "Incorrect Authorization vulnerability in Drupal Mermaid Diagram Field allows Forceful Browsing. This issue affects Mermaid Diagram Field versions: from 1.0.4 to 1.0.9."
+   "description": "Incorrect Authorization vulnerability in Drupal Mermaid Diagram Field allows Forceful Browsing. This issue affects Mermaid Diagram Field versions: from 1.0.4 to 1.0.9.",
+   "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:R/S:U/C:L/I:N/A:N"
   },
   {
    "id": "CVE-2026-96637",
@@ -1060,7 +1165,8 @@
    "cwe": "CWE-400",
    "pub": "2026-10-21",
    "kev": false,
-   "description": "Pillow is a Python imaging library. Prior to 13.0.0, SpiderImageFile.seek() in src/PIL/SpiderImagePlugin.py reparses a later SPIDER stack frame and replaces self._size without rerunning Image._decompression_bomb_check(). A tiny file can use a safe first frame to pass Image.open() and then declare very large dimensions in a later mode F frame. Loading that frame allocates approximately four bytes per attacker-declared pixel and can consume multiple gigabytes of memory. This issue is fixed in version 13.0.0."
+   "description": "Pillow is a Python imaging library. Prior to 13.0.0, SpiderImageFile.seek() in src/PIL/SpiderImagePlugin.py reparses a later SPIDER stack frame and replaces self._size without rerunning Image._decompression_bomb_check(). A tiny file can use a safe first frame to pass Image.open() and then declare very large dimensions in a later mode F frame. Loading that frame allocates approximately four bytes per attacker-declared pixel and can consume multiple gigabytes of memory. This issue is fixed in version 13.0.0.",
+   "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H"
   },
   {
    "id": "CVE-2026-99030",
@@ -1070,7 +1176,8 @@
    "cwe": "",
    "pub": "2026-10-23",
    "kev": false,
-   "description": "In the Linux kernel, the following vulnerability has been resolved: net: skbuff: don't leave stale bytes in skb_copy_and_csum_bits() When skb_copy_and_csum_bits() reaches unreadable frags it returns 0 after copying only the linear part, and the rest of the caller's buffer is left as it was. The callers copy into a buffer that is about to go out on the wire: an ICMP error quoting the offending packet, or a driver's TX bounce buffer in skb_copy_and_csum_dev(). Neither buffer is zeroed beforehand, so whatever was in memory there gets sent. Zero the part of the buffer we didn't fill. The checksum usually won't match the data any more, so the receiver will usually drop the packet, but either way it no longer carries anything it shouldn't. Only zero for a positive @len, a negative one from a broken caller must not turn into a huge memset()."
+   "description": "In the Linux kernel, the following vulnerability has been resolved: net: skbuff: don't leave stale bytes in skb_copy_and_csum_bits() When skb_copy_and_csum_bits() reaches unreadable frags it returns 0 after copying only the linear part, and the rest of the caller's buffer is left as it was. The callers copy into a buffer that is about to go out on the wire: an ICMP error quoting the offending packet, or a driver's TX bounce buffer in skb_copy_and_csum_dev(). Neither buffer is zeroed beforehand, so whatever was in memory there gets sent. Zero the part of the buffer we didn't fill. The checksum usually won't match the data any more, so the receiver will usually drop the packet, but either way it no longer carries anything it shouldn't. Only zero for a positive @len, a negative one from a broken caller must not turn into a huge memset().",
+   "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N"
   }
  ]
 }

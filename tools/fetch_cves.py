@@ -127,6 +127,7 @@ def cmd_fetch(a):
                     if d["value"].startswith("CWE-")), "")
         cands.append({"id": c["id"], "score": m["cvssData"]["baseScore"], "sev": m["cvssData"]["baseSeverity"],
                       "vendor": vendor, "cwe": cwe, "pub": c["published"][:10], "kev": c["id"] in kev,
+                      "vector": m["cvssData"]["vectorString"],   # for writing/checking bullets; never shown
                       "description": desc})
 
     rng = random.Random(a.seed)
@@ -163,6 +164,20 @@ def cmd_build(a):
         keep.append({k: x[k] for k in ("id", "score", "sev", "vendor", "cwe", "pub", "kev")} |
                     {"vendor": b.get("vendor") or x["vendor"],   # optional override for a better label
                      "affects": b["affects"], "flaw": b["flaw"], "access": b["access"], "impact": b["impact"]})
+    # Check every card BEFORE touching index.html, so a failed build never ships.
+    vectors = {x["id"]: x.get("vector", "") for x in pool["cves"]}
+    problems = []
+    for x in keep:
+        if re.search(r"\b\d+\.\d+", x["affects"]):
+            problems.append(f"{x['id']} affects has a version number: {x['affects']}")
+        for k in ("affects", "flaw", "access", "impact"):
+            if re.search(r"\b(critical|severe|severity|cvss|base score)\b|\b\d+\.\d\s*/\s*10\b", x[k], re.I):
+                problems.append(f"{x['id']} {k} hints at the score: {x[k]}")
+        problems += [f"{x['id']} {p}" for p in vector_problems(x, vectors.get(x["id"], ""))]
+    if problems:
+        print("RULE PROBLEMS (fix data/bullets.json and run build again; index.html was not changed):\n  " + "\n  ".join(problems))
+        sys.exit(1)
+
     data = {"fetched": pool["fetched"], "days": pool["days"], "cves": keep}
     block = "<!--CVE-DATA-->\n<script type=\"application/json\" id=\"cve-data\">" + \
             json.dumps(data, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/") + \
@@ -176,17 +191,52 @@ def cmd_build(a):
         print(f"Left out {len(missing)} without bullets: {', '.join(missing)}")
     if long:
         print("Bullets over 140 chars (they'll wrap to more lines):\n  " + "\n  ".join(long))
-    # Rules the cards depend on: no version numbers in Affects, no score or severity hints anywhere.
-    problems = []
-    for x in keep:
-        if re.search(r"\b\d+\.\d+", x["affects"]):
-            problems.append(f"{x['id']} affects has a version number: {x['affects']}")
-        for k in ("affects", "flaw", "access", "impact"):
-            if re.search(r"\b(critical|severe|severity|cvss|base score)\b|\b\d+\.\d\s*/\s*10\b", x[k], re.I):
-                problems.append(f"{x['id']} {k} hints at the score: {x[k]}")
-    if problems:
-        print("RULE PROBLEMS (fix data/bullets.json and run build again):\n  " + "\n  ".join(problems))
-        sys.exit(1)
+
+
+# ---- Card grammar: the Access and Impact bullets must say, in plain words, what the CVSS vector says ----
+# Players never see the vector or score, but these phrases give them the facts the score is built from.
+AV_LEAD = {"N": "Remote", "A": "Adjacent network", "L": "Local", "P": "Physical access"}
+PR_PHRASE = {"N": "no login", "L": "low-privilege", "H": "high-privilege"}
+READ = r"read|expos|leak|disclos|steal|learn|obtain|captur|view|see"          # word stems, so any form matches
+WRITE = r"chang|modif|writ|delet|tamper|forg|plant|inject|creat|overwrit|corrupt|alter|replac|add|spoof|bypass|log in|act as|sign"
+DOWN = r"crash|outage|offline|hang|slow|exhaust|disrupt|unavailable|take .* down|knock|stall|reload|deny|denial"
+TOTAL = r"run (any )?code|run commands|execute code|take over|takeover|full control"
+NONE_PHRASE = {"C": r"no data is read|nothing is read|nothing is exposed|no data exposure",
+               "I": r"nothing is changed|no data is changed|no changes",
+               "A": r"no outage|stays up|stays available"}
+
+
+def vector_problems(card, vector):
+    """Return the ways a card's Access/Impact wording disagrees with its CVSS v3.1 vector."""
+    if not vector.startswith("CVSS:3"):
+        return ["has no CVSS v3 vector to check against"]
+    m = dict(p.split(":") for p in vector.split("/")[1:])
+    acc, imp, out = card["access"], card["impact"], []
+    low_acc, low_imp = acc.lower(), imp.lower()
+    if not acc.startswith(AV_LEAD[m["AV"]]):
+        out.append(f'access must start with "{AV_LEAD[m["AV"]]}" (attack vector {m["AV"]})')
+    if PR_PHRASE[m["PR"]] not in low_acc:
+        out.append(f'access must say "{PR_PHRASE[m["PR"]]}" (privileges {m["PR"]})')
+    for k, phrase in PR_PHRASE.items():
+        if k != m["PR"] and phrase in low_acc:
+            out.append(f'access says "{phrase}" but privileges are {m["PR"]}')
+    if m["UI"] == "R" and "a user must" not in low_acc:
+        out.append('access must say "a user must ..." (user interaction required)')
+    if m["UI"] == "N" and "no user action" not in low_acc:
+        out.append('access must say "no user action" (no user interaction)')
+    if (m["AC"] == "H") != ("hard to exploit" in low_acc):
+        out.append('access must say "hard to exploit" only when attack complexity is high (AC ' + m["AC"] + ")")
+    if (m["S"] == "C") != ("beyond" in low_imp):
+        out.append('impact must say it reaches "beyond" the product only when scope changes (S ' + m["S"] + ")")
+    total = re.search(TOTAL, low_imp)
+    for k, words in (("C", READ), ("I", WRITE), ("A", DOWN)):
+        if m[k] in ("H", "L") and not re.search(words, low_imp) and not (total and m[k] == "H"):
+            out.append(f"impact must describe {k} impact ({m[k]})")
+        if m[k] == "N" and not re.search(NONE_PHRASE[k], low_imp):
+            out.append(f'impact must rule out {k} impact, e.g. "{NONE_PHRASE[k].split("|")[0]}"')
+    if any(m[k] == "L" for k in "CIA") and not re.search(r"\b(some|limited|partial|subset|certain|small|minor|slice)\b", low_imp):
+        out.append("impact must signal the limited part (some / limited / partial)")
+    return out
 
 
 def main():
