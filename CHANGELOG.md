@@ -9,3 +9,9 @@ All notable changes to the CISO Series Triage repo are logged here.
 - Everyone gets the same queue each week. It rotates Friday 12:00 AM Pacific, and run #1 is 2026-11-20. Unlimited practice runs after the official one.
 - Spoiler-free "Copy result for chat" share: one emoji line per priority level, plus a rank (Alert Fatigue up to CVSS Whisperer).
 - Added `tools/fetch_cves.py` to refresh the CVE pool from NVD and CISA KEV, plus this README and changelog. — Rich
+
+## 2026-11-16 (2)
+- Replaced the truncated NVD description on each card with three complete bullets: **Affects**, **Flaw** and **Impact**. Nothing on a card is cut off anymore; all 110 cards were checked at phone width.
+- Bullets are written per CVE in `data/bullets.json` from NVD's full description. They never include the score or a severity word. Cards now also name the actual product (e.g. Pillow, Wagtail, Apache Kafka) instead of the language or a parent vendor.
+- Trimmed the pool to 110 CVEs (6 per vendor, 14 per score band) so each gets a careful summary. Dropped 2 CVEs whose NVD entries had no usable detail.
+- `fetch_cves.py` is now three steps: `fetch` writes `data/pool.json` with full descriptions, bullets go in `data/bullets.json`, and `build` merges them into `index.html`. — Rich

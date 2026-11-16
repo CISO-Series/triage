@@ -23,13 +23,33 @@ Live version: https://claude.ai/artifact/5uQCPWFWQWrd8q6gsmpaHF
 - **Sharing.** "Copy result for chat" gives one emoji line per priority level, a rank and the link. It never names the CVEs.
 - **Saved locally.** Official-run progress lives in the player's browser (`localStorage`).
 
+## The cards
+
+Each CVE card shows three short bullets, written from NVD's full description so nothing is ever cut off:
+
+- **Affects:** product and versions
+- **Flaw:** the nature of the vulnerability
+- **Impact:** who can exploit it (remote or local, logged in or not) and what they can do
+
+Bullets never include the CVSS score or a severity word. Some NVD descriptions (Oracle's especially) quote the score, so they can't be copied in as-is.
+
 ## Refreshing the CVEs
 
+Three steps, run from the repo root:
+
 ```bash
-python3 tools/fetch_cves.py --days 30
+python3 tools/fetch_cves.py fetch --days 30
 ```
 
-This pulls the last 30 days of CVEs from the [NVD API](https://nvd.nist.gov/developers/vulnerabilities) and flags any on [CISA's KEV list](https://www.cisa.gov/known-exploited-vulnerabilities-catalog). It keeps CVEs with a CVSS v3.1 base score whose description opens with a recognizable vendor or product (the `VENDORS` list). It then caps each vendor at 10 and each 1-point score band at 32, so the pool spreads across the scale. The result is written into `index.html`. A full pull takes a couple of minutes because NVD rate-limits requests without an API key.
+1. **Fetch.** This pulls the last 30 days of CVEs from the [NVD API](https://nvd.nist.gov/developers/vulnerabilities) and flags any on [CISA's KEV list](https://www.cisa.gov/known-exploited-vulnerabilities-catalog). It keeps CVEs with a CVSS v3.1 base score whose description opens with a recognizable vendor or product (the `VENDORS` list). It caps each vendor at 6 and each 1-point score band at 14, for a pool of about 110 spread across the scale. The pool, with full descriptions, goes to `data/pool.json`. It takes a couple of minutes because NVD rate-limits requests without an API key.
+2. **Write the bullets** in `data/bullets.json`: `{"CVE-…": {"affects": "…", "flaw": "…", "impact": "…", "vendor": "optional better label"}}`. Keep each bullet under about 90 characters. Claude can write these from `data/pool.json` in a few minutes. Skip any CVE whose description has too little detail to say anything real; it'll be left out.
+3. **Build:**
+
+   ```bash
+   python3 tools/fetch_cves.py build
+   ```
+
+   This merges the pool and bullets into `index.html`. It lists any CVE left out for missing bullets and any bullet that runs long.
 
 **Refresh on Friday, at or just after the rotation.** The weekly queue is seeded from the week number *and* the data's fetch date. Refreshing mid-week would give later players a different queue from earlier ones, and would reset the official runs already played that week.
 

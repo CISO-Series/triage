@@ -1,13 +1,22 @@
 #!/usr/bin/env python3
-"""Pull recent CVEs from NVD and bake a balanced pool into Triage's index.html.
+"""Refresh Triage's CVE pool. Two steps, run from the repo root:
 
-Run from the repo root:  python3 tools/fetch_cves.py [--days 30]
+  1. python3 tools/fetch_cves.py fetch [--days 30]
+       Pulls recent CVEs from NVD (and CISA's KEV list), picks a balanced pool of about 110,
+       and writes data/pool.json with each CVE's full NVD description.
 
-- Source: NVD CVE API 2.0 (public, no key needed; requests are spaced out for its rate limit).
-- Also flags CVEs on CISA's Known Exploited Vulnerabilities (KEV) list.
-- Keeps CVEs that have a CVSS v3.1 base score and mention a recognizable vendor,
-  then balances the pool across the score range so "higher" isn't always the safe bet.
-- Rewrites the JSON block between the CVE-DATA markers in index.html.
+  2. Write data/bullets.json: for every CVE in the pool, three short plain-English bullets
+       {"CVE-…": {"affects": "...", "flaw": "...", "impact": "...", "vendor": "(optional label)"}}
+     These are written by a person (or Claude) from the full description, so nothing on a
+     card is ever truncated. Keep each bullet under about 90 characters, and never include the
+     CVSS score or a severity word (some NVD descriptions quote them). "vendor" overrides the
+     card's label when the auto-detected one is off (e.g. "Pillow" instead of "Python").
+
+  3. python3 tools/fetch_cves.py build
+       Merges pool + bullets into the CVE-DATA block in index.html. CVEs without bullets
+       are left out (and listed), so a half-written bullets file never ships cut-off text.
+
+Source: NVD CVE API 2.0 (public, no key; requests are spaced for its rate limit).
 """
 import argparse, json, random, re, sys, time, urllib.request
 from datetime import datetime, timedelta, timezone
@@ -15,10 +24,11 @@ from pathlib import Path
 
 NVD = "https://services.nvd.nist.gov/rest/json/cves/2.0"
 KEV = "https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json"
-INDEX = Path(__file__).resolve().parent.parent / "index.html"
+ROOT = Path(__file__).resolve().parent.parent
+INDEX, POOL, BULLETS = ROOT / "index.html", ROOT / "data" / "pool.json", ROOT / "data" / "bullets.json"
 UA = {"User-Agent": "triage-game-cve-fetch"}
 
-# Vendors/products people will recognize. The first match in a description is shown on the card.
+# Vendors/products people will recognize. Matched only at the start of a description.
 VENDORS = [
     "Microsoft", "Windows", "Exchange", "SharePoint", "Azure", "Apple", "macOS", "iOS", "Google", "Chrome",
     "Android", "Cisco", "Fortinet", "FortiOS", "FortiGate", "Palo Alto Networks", "PAN-OS", "Ivanti", "VMware",
@@ -44,8 +54,8 @@ CANON = {"Windows": "Microsoft", "Exchange": "Microsoft", "SharePoint": "Microso
          "Thunderbird": "Mozilla", "MOVEit": "Progress", "WS_FTP": "Progress", "Magento": "Adobe",
          "Adobe Commerce": "Adobe", "ManageEngine": "Zoho", "Go ": "Go", "Git ": "Git"}
 GENERIC = {"PHP", "Python", "Go", "Rust", "Node.js", "Git", "React", "Erlang"}
-PER_VENDOR = 10     # keep one vendor from flooding the pool
-PER_BUCKET = 32      # per 1.0-wide score bucket
+PER_VENDOR = 6       # variety: no vendor floods the pool
+PER_BUCKET = 14      # per 1.0-wide score band, so "higher" isn't always the safe call
 WP_PLUGIN = re.compile(r"plugin for WordPress", re.I)
 
 
@@ -54,7 +64,7 @@ def get(url, tries=4):
         try:
             with urllib.request.urlopen(urllib.request.Request(url, headers=UA), timeout=120) as r:
                 return json.load(r)
-        except Exception as e:  # NVD rate-limits with 403/503; back off and retry
+        except Exception:  # NVD rate-limits with 403/503; back off and retry
             if i == tries - 1:
                 raise
             time.sleep(10 * (i + 1))
@@ -66,8 +76,7 @@ def fetch_nvd(days):
     fmt = lambda d: d.strftime("%Y-%m-%dT%H:%M:%S.000Z")
     out, idx = [], 0
     while True:
-        url = f"{NVD}?pubStartDate={fmt(start)}&pubEndDate={fmt(end)}&resultsPerPage=2000&startIndex={idx}"
-        d = get(url)
+        d = get(f"{NVD}?pubStartDate={fmt(start)}&pubEndDate={fmt(end)}&resultsPerPage=2000&startIndex={idx}")
         out += d["vulnerabilities"]
         idx += d["resultsPerPage"]
         print(f"  NVD: {idx}/{d['totalResults']}", file=sys.stderr)
@@ -76,39 +85,24 @@ def fetch_nvd(days):
         time.sleep(7)
 
 
-def short(desc, n=170):
-    desc = re.sub(r"\s+", " ", desc).strip()
-    if len(desc) <= n:
-        return desc
-    cut = desc[:n].rsplit(" ", 1)[0].rstrip(",;:")
-    return cut + "…"
-
-
 def pick_vendor(desc):
-    # Only the opening of the description names the affected product; later mentions are often
-    # just dependencies or examples ("...via curl"), which would mislabel the card.
+    # Only the opening of a description names the affected product; later mentions are often
+    # dependencies or examples ("...via curl") that would mislabel the card.
     head = desc[:70]
     hits = [(m.start(), v) for v in VENDORS
             for m in [re.search(r"(?<![\w-])" + re.escape(v.strip()) + r"(?![\w-])", head)] if m]
     if not hits:
         return None
-    # Language/runtime names often describe the bug class ("PHP Object Injection in <product>"),
-    # so a real product name wins when both appear.
+    # Language names often describe the bug class ("PHP Object Injection in <product>").
     specific = [h for h in hits if h[1].strip() not in GENERIC]
     v = min(specific or hits)[1]
     return CANON.get(v, v).strip()
 
 
-def main():
-    ap = argparse.ArgumentParser()
-    ap.add_argument("--days", type=int, default=30)
-    ap.add_argument("--seed", type=int, default=None)
-    a = ap.parse_args()
-
+def cmd_fetch(a):
     kev = set()
     try:
         kev = {v["cveID"] for v in get(KEV)["vulnerabilities"]}
-        print(f"  KEV: {len(kev)} known-exploited CVEs", file=sys.stderr)
     except Exception as e:
         print(f"  KEV fetch failed ({e}); continuing without it", file=sys.stderr)
 
@@ -121,7 +115,7 @@ def main():
         if not m:
             continue
         m = next((x for x in m if x.get("type") == "Primary"), m[0])
-        desc = next((d["value"] for d in c.get("descriptions", []) if d["lang"] == "en"), "")
+        desc = re.sub(r"\s+", " ", next((d["value"] for d in c.get("descriptions", []) if d["lang"] == "en"), "")).strip()
         if not desc or "DISPUTED" in desc or WP_PLUGIN.search(desc):
             continue
         vendor = pick_vendor(desc)
@@ -129,39 +123,66 @@ def main():
             continue
         cwe = next((d["value"] for w in c.get("weaknesses", []) for d in w.get("description", [])
                     if d["value"].startswith("CWE-")), "")
-        cands.append({
-            "id": c["id"], "score": m["cvssData"]["baseScore"], "sev": m["cvssData"]["baseSeverity"],
-            "vendor": vendor, "desc": short(desc), "cwe": cwe, "pub": c["published"][:10],
-            "kev": c["id"] in kev,
-        })
+        cands.append({"id": c["id"], "score": m["cvssData"]["baseScore"], "sev": m["cvssData"]["baseSeverity"],
+                      "vendor": vendor, "cwe": cwe, "pub": c["published"][:10], "kev": c["id"] in kev,
+                      "description": desc})
 
     rng = random.Random(a.seed)
     rng.shuffle(cands)
-    cands.sort(key=lambda x: not x["kev"])          # exploited-in-the-wild first, they're the fun ones
-    per_vendor, per_bucket, seen_desc, pool = {}, {}, set(), []
+    cands.sort(key=lambda x: not x["kev"])          # exploited-in-the-wild first
+    per_vendor, per_bucket, seen, pool = {}, {}, set(), []
     for x in cands:
         b = min(int(x["score"]), 9)
-        key = x["desc"][:60]
-        if per_vendor.get(x["vendor"], 0) >= PER_VENDOR or per_bucket.get(b, 0) >= PER_BUCKET or key in seen_desc:
+        key = x["description"][:60]
+        if per_vendor.get(x["vendor"], 0) >= PER_VENDOR or per_bucket.get(b, 0) >= PER_BUCKET or key in seen:
             continue
         per_vendor[x["vendor"]] = per_vendor.get(x["vendor"], 0) + 1
         per_bucket[b] = per_bucket.get(b, 0) + 1
-        seen_desc.add(key)
+        seen.add(key)
         pool.append(x)
     pool.sort(key=lambda x: x["id"])
+    POOL.parent.mkdir(exist_ok=True)
+    POOL.write_text(json.dumps({"fetched": datetime.now(timezone.utc).strftime("%Y-%m-%d"), "days": a.days,
+                                "cves": pool}, indent=1, ensure_ascii=False))
+    print(f"Wrote {len(pool)} CVEs ({sum(x['kev'] for x in pool)} KEV, {len(per_vendor)} vendors) to {POOL.relative_to(ROOT)}. "
+          f"Score bands: " + " ".join(f"{b}:{per_bucket.get(b,0)}" for b in range(10)))
+    print(f"Next: write {BULLETS.relative_to(ROOT)}, then run `build`.")
 
-    data = {"fetched": datetime.now(timezone.utc).strftime("%Y-%m-%d"), "days": a.days, "cves": pool}
-    html = INDEX.read_text()
+
+def cmd_build(a):
+    pool = json.loads(POOL.read_text())
+    bullets = json.loads(BULLETS.read_text()) if BULLETS.exists() else {}
+    keep, missing, long = [], [], []
+    for x in pool["cves"]:
+        b = bullets.get(x["id"])
+        if not b or not all(b.get(k) for k in ("affects", "flaw", "impact")):
+            missing.append(x["id"]); continue
+        long += [f"{x['id']} {k}: {len(b[k])} chars" for k in ("affects", "flaw", "impact") if len(b[k]) > 110]
+        keep.append({k: x[k] for k in ("id", "score", "sev", "vendor", "cwe", "pub", "kev")} |
+                    {"vendor": b.get("vendor") or x["vendor"],   # optional override for a better label
+                     "affects": b["affects"], "flaw": b["flaw"], "impact": b["impact"]})
+    data = {"fetched": pool["fetched"], "days": pool["days"], "cves": keep}
     block = "<!--CVE-DATA-->\n<script type=\"application/json\" id=\"cve-data\">" + \
             json.dumps(data, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/") + \
             "</script>\n<!--/CVE-DATA-->"
-    html, n = re.subn(r"<!--CVE-DATA-->.*?<!--/CVE-DATA-->", lambda _: block, html, flags=re.S)
+    html, n = re.subn(r"<!--CVE-DATA-->.*?<!--/CVE-DATA-->", lambda _: block, INDEX.read_text(), flags=re.S)
     if n != 1:
         sys.exit("Couldn't find the CVE-DATA markers in index.html.")
     INDEX.write_text(html)
-    hist = " ".join(f"{b}:{per_bucket.get(b,0)}" for b in range(10))
-    print(f"Wrote {len(pool)} CVEs ({sum(x['kev'] for x in pool)} KEV) from {len(cands)} candidates. "
-          f"Score buckets {hist}. Vendors: {len(per_vendor)}")
+    print(f"Built {len(keep)} CVEs into index.html.")
+    if missing:
+        print(f"Left out {len(missing)} without bullets: {', '.join(missing)}")
+    if long:
+        print("Bullets over 110 chars (they'll wrap to more lines):\n  " + "\n  ".join(long))
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    sub = ap.add_subparsers(dest="cmd", required=True)
+    f = sub.add_parser("fetch"); f.add_argument("--days", type=int, default=30); f.add_argument("--seed", type=int)
+    sub.add_parser("build")
+    a = ap.parse_args()
+    {"fetch": cmd_fetch, "build": cmd_build}[a.cmd](a)
 
 
 if __name__ == "__main__":

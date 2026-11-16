@@ -1,0 +1,662 @@
+{
+ "CVE-2026-101356": {
+  "vendor": "Apache Tomcat",
+  "affects": "Apache Tomcat 9.0, 10.1 and 11.0 (HTTP/2 with async servlets)",
+  "flaw": "Objects recycled too early in HTTP/2 processing (race condition)",
+  "impact": "One user's request or response can be mixed up with another user's"
+ },
+ "CVE-2026-101385": {
+  "vendor": "Oracle",
+  "affects": "Oracle REST Data Services 24.2 through 26.1",
+  "flaw": "Access control weakness in the Core component",
+  "impact": "A remote attacker who already has high privileges can create, change or delete key data"
+ },
+ "CVE-2026-101513": {
+  "vendor": "Oracle MySQL",
+  "affects": "MySQL Cluster 8.0.0 through 8.0.37 (InnoDB)",
+  "flaw": "Resource-exhaustion weakness, hard to exploit",
+  "impact": "An attacker with physical access and high privileges can hang or crash the cluster"
+ },
+ "CVE-2026-101585": {
+  "vendor": "Oracle",
+  "affects": "Oracle Helidon 3.0.0 through 3.2.21 (CORS handling)",
+  "flaw": "Information exposure in the helidon-cors component",
+  "impact": "An unauthenticated remote attacker can read and alter some data, reaching beyond Helidon itself"
+ },
+ "CVE-2026-101633": {
+  "vendor": "Oracle MySQL",
+  "affects": "MySQL Router 26.7.0",
+  "flaw": "Access control weakness in the Router",
+  "impact": "A logged-in remote user can read a subset of Router data"
+ },
+ "CVE-2026-101779": {
+  "vendor": "Oracle MySQL",
+  "affects": "MySQL Server and Cluster 8.4, 9.7 and 26.7 (Telemetry)",
+  "flaw": "Access control weakness in the telemetry component",
+  "impact": "A remote attacker with high privileges can cause a partial outage"
+ },
+ "CVE-2026-101804": {
+  "vendor": "Oracle MySQL",
+  "affects": "MySQL Connector/ODBC 26.7.1",
+  "flaw": "Access control weakness, hard to exploit",
+  "impact": "A local attacker who tricks a user into an action can cause a partial outage"
+ },
+ "CVE-2026-101820": {
+  "vendor": "Oracle E-Business Suite",
+  "affects": "Oracle General Ledger 12.2.3 through 12.2.15",
+  "flaw": "Access control weakness in ADADMIN, hard to exploit",
+  "impact": "A remote low-privilege user can take over General Ledger"
+ },
+ "CVE-2026-103119": {
+  "vendor": "Apache Tomcat",
+  "affects": "Apache Tomcat 11.0.0-M25 through 11.0.26",
+  "flaw": "Buffer under-read when a large non-blocking write splits a response",
+  "impact": "Part of one response can leak into the next request on the same connection"
+ },
+ "CVE-2026-103314": {
+  "vendor": "Red Hat",
+  "affects": "Red Hat Advanced Cluster Security for Kubernetes (Central SAML login)",
+  "flaw": "SAML responses aren't tracked, so they can be replayed",
+  "impact": "Anyone holding a valid signed SAML response can reuse it for fresh login tokens"
+ },
+ "CVE-2026-103515": {
+  "vendor": "GitLab",
+  "affects": "GitLab EE 19.2 through 19.5.0",
+  "flaw": "Admin lock on AI (Duo) availability isn't enforced finely enough",
+  "impact": "A group Owner can re-enable AI data sharing with a third party that an admin turned off"
+ },
+ "CVE-2026-105467": {
+  "vendor": "IBM QRadar",
+  "affects": "IBM QRadar SIEM 7.5.0 and 7.6.0 (before the latest fixes)",
+  "flaw": "Reflected cross-site scripting (XSS)",
+  "impact": "Runs attacker script if a logged-in analyst opens a crafted link"
+ },
+ "CVE-2026-105615": {
+  "vendor": "PostgreSQL Anonymizer",
+  "affects": "PostgreSQL Anonymizer before 3.3.0",
+  "flaw": "Table statistics stay visible to masked roles",
+  "impact": "A user meant to see only masked data can read a slice of the real values"
+ },
+ "CVE-2026-105617": {
+  "vendor": "PostgreSQL Anonymizer",
+  "affects": "PostgreSQL Anonymizer before 3.3.0",
+  "flaw": "Cached query plans aren't refreshed when masking rules change",
+  "impact": "A user can keep seeing unmasked data until their session ends"
+ },
+ "CVE-2026-105993": {
+  "vendor": "WordPress",
+  "affects": "DT Directory Lite Addon WordPress plugin, through 1.1",
+  "flaw": "Settings handlers skip permission and nonce checks",
+  "impact": "Anyone, without logging in, can change the plugin's settings and skins"
+ },
+ "CVE-2026-107309": {
+  "vendor": "Drupal",
+  "affects": "Easy Breadcrumb module for Drupal, up to 2.0.11",
+  "flaw": "Missing authorization check",
+  "impact": "Lets users browse directly to pages they shouldn't reach"
+ },
+ "CVE-2026-107405": {
+  "vendor": "Ivanti EPMM",
+  "affects": "Ivanti Endpoint Manager Mobile before 12.9.0.3 / 12.10.0.1 / 12.11",
+  "flaw": "A dangerous internal function is exposed",
+  "impact": "A logged-in local attacker can knock the service offline"
+ },
+ "CVE-2026-109455": {
+  "vendor": "Microsoft SharePoint",
+  "affects": "Microsoft Office SharePoint",
+  "flaw": "Incorrect authorization",
+  "impact": "A logged-in attacker can read information they shouldn't, over the network"
+ },
+ "CVE-2026-109618": {
+  "vendor": "PHP",
+  "affects": "PHP runtime",
+  "flaw": "Memory left uninitialized after out-of-memory errors (use after free)",
+  "impact": "An attacker who can trigger out-of-memory conditions can run code remotely"
+ },
+ "CVE-2026-109619": {
+  "vendor": "PHP",
+  "affects": "PHP runtime",
+  "flaw": "Global state keeps pointing at freed request memory",
+  "impact": "Crafted requests can reuse stale memory to run code remotely"
+ },
+ "CVE-2026-111108": {
+  "vendor": "Apache Kafka",
+  "affects": "Apache Kafka brokers before 4.2.2 / 4.3.2 / 4.4.0",
+  "flaw": "Requests can declare huge arrays, forcing big memory allocations before auth",
+  "impact": "A few requests can crash a broker; no login needed on unauthenticated listeners"
+ },
+ "CVE-2026-111454": {
+  "vendor": "Apache Airflow",
+  "affects": "Apache Airflow 2.x and 3.x before 3.4.0 (asset API)",
+  "flaw": "Asset API skips a permission check on related workflows (Dags)",
+  "impact": "A logged-in user can learn the IDs of workflows they aren't allowed to see"
+ },
+ "CVE-2026-111981": {
+  "vendor": "WordPress",
+  "affects": "GiveWP donation plugin for WordPress before 4.19.0.1",
+  "flaw": "Missing permission check on donor address changes",
+  "impact": "Users with view-only donor access can add, change or delete any donor's address"
+ },
+ "CVE-2026-112894": {
+  "vendor": "Pillow",
+  "affects": "Pillow (Python imaging library) 5.1.0 through 12.x",
+  "flaw": "Saving many-frame PDFs takes quadratic time",
+  "impact": "A small crafted image can tie up the CPU of an app that converts it to PDF"
+ },
+ "CVE-2026-112912": {
+  "vendor": "filelock",
+  "affects": "filelock for Python, 3.32.6 through 4.2.0",
+  "flaw": "Lock check can follow a swapped symbolic link",
+  "impact": "Another local user can learn whether a chosen file path exists and is writable"
+ },
+ "CVE-2026-113200": {
+  "vendor": "Google Chrome",
+  "affects": "Google Chrome before 156.0.8078.47 (ANGLE graphics layer)",
+  "flaw": "Uninitialized memory used in graphics code",
+  "impact": "A malicious web page may read memory outside Chrome's sandbox"
+ },
+ "CVE-2026-113671": {
+  "vendor": "ApostropheCMS",
+  "affects": "ApostropheCMS AI helper 1.0.0-beta.10 to beta.12",
+  "flaw": "Server-side request forgery via a request-controlled Host header",
+  "impact": "An editor with image-generation rights can make the server call a host they choose"
+ },
+ "CVE-2026-113733": {
+  "vendor": "Django",
+  "affects": "Django 6.0 before 6.0.10 and 6.1 before 6.1.3 (admin)",
+  "flaw": "Password field not hidden on some custom user models",
+  "impact": "Staff with view-only access can read full password hashes"
+ },
+ "CVE-2026-114137": {
+  "vendor": "Django REST framework",
+  "affects": "Django REST framework 3.12.0 through 3.18.1",
+  "flaw": "Token delete through a proxy model silently deletes nothing",
+  "impact": "Revoked API tokens keep working, possibly forever, since they don't expire"
+ },
+ "CVE-2026-114614": {
+  "vendor": "Authlib",
+  "affects": "Authlib (Python OAuth/OpenID library) 0.13 through 1.7.x",
+  "flaw": "Loopback check compares text, so a crafted URL passes as local",
+  "impact": "An outside party can get cleartext (non-TLS) endpoints and redirects accepted"
+ },
+ "CVE-2026-115336": {
+  "vendor": "Progress WS_FTP",
+  "affects": "Progress WS_FTP Server on Windows before 2025.0.5",
+  "flaw": "Storage quota is miscounted",
+  "impact": "A user with upload and delete rights can exceed quotas and fill the disk"
+ },
+ "CVE-2026-115812": {
+  "vendor": "AWS",
+  "affects": "AWS Multi Model Server 1.1.11 and earlier (end of life, no fix)",
+  "flaw": "Path traversal when unpacking a model archive",
+  "impact": "A crafted model archive can run code on the server"
+ },
+ "CVE-2026-116140": {
+  "vendor": "ImageMagick",
+  "affects": "ImageMagick before 6.9.13-58 and 7.1.2-33",
+  "flaw": "Delegate commands parsed wrong, slipping past policy.xml blocks",
+  "impact": "A crafted input can run a program the admin explicitly blocked"
+ },
+ "CVE-2026-116153": {
+  "vendor": "ImageMagick",
+  "affects": "ImageMagick before 7.1.2-33, on 32-bit systems",
+  "flaw": "Integer overflow leading to a heap buffer overflow (convex hull)",
+  "impact": "A crafted image can crash the app or possibly run code"
+ },
+ "CVE-2026-116160": {
+  "vendor": "ImageMagick",
+  "affects": "ImageMagick before 6.9.13-58 and 7.1.2-33 (X11 animate)",
+  "flaw": "Heap buffer overflow",
+  "impact": "A crafted image crashes the app when a user animates it under X11"
+ },
+ "CVE-2026-116411": {
+  "vendor": "Dell PowerStore",
+  "affects": "Dell PowerStore storage",
+  "flaw": "Server-side request forgery (SSRF)",
+  "impact": "A low-privilege user can make it query internal services and leak information"
+ },
+ "CVE-2026-116417": {
+  "vendor": "Dell PowerScale",
+  "affects": "Dell PowerScale InsightIQ 6.3.0 through 6.4.0",
+  "flaw": "Weak password requirements",
+  "impact": "An attacker on the adjacent network can guess their way in and read data"
+ },
+ "CVE-2026-117626": {
+  "vendor": "Jenkins",
+  "affects": "Jenkins 2.587 and earlier, LTS 2.580.1 and earlier",
+  "flaw": "Path traversal not fully caught in the workspace file browser",
+  "impact": "Users with basic read access can list file names, sizes and dates in Jenkins home"
+ },
+ "CVE-2026-118072": {
+  "vendor": "WordPress",
+  "affects": "Fraud Prevention for WooCommerce/EDD plugin before 2.3.6",
+  "flaw": "Missing permission check on the fraud blacklist",
+  "impact": "Any subscriber can blacklist real customers so they can't place orders"
+ },
+ "CVE-2026-118202": {
+  "vendor": "WordPress",
+  "affects": "Limit Login Attempts Security plugin for WordPress before 3.4.1",
+  "flaw": "Treats a failed two-factor step as a success",
+  "impact": "Anyone with a user's password can skip 2FA using a crafted request header"
+ },
+ "CVE-2026-118527": {
+  "vendor": "Ivanti Connect Secure",
+  "affects": "Ivanti Connect Secure VPN before 22.8R2.6 and 25.1.1.3",
+  "flaw": "Predictable file names",
+  "impact": "A logged-in remote attacker can plant files with their own content at a known location"
+ },
+ "CVE-2026-118677": {
+  "vendor": "n8n",
+  "affects": "n8n Local Gateway desktop app before 2.41.4 / 2.42.1",
+  "flaw": "Deep link re-pairs the app without asking for confirmation",
+  "impact": "One click on a crafted link hands an attacker's server control of the user's computer"
+ },
+ "CVE-2026-118706": {
+  "vendor": "Microsoft Excel",
+  "affects": "Microsoft Office Excel",
+  "flaw": "Use after free",
+  "impact": "A crafted spreadsheet lets an attacker run code"
+ },
+ "CVE-2026-119673": {
+  "vendor": "MongoDB",
+  "affects": "MongoDB Database Tools (mongofiles) 100.2.0 to before 100.20.1",
+  "flaw": "Download paths don't resolve symlinked parent folders",
+  "impact": "An attacker can make an operator's download write a file outside the target folder"
+ },
+ "CVE-2026-119977": {
+  "vendor": "WordPress",
+  "affects": "WordPress core 4.7 through 7.1.3",
+  "flaw": "Predictable, web-reachable staging paths during core upgrades (race)",
+  "impact": "An unauthenticated attacker can run code on the server while an upgrade runs"
+ },
+ "CVE-2026-120817": {
+  "vendor": "MongoDB",
+  "affects": "MongoDB Server (schema validation with geospatial rules)",
+  "flaw": "Race condition between concurrent writes",
+  "impact": "A logged-in user with write access can crash the server"
+ },
+ "CVE-2026-120930": {
+  "vendor": "Google Chrome",
+  "affects": "Google Chrome before 156.0.8078.47 (Blink engine)",
+  "flaw": "Incorrect authorization in the rendering engine",
+  "impact": "A malicious web page can get around the browser's same-origin protections"
+ },
+ "CVE-2026-121231": {
+  "vendor": "Google Chrome",
+  "affects": "Google Chrome before 157.0.8103.38 (DevTools)",
+  "flaw": "Incorrect authorization in DevTools",
+  "impact": "A malicious web page can get around system access restrictions"
+ },
+ "CVE-2026-121232": {
+  "vendor": "Google Chrome",
+  "affects": "Google Chrome before 157.0.8103.38",
+  "flaw": "Incorrect authorization in Chrome's core",
+  "impact": "A co-installed app plus social engineering can expose sensitive information"
+ },
+ "CVE-2026-121415": {
+  "vendor": "Parse Server",
+  "affects": "Parse Server (on MongoDB) before 8.6.111 and 9.10.6-alpha.3",
+  "flaw": "Field type checks skipped for null-valued dot-notation keys",
+  "impact": "Any client allowed to write, even anonymously, can corrupt or break stored objects"
+ },
+ "CVE-2026-121653": {
+  "vendor": "Ivanti EPM",
+  "affects": "Ivanti Endpoint Manager before 2024 SU8",
+  "flaw": "SQL injection in the core",
+  "impact": "An unauthenticated remote attacker can run code on the server"
+ },
+ "CVE-2026-123158": {
+  "vendor": "OpenSSH",
+  "affects": "OpenSSH sshd before 10.6p2 on Linux with musl libc and no PAM (e.g. Alpine)",
+  "flaw": "Password check misreads some inputs as password hashes",
+  "impact": "On some accounts, any password 256 to 1024 characters long logs you in"
+ },
+ "CVE-2026-123218": {
+  "vendor": "IBM Aspera",
+  "affects": "IBM Aspera Faspex 5.0.0 through 5.0.19",
+  "flaw": "Authorization bypass via a crafted message",
+  "impact": "A logged-in user can gain full administrator rights"
+ },
+ "CVE-2026-123867": {
+  "vendor": "Node.js",
+  "affects": "Node.js 22.x, 24.x and 26.x TLS servers using per-host client CAs",
+  "flaw": "Per-host mutual-TLS CA silently falls back to the default CA",
+  "impact": "A client approved for one hostname can connect to a protected one it isn't approved for"
+ },
+ "CVE-2026-124183": {
+  "vendor": "Microsoft Excel",
+  "affects": "Microsoft Office Excel",
+  "flaw": "Buffer over-read",
+  "impact": "A crafted spreadsheet can leak information from memory"
+ },
+ "CVE-2026-124194": {
+  "vendor": "Microsoft Outlook",
+  "affects": "Microsoft Office Outlook",
+  "flaw": "No warning shown before an unsafe action",
+  "impact": "An attacker can spoof content to trick the user"
+ },
+ "CVE-2026-124429": {
+  "vendor": "Craft CMS",
+  "affects": "Craft CMS 5.0.0 before 5.11.2",
+  "flaw": "Public sign-up can reclaim a deactivated account",
+  "impact": "An unauthenticated attacker can take over an old account and its permissions"
+ },
+ "CVE-2026-124671": {
+  "vendor": "WordPress",
+  "affects": "Burst Statistics plugin for WordPress before 3.7.5",
+  "flaw": "Shared report links don't enforce their date range",
+  "impact": "Anyone with a share link can read the site's stats for any period"
+ },
+ "CVE-2026-125069": {
+  "vendor": "FFmpeg",
+  "affects": "FFmpeg through 9.0.2 (Motion Pixels decoder)",
+  "flaw": "Error ignored, leading to a NULL pointer dereference",
+  "impact": "A huge crafted packet crashes the app decoding it"
+ },
+ "CVE-2026-125105": {
+  "vendor": "Wagtail",
+  "affects": "Wagtail CMS (Django) before 7.0.9 / 7.3.4 / 7.4.3",
+  "flaw": "Cache headers are checked before document permissions",
+  "impact": "An outsider can confirm whether a document with a known hash exists"
+ },
+ "CVE-2026-125184": {
+  "vendor": "FFmpeg",
+  "affects": "FFmpeg 6.1 through 9.0.2 (CamStudio decoder)",
+  "flaw": "Uninitialized heap memory copied into decoded frames",
+  "impact": "A crafted AVI can leak memory contents into the output video"
+ },
+ "CVE-2026-125188": {
+  "vendor": "FFmpeg",
+  "affects": "FFmpeg through 9.0.2 (prores_aw encoder)",
+  "flaw": "Out-of-bounds read on odd-height interlaced frames",
+  "impact": "Crafted video leaks heap memory into the encoded output"
+ },
+ "CVE-2026-125198": {
+  "vendor": "FFmpeg",
+  "affects": "FFmpeg through 9.0.2 in Android apps (MediaCodec)",
+  "flaw": "Memory leak: buffers are never freed",
+  "impact": "Crafted media files drain memory until the app runs out"
+ },
+ "CVE-2026-125206": {
+  "vendor": "FFmpeg",
+  "affects": "FFmpeg through 9.0.2 (prores_ks encoder, alpha channel)",
+  "flaw": "Out-of-bounds read on odd-height interlaced frames",
+  "impact": "Crafted video leaks memory into the output's alpha plane"
+ },
+ "CVE-2026-125267": {
+  "vendor": "FFmpeg",
+  "affects": "FFmpeg before 8.1.3 and 9.x before 9.0.2 (APAC decoder)",
+  "flaw": "Integer overflow causing a heap out-of-bounds write",
+  "impact": "A crafted APAC audio file can corrupt memory or crash the app"
+ },
+ "CVE-2026-125341": {
+  "vendor": "Winter CMS",
+  "affects": "Winter CMS 1.1.0 to before 1.2.14 (only with certain third-party plugins)",
+  "flaw": "Image list values aren't escaped (stored XSS)",
+  "impact": "Attacker script runs when a backend user views the affected list"
+ },
+ "CVE-2026-125350": {
+  "vendor": "Google Chrome",
+  "affects": "Google Chrome before 157.0.8103.50 (XML handling)",
+  "flaw": "Use after free",
+  "impact": "A malicious web page can run code inside Chrome's sandbox"
+ },
+ "CVE-2026-126381": {
+  "vendor": "n8n",
+  "affects": "n8n before 2.43.5 / 2.44.1 / 3.0.1 (Vector Store OracleDB node)",
+  "flaw": "SQL injection through unvalidated metadata filter keys",
+  "impact": "Input from a webhook can read any data the workflow's Oracle login can"
+ },
+ "CVE-2026-126382": {
+  "vendor": "n8n",
+  "affects": "n8n before 2.38.0 and 3.x before 3.0.1 (Asana Trigger)",
+  "flaw": "Any request can replace the webhook's verification secret",
+  "impact": "Anyone with the webhook URL can fire workflows with fake Asana events"
+ },
+ "CVE-2026-126388": {
+  "vendor": "n8n",
+  "affects": "n8n before 2.46.1",
+  "flaw": "Login credentials are forwarded on cross-site redirects by default",
+  "impact": "An attacker-controlled redirect can capture stored workflow credentials"
+ },
+ "CVE-2026-128049": {
+  "vendor": "OpenMage Magento",
+  "affects": "OpenMage Magento LTS before 20.18.2 / 21.0.0-beta3",
+  "flaw": "Cross-site request forgery on OAuth approval pages",
+  "impact": "Lure an admin or customer to a link and get a lasting API token as them"
+ },
+ "CVE-2026-128088": {
+  "vendor": "russh",
+  "affects": "russh (Rust SSH library) before 0.65.1, SSH agent",
+  "flaw": "Signing request doesn't recheck the agent's lock after waiting (race)",
+  "impact": "A pending signature can complete after the agent was locked; keys aren't exposed"
+ },
+ "CVE-2026-16240": {
+  "vendor": "PostgreSQL",
+  "affects": "PostgreSQL pg_basebackup before 18.7 / 17.12 / 16.16 / 15.20 / 14.25",
+  "flaw": "Format string bug fed by the backup manifest",
+  "impact": "An already-compromised server can make the backup client read its own memory"
+ },
+ "CVE-2026-17311": {
+  "vendor": "IBM API Connect",
+  "affects": "IBM API Connect 12.1.0.0 through 12.1.1.2",
+  "flaw": "Broken object-level authorization",
+  "impact": "A logged-in remote user can change other apps' API subscriptions"
+ },
+ "CVE-2026-17398": {
+  "vendor": "IBM API Connect",
+  "affects": "IBM API Connect 10.0.8.x and 12.1.0.0 through 12.1.1.2",
+  "flaw": "Server-side request forgery (SSRF)",
+  "impact": "A logged-in remote user can obtain sensitive information"
+ },
+ "CVE-2026-18195": {
+  "vendor": "IBM App Connect",
+  "affects": "IBM App Connect Enterprise 12.0 and 13.0",
+  "flaw": "Error messages aren't encoded properly",
+  "impact": "A remote attacker can spoof content shown to users"
+ },
+ "CVE-2026-18447": {
+  "vendor": "PostgreSQL",
+  "affects": "PostgreSQL before 18.7 / 17.12 / 16.16 / 15.20 / 14.25",
+  "flaw": "Type confusion in SQL-language functions",
+  "impact": "A user who can create functions can run code as the database's OS account"
+ },
+ "CVE-2026-19421": {
+  "vendor": "ManageEngine",
+  "affects": "Zoho ManageEngine DDI Central below build 6301",
+  "flaw": "PowerShell injection via DNS TXT record values",
+  "impact": "Crafted TXT records run PowerShell commands during Windows DNS operations"
+ },
+ "CVE-2026-54859": {
+  "vendor": "Preservation",
+  "affects": "Preservation, versions 1.15 and earlier",
+  "flaw": "PHP object injection (unsafe deserialization)",
+  "impact": "An unauthenticated attacker can inject objects the app will process"
+ },
+ "CVE-2026-56388": {
+  "vendor": "Apache bRPC",
+  "affects": "Apache bRPC before 1.18.0 with the Redis service turned on",
+  "flaw": "Out-of-bounds write on an empty Redis command header",
+  "impact": "An unauthenticated remote attacker can crash the server"
+ },
+ "CVE-2026-61902": {
+  "vendor": "Apache bRPC",
+  "affects": "Apache bRPC before 1.18.0",
+  "flaw": "Configured maximum message size isn't always enforced",
+  "impact": "An unauthenticated remote peer can exhaust memory and take the service down"
+ },
+ "CVE-2026-62012": {
+  "vendor": "Coinpress",
+  "affects": "Coinpress, versions 1.0.15 and earlier",
+  "flaw": "PHP object injection (unsafe deserialization)",
+  "impact": "An unauthenticated attacker can inject objects the app will process"
+ },
+ "CVE-2026-63478": {
+  "vendor": "isomorphic-git",
+  "affects": "isomorphic-git (JavaScript Git) before 1.38.6",
+  "flaw": "Accepts '..' folder names in repository trees (path traversal)",
+  "impact": "Cloning a malicious repo can overwrite files outside it, leading to code execution"
+ },
+ "CVE-2026-65145": {
+  "vendor": "NVIDIA",
+  "affects": "NVIDIA NeMo Agent Toolkit",
+  "flaw": "Missing authentication",
+  "impact": "Could lead to code execution, privilege escalation, data tampering or outage"
+ },
+ "CVE-2026-74759": {
+  "vendor": "Google::Auth",
+  "affects": "Google::Auth for Perl, version 0.12 (AWS external account credentials)",
+  "flaw": "Server-side request forgery: credential URLs aren't host-checked",
+  "impact": "An untrusted config can make the app call internal services or cloud metadata"
+ },
+ "CVE-2026-76296": {
+  "vendor": "Splunk",
+  "affects": "Splunk Enterprise below 9.4.16 / 10.0.11 / 10.2.8 / 10.4.4",
+  "flaw": "Splunk Web skips app permission checks when renaming sourcetypes",
+  "impact": "A regular user can edit sourcetype renames in apps they can't access"
+ },
+ "CVE-2026-76418": {
+  "vendor": "Cisco",
+  "affects": "Cisco Secure Firewall ASA and FTD (remote access SSL VPN)",
+  "flaw": "Logic error when secondary authentication is configured",
+  "impact": "An unauthenticated remote attacker can make the firewall reload (outage)"
+ },
+ "CVE-2026-81558": {
+  "vendor": "Synology",
+  "affects": "Synology DiskStation Manager before 7.3.2-86009-5 / 7.4.1-90080-1",
+  "flaw": "Missing authorization in the SocketIo API",
+  "impact": "A logged-in remote user can write certain files"
+ },
+ "CVE-2026-82154": {
+  "vendor": "Dell",
+  "affects": "Dell OS Recovery tool before 2.4.4",
+  "flaw": "Hard-coded encryption key",
+  "impact": "An attacker with physical access can read protected information"
+ },
+ "CVE-2026-82179": {
+  "vendor": "Dell PowerStore",
+  "affects": "Dell PowerStore storage",
+  "flaw": "Authorization bypass",
+  "impact": "An admin can skip the multi-person approval required for sensitive operations"
+ },
+ "CVE-2026-83371": {
+  "vendor": "Oracle E-Business Suite",
+  "affects": "Oracle HRMS (UK) 12.2.3 through 12.2.15",
+  "flaw": "Information exposure in Internal Operations",
+  "impact": "A low-privilege user who tricks someone into an action can read and alter some HR data"
+ },
+ "CVE-2026-84916": {
+  "vendor": "Drupal",
+  "affects": "Islandora for Drupal, up to 2.19.0",
+  "flaw": "Missing authorization check",
+  "impact": "Lets users browse directly to pages they shouldn't reach"
+ },
+ "CVE-2026-85098": {
+  "vendor": "Synology",
+  "affects": "Synology DiskStation Manager before 7.3.2-86009-5 / 7.4.1-90080-1",
+  "flaw": "Reachable assertion in synoscgi",
+  "impact": "A remote attacker can cause a limited outage"
+ },
+ "CVE-2026-85249": {
+  "vendor": "Apache Camel",
+  "affects": "Apache Camel Tika component 4.0 before 4.18.5 / 4.22.1",
+  "flaw": "Document metadata copied into message headers unfiltered",
+  "impact": "A crafted document can set headers that control where files get written"
+ },
+ "CVE-2026-87951": {
+  "vendor": "Drupal",
+  "affects": "SAML SSO Service Provider module for Drupal, up to 3.2.0",
+  "flaw": "Sensitive information stored insecurely",
+  "impact": "Lets an attacker retrieve embedded sensitive data"
+ },
+ "CVE-2026-89129": {
+  "vendor": "SAP NetWeaver",
+  "affects": "SAP NetWeaver AS Java (Web Services)",
+  "flaw": "Server-side request forgery via a crafted SOAP request",
+  "impact": "An unauthenticated attacker can learn about connected internal systems"
+ },
+ "CVE-2026-91214": {
+  "vendor": "Oracle",
+  "affects": "Oracle SOA Suite 12.2.1.4.0 and 14.1.2.0.0 (Fabric Layer)",
+  "flaw": "Authentication flaw, easy to exploit",
+  "impact": "An unauthenticated remote attacker can take over SOA Suite"
+ },
+ "CVE-2026-91661": {
+  "vendor": "Oracle",
+  "affects": "Oracle Essbase 21.8.3.0.0 (Security component)",
+  "flaw": "Information exposure, easy to exploit",
+  "impact": "A low-privilege remote user can read all Essbase data, reaching other products too"
+ },
+ "CVE-2026-91901": {
+  "vendor": "Dell Alienware",
+  "affects": "Dell Alienware Command Center before 6.14.54.0",
+  "flaw": "Custom URL handler doesn't check authorization",
+  "impact": "A remote low-privilege attacker can trigger client-side request forgery"
+ },
+ "CVE-2026-91912": {
+  "vendor": "Dell",
+  "affects": "Dell OpenManage Enterprise before 4.8.0",
+  "flaw": "Hard-coded encryption key",
+  "impact": "A local low-privilege user can read protected information"
+ },
+ "CVE-2026-93744": {
+  "vendor": "IBM i",
+  "affects": "IBM i 7.3 through 7.6 (Navigator web app)",
+  "flaw": "Improper access control before login",
+  "impact": "An unauthenticated remote attacker can tamper with session security state"
+ },
+ "CVE-2026-95756": {
+  "vendor": "HPE",
+  "affects": "HPE Networking Fabric Composer API",
+  "flaw": "Command injection, only under certain conditions",
+  "impact": "A remote admin can gain elevated rights on the underlying OS"
+ },
+ "CVE-2026-95768": {
+  "vendor": "HPE",
+  "affects": "HPE Networking Fabric Composer API",
+  "flaw": "Privilege escalation, only under certain conditions",
+  "impact": "A remote low-privilege user can obtain sensitive information"
+ },
+ "CVE-2026-95773": {
+  "vendor": "HPE",
+  "affects": "HPE Networking Fabric Composer",
+  "flaw": "Resource exhaustion",
+  "impact": "A local low-privilege user can partly slow other workloads on the host"
+ },
+ "CVE-2026-95991": {
+  "vendor": "Microsoft Windows",
+  "affects": "Windows Graphics Kernel",
+  "flaw": "Use after free",
+  "impact": "A logged-in local user can gain higher privileges"
+ },
+ "CVE-2026-96160": {
+  "vendor": "Microsoft Windows",
+  "affects": "Windows Graphics Kernel",
+  "flaw": "Out-of-bounds read",
+  "impact": "A logged-in local user can gain higher privileges"
+ },
+ "CVE-2026-96371": {
+  "vendor": "Drupal",
+  "affects": "Webform module for Drupal before 6.2.13 and 6.3.2",
+  "flaw": "A permission grants unsafe actions, enabling stored XSS",
+  "impact": "Users with that permission can plant script that runs for others"
+ },
+ "CVE-2026-96398": {
+  "vendor": "Drupal",
+  "affects": "Webform module for Drupal before 6.2.13 and 6.3.2",
+  "flaw": "Incorrect authorization",
+  "impact": "Lets users browse directly to pages they shouldn't reach"
+ },
+ "CVE-2026-96637": {
+  "vendor": "Pillow",
+  "affects": "Pillow (Python imaging library) before 13.0.0, SPIDER images",
+  "flaw": "Image size check skipped on later frames (decompression bomb)",
+  "impact": "A tiny crafted file can eat gigabytes of memory in an app that opens it"
+ },
+ "CVE-2026-99032": {
+  "vendor": "Linux kernel",
+  "affects": "Linux kernel SMC networking (smc_getname)",
+  "flaw": "Socket freed while still in use (use after free / race)",
+  "impact": "A local process can crash the kernel or corrupt its memory"
+ }
+}
