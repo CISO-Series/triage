@@ -43,3 +43,8 @@ All notable changes to the CISO Series Triage repo are logged here.
 ## 2026-11-18
 - Made the repo public and turned on GitHub Pages (`main`, root), so the game is playable at https://ciso-series.github.io/triage/ for outside testing.
 - The share link now points at whichever page is being played: the GitHub Pages URL when played there, the claude.ai artifact everywhere else. — Rich
+
+## 2026-11-18 (2)
+- Game-over screen now promotes the next Super Cyber Friday: "If you enjoyed this game, you might also enjoy <event>, live on Super Cyber Friday, <date>, 1 PM ET", linked to its Crowdcast page. The event lives in the `scf-event` block in `index.html` and starts on Hacking Managed Services (2026-11-20).
+- Added `tools/set_event.py` to set or clear that block (crowdcast.io links only). A scheduled task runs it every Friday at 3 PM ET from ClickUp's Super Cyber Friday list (Episode Title before the colon, plus Event Link), skipping no-show weeks.
+- The promo hides itself after 3 PM ET on the event's day, so a missed update never promotes a past show. — Rich

@@ -82,3 +82,7 @@ After refreshing, republish the artifact to the same URL. The artifact copy is `
 | Rank titles | `RANKS` (minimum streak, title) |
 | Rotation day, time zone, run #1 | `ROTATE_DAY`, `ROTATE_TZ`, `FIRST_WEEK` |
 | Link included in the share | `BASE` |
+
+## Next-event promo
+
+When a game ends, the page promotes the next Super Cyber Friday with a link to its Crowdcast page. The event is stored in the `scf-event` block of `index.html`; update it with `python3 tools/set_event.py --name "Hacking ..." --url https://www.crowdcast.io/c/... --date YYYY-MM-DD` (or `--clear`). A local Claude scheduled task (`scf-games-event-promo`) does this every Friday at 3 PM ET from ClickUp, then republishes the artifact and pushes. The promo hides itself after 3 PM ET on the show day.
