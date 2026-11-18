@@ -172,7 +172,7 @@
 
 <script>
 // ---- Config ----
-const BASE = "https://claude.ai/artifact/5uQCPWFWQWrd8q6gsmpaHF"; // published page URL, used in the share
+const BASE = /\.github\.io$/.test(location.hostname) ? location.origin + location.pathname : "https://claude.ai/artifact/5uQCPWFWQWrd8q6gsmpaHF"; // on GitHub Pages share that page; elsewhere share the published artifact
 const ROTATE_TZ = "America/Los_Angeles", ROTATE_DAY = 5; // pairs rotate Friday 00:00 Pacific
 const FIRST_WEEK = Date.UTC(2026,10,20);           // Fri 2026-11-20 = run #1; earlier dates are practice
 const PER_LEVEL = 3;                               // correct calls per priority level

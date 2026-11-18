@@ -39,3 +39,7 @@ All notable changes to the CISO Series Triage repo are logged here.
 - `fetch_cves.py build` now checks every card against its vector with fixed phrases and refuses to build on any mismatch. It also now checks before writing, so a failed build never touches `index.html`.
 - Dropped 6 CVEs whose description contradicts NVD's scoring or is too thin: CVE-2026-113032 (Chrome address bar, described local / scored remote), CVE-2026-113061 (Chrome Remote Desktop, nothing in the description backs the full-compromise scoring), CVE-2026-123218 (IBM Aspera, described as an authorized user / scored no login), CVE-2026-125120 (Mongoose, "skews counts" / scored full compromise), CVE-2026-99030 (Linux kernel leak the description says receivers drop / scored high leak), CVE-2026-76302 (Cisco hardening note). The game now has 101 CVEs.
 - Updated the weekly refresh task to write cards the same way. — Rich
+
+## 2026-11-18
+- Made the repo public and turned on GitHub Pages (`main`, root), so the game is playable at https://ciso-series.github.io/triage/ for outside testing.
+- The share link now points at whichever page is being played: the GitHub Pages URL when played there, the claude.ai artifact everywhere else. — Rich
