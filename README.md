@@ -1,27 +1,28 @@
 # Triage
 
-A weekly higher-or-lower game for the Super Cyber Friday (SCF) live chat, played with real CVEs from the past month. Players see two CVEs with both CVSS scores hidden and tap the one they think scores higher. Both scores are revealed, then a new pair comes up. The score gaps tighten as the streak grows. When a player misses, they paste a spoiler-free result into the chat.
+A weekly higher-or-lower game for the Super Cyber Friday (SCF) live chat, played with real CVEs from the past month. Players see two CVEs with both CVSS scores hidden and tap the one they think scores higher. Both scores are revealed, right or wrong, then the next pair comes up. Every run is 10 pairs, getting harder as it goes, and the result is how many the player got right. They paste a spoiler-free result into the chat.
 
 Live version: https://claude.ai/artifact/5uQCPWFWQWrd8q6gsmpaHF
 
 ## How it works
 
 - **One file.** Everything is in `index.html`, including the CVE data in a JSON block between the `<!--CVE-DATA-->` markers. No server.
-- **Weekly pairs.** Everyone gets the same pairs, in the same order, each week. It rotates at **12:00 AM Pacific every Friday**, matching Lockout. Run #1 is Friday 2026-11-20 (`FIRST_WEEK`); before that the page serves practice runs. A player's first run of the week is the official one; after that they can play unlimited practice runs.
-- **Difficulty.** Every 3 correct calls moves the priority up a level and narrows the score gap between the two cards in a pair:
+- **Weekly pairs.** Everyone gets the same 10 pairs, in the same order, each week. It rotates at **12:00 AM Pacific every Friday**, matching Lockout. Run #1 is Friday 2026-11-20 (`FIRST_WEEK`); before that the page serves practice runs. A player's first run of the week is the official one; after that they can play unlimited practice runs.
+- **Accuracy, not a streak.** A wrong pick doesn't end the run: both scores are shown, the higher card is marked, and the player taps **Next question**. Every run is all 10.
+- **Difficulty.** The priority rises and the score gap between the two cards narrows as the run goes:
 
-  | Priority | Calls | Score gap |
+  | Priority | Questions | Score gap |
   |---|---|---|
-  | P5 | 1–3 | 3.0+ |
-  | P4 | 4–6 | 2.0–2.9 |
-  | P3 | 7–9 | 1.2–1.9 |
-  | P2 | 10–12 | 0.6–1.1 |
-  | P1 | 13–15 | 0.3–0.5 |
-  | P0 | 16+ | 0.1–0.2 |
+  | P5 | 1–2 | 3.0+ |
+  | P4 | 3–4 | 2.0–2.9 |
+  | P3 | 5–6 | 1.2–1.9 |
+  | P2 | 7–8 | 0.6–1.1 |
+  | P1 | 9 | 0.3–0.5 |
+  | P0 | 10 | 0.1–0.2 |
 
   Ties never come up, and which side holds the higher score is random.
-- **Sharing.** "Copy result for chat" gives one emoji line per priority level, a rank and the link. It never names the CVEs.
-- **Saved locally.** Official-run progress lives in the player's browser (`localStorage`).
+- **Sharing.** "Copy result for chat" gives the score out of 10, one ✅/❌ per question in order (so position shows difficulty) and the link. It never names the CVEs. The results screen also lists each pair with both scores and a rank.
+- **Saved locally.** Official-run answers live in the player's browser (`localStorage`), so a reload mid-run picks up at the next question.
 
 ## The cards
 
@@ -78,8 +79,8 @@ After refreshing, republish the artifact to the same URL. The artifact copy is `
 
 | To change | Edit in `index.html` |
 |---|---|
-| Difficulty curve | `LEVELS` (gap in tenths of a point) and `PER_LEVEL` |
-| Rank titles | `RANKS` (minimum streak, title) |
+| Difficulty curve | `LEVELS` (gap in tenths of a point) and `PLAN` (level for each question; its length is the number of questions) |
+| Rank titles | `RANKS` (minimum correct, title) |
 | Rotation day, time zone, run #1 | `ROTATE_DAY`, `ROTATE_TZ`, `FIRST_WEEK` |
 | Link included in the share | `BASE` |
 

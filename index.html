@@ -43,9 +43,10 @@
   .stat .v{font-family:var(--mono);font-size:18px;font-weight:700;font-variant-numeric:tabular-nums}
   .prio{display:flex;align-items:center;gap:8px}
   .pill{font-family:var(--mono);font-weight:700;font-size:12px;padding:2px 8px;border-radius:4px;color:#0c0f14}
-  .pips{display:flex;gap:4px}
-  .pips i{width:8px;height:8px;border-radius:2px;background:var(--line)}
-  .pips i.on{background:currentColor}
+  .dots{display:flex;gap:4px}
+  .dots i{width:10px;height:10px;border-radius:2px;background:var(--line)}
+  .dots i.ok{background:var(--good)} .dots i.no{background:var(--bad)}
+  .dots i.cur{background:none;box-shadow:0 0 0 1.5px var(--accent) inset}
   .gaphint{font-size:12px;color:var(--muted);margin-left:auto}
 
   .ask{text-align:center;display:flex;flex-direction:column;gap:2px}
@@ -74,6 +75,8 @@
   .cid{font-family:var(--mono);font-size:13px;font-weight:600;color:var(--muted)}
   .badge{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.06em;padding:2px 7px;border-radius:4px}
   .badge.you-ok{background:var(--good);color:#06180f} .badge.you-no{background:var(--bad);color:#fff}
+  .badge.higher{background:none;color:var(--good);border:1px solid var(--good)}
+  .card.was-right{border-color:var(--good)}
   .vendor{font-size:20px;font-weight:700;line-height:1.2}
   .facts{margin:0;display:grid;grid-template-columns:auto 1fr;gap:8px 12px;align-content:start;flex:1}
   .facts dt{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding-top:3px}
@@ -93,6 +96,11 @@
   #over h2{margin:0;font-family:var(--mono);font-size:22px;letter-spacing:.08em}
   #over p{margin:0;font-size:14px;color:var(--muted);max-width:62ch}
   #over p b{color:var(--text)}
+  .recap{list-style:none;margin:0;padding:0;width:100%;max-width:560px;display:flex;flex-direction:column;gap:4px;text-align:left;font-size:13px}
+  .recap li{display:flex;gap:10px;align-items:baseline;padding:4px 8px;border-radius:6px;background:var(--bg);color:var(--muted)}
+  .recap .m{font-family:var(--mono);font-weight:700;width:1em} .recap li.ok .m{color:var(--good)} .recap li.no .m{color:var(--bad)}
+  .recap .lv{font-family:var(--mono);font-weight:700;font-size:12px;width:2em}
+  .recap .pr{min-width:0;overflow-wrap:anywhere} .recap b{color:var(--text);font-weight:600}
   #cta{display:block;width:100%;box-sizing:border-box;border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:8px;
     padding:10px 14px;background:var(--raise);color:var(--muted);font-size:14px;line-height:1.5;text-decoration:none;text-align:left}
   #cta b{color:var(--text)} #cta span{color:var(--accent);font-weight:600;white-space:nowrap}
@@ -128,9 +136,10 @@
   </header>
 
   <div class="strip" aria-live="polite">
-    <div class="stat"><span class="k">Streak</span><span class="v" id="streak">0</span></div>
-    <div class="stat"><span class="k">Priority</span>
-      <span class="prio"><span class="pill" id="prio">P5</span><span class="pips" id="pips"><i></i><i></i><i></i></span></span></div>
+    <div class="stat"><span class="k">Question</span><span class="v" id="qnum">1/10</span></div>
+    <div class="stat"><span class="k">Correct</span><span class="v" id="score">0</span></div>
+    <div class="stat"><span class="k">Priority</span><span class="pill" id="prio">P5</span></div>
+    <span class="dots" id="dots" aria-hidden="true"></span>
     <div class="gaphint" id="gaphint"></div>
   </div>
 
@@ -145,10 +154,12 @@
     <button class="card" id="card1"></button>
   </div>
   <div class="verdict" id="verdict" role="status"></div>
+  <div class="row"><button class="primary" id="next" hidden>Next question →</button></div>
 
   <section id="over" hidden>
     <h2 id="overTitle"></h2>
     <p id="overMsg"></p>
+    <ol class="recap" id="recap"></ol>
     <pre id="overShare"></pre>
     <div class="row">
       <button class="primary" id="btnShare">Copy result for chat</button>
@@ -163,8 +174,8 @@
 
 <dialog id="dlgHelp">
   <h3>HOW TO PLAY</h3>
-  <p>You get two recent CVEs. Both CVSS scores are hidden. <b>Tap the one you think scores higher.</b> Both scores are revealed, and if you're right, a new pair comes up. Keep going until you miss.</p>
-  <p>Every 3 right calls raises the <b>priority</b>, and the two scores get closer together:</p>
+  <p>You get <b>10 pairs</b> of recent CVEs. Both CVSS scores are hidden. <b>Tap the one you think scores higher.</b> Both scores are revealed, right or wrong, and you move on to the next pair. Your result is how many of the 10 you get right.</p>
+  <p>The pairs get harder as you go: the <b>priority</b> rises and the two scores get closer together.</p>
   <table class="levels" id="levelTable"></table>
   <p>Everyone gets the same pairs each week. They rotate every <b>Friday at 12:00 AM PT</b>. Your first run counts; after that, practice as much as you like.</p>
   <p>Keys: <b>←</b> left card, <b>→</b> right card. 🔥 means the CVE is on CISA's Known Exploited list.</p>
@@ -181,18 +192,19 @@
 const BASE = /\.github\.io$/.test(location.hostname) ? location.origin + location.pathname : "https://claude.ai/artifact/5uQCPWFWQWrd8q6gsmpaHF"; // on GitHub Pages share that page; elsewhere share the published artifact
 const ROTATE_TZ = "America/Los_Angeles", ROTATE_DAY = 5; // pairs rotate Friday 00:00 Pacific
 const FIRST_WEEK = Date.UTC(2026,10,20);           // Fri 2026-11-20 = run #1; earlier dates are practice
-const PER_LEVEL = 3;                               // correct calls per priority level
 // Difficulty: allowed score gap (in tenths) between the two cards, easiest to hardest.
 const LEVELS = [
-  {p:"P5", color:"#4fb886", sq:"🟩", min:30, max:99, hint:"gap 3.0+"},
-  {p:"P4", color:"#4aa3df", sq:"🟦", min:20, max:29, hint:"gap 2.0–2.9"},
-  {p:"P3", color:"#dcb13f", sq:"🟨", min:12, max:19, hint:"gap 1.2–1.9"},
-  {p:"P2", color:"#ef7d3c", sq:"🟧", min:6,  max:11, hint:"gap 0.6–1.1"},
-  {p:"P1", color:"#e5484d", sq:"🟥", min:3,  max:5,  hint:"gap 0.3–0.5"},
-  {p:"P0", color:"#a77bf3", sq:"🟪", min:1,  max:2,  hint:"gap 0.1–0.2"},
+  {p:"P5", color:"#4fb886", min:30, max:99, hint:"gap 3.0+"},
+  {p:"P4", color:"#4aa3df", min:20, max:29, hint:"gap 2.0–2.9"},
+  {p:"P3", color:"#dcb13f", min:12, max:19, hint:"gap 1.2–1.9"},
+  {p:"P2", color:"#ef7d3c", min:6,  max:11, hint:"gap 0.6–1.1"},
+  {p:"P1", color:"#e5484d", min:3,  max:5,  hint:"gap 0.3–0.5"},
+  {p:"P0", color:"#a77bf3", min:1,  max:2,  hint:"gap 0.1–0.2"},
 ];
-const RANKS = [[0,"🙈 Alert Fatigue"],[3,"🎧 Tier 1 Analyst"],[6,"🧯 Incident Handler"],[9,"📋 Vuln Manager"],
-               [12,"🧠 Threat Intel Lead"],[15,"🏆 CISO Material"],[18,"🔮 CVSS Whisperer"]];
+const PLAN = [0,0,1,1,2,2,3,3,4,5];                // level (index into LEVELS) for each of the 10 questions
+const N = PLAN.length;
+const RANKS = [[0,"🙈 Alert Fatigue"],[3,"🎧 Tier 1 Analyst"],[5,"🧯 Incident Handler"],[7,"📋 Vuln Manager"],
+               [8,"🧠 Threat Intel Lead"],[9,"🏆 CISO Material"],[10,"🔮 CVSS Whisperer"]];
 
 // ---- Data ----
 const DATA = JSON.parse(document.getElementById("cve-data").textContent);
@@ -211,48 +223,52 @@ function hashStr(s){ let h=2166136261; for (const c of s){ h^=c.charCodeAt(0); h
 function rng(seed){ return ()=>{ seed|=0; seed=seed+0x6D2B79F5|0; let t=Math.imul(seed^seed>>>15,1|seed);
   t=t+Math.imul(t^t>>>7,61|t)^t; return ((t^t>>>14)>>>0)/4294967296; }; }
 
-// ---- Rounds: the same pairs, in the same order, for everyone with the same seed ----
-// Round k uses two unused CVEs whose score gap fits the level for round k. Never a tie.
+// ---- Questions: the same 10 pairs, in the same order, for everyone with the same seed ----
+// Question k uses two unused CVEs whose score gap fits LEVELS[PLAN[k]]. Never a tie.
 function makeRounds(seed){
-  const R = rng(seed), used = new Set(), rounds = [];
+  const R = rng(seed), used = new Set(), out = [];
   const shuffled = a => { a = a.slice(); for (let i=a.length-1;i>0;i--){ const j=Math.floor(R()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; };
-  function build(){
-    const L = LEVELS[Math.min(Math.floor(rounds.length/PER_LEVEL), LEVELS.length-1)];
-    for (let widen=0; widen<40; widen++){
+  for (let k=0; k<N; k++){
+    const L = LEVELS[PLAN[k]]; let pair = null;
+    for (let widen=0; !pair && widen<40; widen++){
       const lo = Math.max(1, L.min - widen), hi = L.max + widen;
       for (const a of shuffled(POOL.filter(c=>!used.has(c.id)))){
         const ok = POOL.filter(b=>b.id!==a.id && !used.has(b.id) && Math.abs(b.t-a.t)>=lo && Math.abs(b.t-a.t)<=hi);
-        if (ok.length){ const b = ok[Math.floor(R()*ok.length)]; used.add(a.id); used.add(b.id); return R()<.5 ? [a,b] : [b,a]; }
+        if (ok.length){ const b = ok[Math.floor(R()*ok.length)]; used.add(a.id); used.add(b.id); pair = R()<.5 ? [a,b] : [b,a]; break; }
       }
     }
-    used.clear(); return build();                                  // pool exhausted: start reusing
+    out.push(pair);
   }
-  return { get(k){ while (rounds.length <= k) rounds.push(build()); return rounds[k]; } };
+  return out;
 }
 
 // ---- State ----
+// picks[k] = index (0/1) of the card picked on question k. The run is over once all N are answered.
 const week = weekNumber();
-let practice, runLabel, rounds, streak, over, lastPick, busy = false;
-const storeKey = "triage2:w:" + week + ":" + DATA.fetched;
+let practice, runLabel, rounds, picks, q, busy = false;
+const storeKey = "triage3:w:" + week + ":" + DATA.fetched;
 function loadOfficial(){ try{ return JSON.parse(localStorage.getItem(storeKey)||"null"); }catch(e){ return null; } }
-function saveOfficial(){ if (practice) return; try{ localStorage.setItem(storeKey, JSON.stringify({streak, over, lastPick})); }catch(e){} }
+function saveOfficial(){ if (practice) return; try{ localStorage.setItem(storeKey, JSON.stringify({picks})); }catch(e){} }
+const isRight = k => { const p = rounds[k]; return p[picks[k]].t > p[1-picks[k]].t; };
+const correct = () => picks.reduce((n,_,k)=>n + (isRight(k)?1:0), 0);
+const done = () => picks.length >= N;
 
 function start(isPractice){
   practice = isPractice || week < 1;
   runLabel = practice ? "Practice" : "#" + week;
   const seed = practice ? (Math.random()*2**32)>>>0 : hashStr("triage|" + week + "|" + DATA.fetched);
-  rounds = makeRounds(seed); streak = 0; over = false; lastPick = null; busy = false;
-  if (!practice){ const s = loadOfficial(); if (s){ streak = s.streak; over = s.over; lastPick = s.lastPick; } }
-  $("over").hidden = true; $("verdict").textContent = ""; $("verdict").className = "verdict";
-  render();
-  if (over){ revealPair(lastPick, false); showOver(false); }
+  rounds = makeRounds(seed); picks = []; busy = false;
+  if (!practice){ const s = loadOfficial(); if (s && Array.isArray(s.picks)) picks = s.picks.slice(0,N); }
+  $("over").hidden = true; $("next").hidden = true; setVerdict("", "");
+  if (done()){ q = N-1; render(); revealPair(q, false); showOver(false); }
+  else { q = picks.length; render(); }
 }
 
 // ---- Rendering ----
 const SEV = {LOW:"var(--low)", MEDIUM:"var(--medium)", HIGH:"var(--high)", CRITICAL:"var(--critical)", NONE:"var(--muted)"};
-function level(){ return LEVELS[Math.min(Math.floor(streak/PER_LEVEL), LEVELS.length-1)]; }
 function esc(s){ return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
 function fmtDate(iso){ return new Date(iso+"T00:00:00Z").toLocaleDateString("en-US",{timeZone:"UTC",month:"short",day:"numeric"}); }
+function setVerdict(text, cls){ const v = $("verdict"); v.textContent = text; v.className = "verdict" + (cls ? " " + cls : ""); }
 function cardHTML(c, side){
   return '<div class="top"><span class="cid">'+esc(c.id)+'</span><span class="badge" data-badge></span></div>' +
     '<div class="vendor">'+esc(c.vendor)+'</div>' +
@@ -265,26 +281,30 @@ function cardHTML(c, side){
     '<div class="meta">'+(c.cwe?'<span>'+esc(c.cwe)+'</span>':'')+'<span>Published '+fmtDate(c.pub)+'</span>'+(c.kev?'<span class="kev">🔥 Exploited in the wild</span>':'')+'</div>' +
     '<div class="score"><span class="n">?.?</span><span class="s">HIDDEN</span><span class="tap">'+(side ? 'Pick right →' : '← Pick left')+'</span></div>';
 }
+function renderStrip(){
+  const L = LEVELS[PLAN[q]];
+  $("qnum").textContent = (q+1) + "/" + N;
+  $("score").textContent = correct();
+  const pill = $("prio"); pill.textContent = L.p; pill.style.background = L.color;
+  [...$("dots").children].forEach((d,k)=>{
+    d.className = k < picks.length ? (isRight(k) ? "ok" : "no") : (k===q && !done() ? "cur" : "");
+  });
+  $("gaphint").textContent = "This pair's scores: " + L.hint;
+}
 function render(){
-  const [A,B] = rounds.get(streak), L = level();
-  [A,B].forEach((c,i)=>{
+  rounds[q].forEach((c,i)=>{
     const el = $("card"+i);
-    el.innerHTML = cardHTML(c, i); el.className = "card"; el.disabled = over;
+    el.innerHTML = cardHTML(c, i); el.className = "card"; el.disabled = picks.length > q;
     el.style.removeProperty("--sevc");
     el.setAttribute("aria-label", "Pick " + c.id + " (" + c.vendor + ") as the higher score");
   });
-  $("streak").textContent = streak;
-  const pill = $("prio"); pill.textContent = L.p; pill.style.background = L.color;
-  const into = Math.floor(streak/PER_LEVEL) >= LEVELS.length-1 ? PER_LEVEL : streak % PER_LEVEL;
-  $("pips").style.color = L.color;
-  [...$("pips").children].forEach((p,i)=>p.classList.toggle("on", i < into));
-  $("gaphint").textContent = "This pair's scores: " + L.hint;
+  renderStrip();
   $("sub").textContent = "Super Cyber Friday vuln queue · " + (practice ? "Practice run" : "Week " + runLabel);
 }
 
-// Reveal both scores. pick = index of the card the player chose.
-function revealPair(pick, animate, done){
-  const pair = rounds.get(streak), right = pair[pick].t > pair[1-pick].t;
+// Reveal both scores of question k, marking the player's pick.
+function revealPair(k, animate, cb){
+  const pair = rounds[k], pick = picks[k], right = isRight(k);
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches, dur = (animate && !reduce) ? 650 : 0, t0 = performance.now();
   pair.forEach((c,i)=>{
     const el = $("card"+i); el.disabled = true;
@@ -293,52 +313,56 @@ function revealPair(pick, animate, done){
     el.querySelector(".cid").innerHTML = '<a href="https://nvd.nist.gov/vuln/detail/'+esc(c.id)+'" target="_blank" rel="noopener">'+esc(c.id)+'</a>';
     if (i===pick){ el.classList.add(right ? "pick-ok" : "pick-no");
       const b = el.querySelector("[data-badge]"); b.textContent = right ? "YOUR PICK ✓" : "YOUR PICK ✗"; b.className = "badge " + (right ? "you-ok" : "you-no"); }
+    else if (!right){ el.classList.add("was-right"); const b = el.querySelector("[data-badge]"); b.textContent = "HIGHER"; b.className = "badge higher"; }
   });
+  const hi = pair[0].t > pair[1].t ? pair[0] : pair[1], lo = hi===pair[0] ? pair[1] : pair[0];
+  setVerdict((right ? "✓ Correct · " : "✗ Missed · ") + hi.score.toFixed(1) + " beats " + lo.score.toFixed(1), right ? "ok" : "no");
   (function tick(t){
-    const k = dur ? Math.min(1,(t-t0)/dur) : 1, e = 1-Math.pow(1-k,3);
+    const p = dur ? Math.min(1,(t-t0)/dur) : 1, e = 1-Math.pow(1-p,3);
     pair.forEach((c,i)=>{ $("card"+i).querySelector(".n").textContent = (c.score*e).toFixed(1); });
-    if (k<1) requestAnimationFrame(tick); else if (done) done(right);
+    if (p<1) requestAnimationFrame(tick); else if (cb) cb(right);
   })(t0);
 }
 
 // ---- Play ----
 function pick(i){
-  if (busy || over) return;
+  if (busy || done() || picks.length > q) return;
   busy = true;
-  revealPair(i, true, right=>{
-    const pair = rounds.get(streak), v = $("verdict");
-    const hi = pair[0].t > pair[1].t ? pair[0] : pair[1], lo = hi===pair[0] ? pair[1] : pair[0];
-    if (right){
-      v.textContent = "✓ Correct · " + hi.score.toFixed(1) + " beats " + lo.score.toFixed(1); v.className = "verdict ok";
-      streak++; saveOfficial();
-      setTimeout(()=>{ $("card0").classList.add("out"); $("card1").classList.add("out");
-        setTimeout(()=>{ render(); v.textContent=""; busy = false; }, 250); }, 1300);
-    } else {
-      over = true; lastPick = i; saveOfficial(); busy = false;
-      v.textContent = "✗ Missed · " + hi.score.toFixed(1) + " beats " + lo.score.toFixed(1); v.className = "verdict no";
-      setTimeout(()=>showOver(true), 700);
-    }
+  picks[q] = i; saveOfficial();
+  renderStrip();
+  revealPair(q, true, ()=>{
+    busy = false;
+    const nb = $("next");
+    nb.textContent = q < N-1 ? "Next question →" : "See results →";
+    nb.hidden = false; nb.focus({preventScroll:true});
+    nb.scrollIntoView({behavior:"smooth",block:"nearest"});   // on phones the button sits below both cards
   });
+}
+function next(){
+  if (busy || picks.length <= q) return;
+  $("next").hidden = true;
+  if (q >= N-1){ renderStrip(); showOver(true); return; }
+  busy = true;
+  $("card0").classList.add("out"); $("card1").classList.add("out");
+  setTimeout(()=>{ q++; render(); setVerdict("", ""); busy = false;
+    document.querySelector(".ask").scrollIntoView({behavior:"smooth",block:"nearest"}); }, 250);
 }
 $("card0").onclick = ()=>pick(0);
 $("card1").onclick = ()=>pick(1);
+$("next").onclick = next;
 document.addEventListener("keydown", e=>{
   if (document.querySelector("dialog[open]") || e.ctrlKey || e.metaKey || e.altKey) return;
   if (e.key==="ArrowLeft"){ e.preventDefault(); pick(0); }
   if (e.key==="ArrowRight"){ e.preventDefault(); pick(1); }
+  if (e.key==="Enter" && !$("next").hidden && document.activeElement!==$("next")){ e.preventDefault(); next(); }
 });
 
-// ---- Game over + share ----
-function rank(){ let r = RANKS[0][1]; for (const [n,name] of RANKS) if (streak>=n) r = name; return r; }
+// ---- Results + share ----
+function rank(){ let r = RANKS[0][1]; const n = correct(); for (const [m,name] of RANKS) if (n>=m) r = name; return r; }
 function shareText(withLink=true){
-  const lines = ["🩺 SCF Triage " + runLabel + " · Streak " + streak, rank()];
-  // One line per priority level reached: a square per correct call, ❌ for the miss. P0 absorbs the rest.
-  const last = LEVELS.length-1, top = Math.min(Math.floor(streak/PER_LEVEL), last);
-  for (let l=0; l<=top; l++){
-    const n = l<last ? Math.min(PER_LEVEL, streak - l*PER_LEVEL) : streak - l*PER_LEVEL;
-    const miss = l===top && over ? "❌" : "";
-    if (n>0 || miss) lines.push(LEVELS[l].sq.repeat(n) + miss + " " + LEVELS[l].p);
-  }
+  // One mark per question, in order, so the position shows how hard each one was.
+  const lines = ["🩺 SCF Triage " + runLabel + " · " + correct() + "/" + N,
+                 picks.map((_,k)=>isRight(k) ? "✅" : "❌").join("")];
   if (withLink && BASE) lines.push(BASE);
   return lines.join("\n");
 }
@@ -357,15 +381,18 @@ function renderEventCta(){
   el.hidden = false;
 }
 function showOver(scroll){
-  const pair = rounds.get(streak), mine = pair[lastPick], other = pair[1-lastPick];
   $("over").hidden = false;
-  $("overTitle").textContent = "STREAK " + streak;
-  $("overMsg").innerHTML = "Rank: <b>"+esc(rank().replace(/^\S+ /,""))+"</b>. You picked "+esc(mine.vendor)+" ("+mine.score.toFixed(1)+
-    "), but "+esc(other.vendor)+" scored <b>"+other.score.toFixed(1)+"</b>." + (practice ? " Practice runs don't count." : "");
+  $("overTitle").textContent = correct() + " / " + N;
+  $("overMsg").innerHTML = "Rank: <b>"+esc(rank().replace(/^\S+ /,""))+"</b>." + (practice ? " Practice runs don't count." : "");
+  $("recap").innerHTML = rounds.map((pair,k)=>{
+    const ok = isRight(k), hi = pair[0].t > pair[1].t ? pair[0] : pair[1], lo = hi===pair[0] ? pair[1] : pair[0], L = LEVELS[PLAN[k]];
+    return '<li class="'+(ok?"ok":"no")+'"><span class="m">'+(ok?"✓":"✗")+'</span><span class="lv" style="color:'+L.color+'">'+L.p+'</span>' +
+      '<span class="pr"><b>'+esc(hi.vendor)+' '+hi.score.toFixed(1)+'</b> over '+esc(lo.vendor)+' '+lo.score.toFixed(1)+'</span></li>';
+  }).join("");
   $("overShare").textContent = shareText(false);
   $("btnPractice").textContent = practice ? "Another practice run" : "Practice run";
   renderEventCta();
-  if (scroll) $("over").scrollIntoView({behavior:"smooth",block:"nearest"});
+  if (scroll) $("over").scrollIntoView({behavior:"smooth",block:"start"});
 }
 function toast(msg){ const t=$("toast"); t.textContent=msg; t.classList.add("show"); clearTimeout(toast.t); toast.t=setTimeout(()=>t.classList.remove("show"),1800); }
 async function copy(text){
@@ -379,11 +406,15 @@ $("btnPractice").onclick = ()=>{ start(true); window.scrollTo({top:0,behavior:"s
 // ---- Help, footer, go ----
 const dlgHelp = $("dlgHelp");
 $("btnHelp").onclick = ()=>dlgHelp.showModal();
-$("levelTable").innerHTML = LEVELS.map((L,i)=>'<tr><td style="color:'+L.color+'">'+L.p+'</td><td>'+(i<LEVELS.length-1 ? "calls "+(i*PER_LEVEL+1)+"–"+((i+1)*PER_LEVEL) : "calls "+(i*PER_LEVEL+1)+"+")+'</td><td>'+L.hint+'</td></tr>').join("");
+$("levelTable").innerHTML = LEVELS.map((L,l)=>{
+  const qs = PLAN.map((x,k)=>x===l ? k+1 : 0).filter(Boolean);
+  return '<tr><td style="color:'+L.color+'">'+L.p+'</td><td>'+(qs.length>1 ? "Q"+qs[0]+"–"+qs[qs.length-1] : "Q"+qs[0])+'</td><td>'+L.hint+'</td></tr>';
+}).join("");
+$("dots").innerHTML = "<i></i>".repeat(N);
 const from = new Date(Date.parse(DATA.fetched+"T00:00:00Z") - DATA.days*864e5).toISOString().slice(0,10);
 $("foot").innerHTML = POOL.length + " CVEs published " + fmtDate(from) + "–" + fmtDate(DATA.fetched) + ", " + DATA.fetched.slice(0,4) +
   " · CVSS v3.1 base scores from NVD · Summaries written from NVD descriptions · 🔥 = on CISA's Known Exploited Vulnerabilities list";
-document.addEventListener("visibilitychange", ()=>{ if (!document.hidden && weekNumber()!==week && (over || streak===0)) location.reload(); });
+document.addEventListener("visibilitychange", ()=>{ if (!document.hidden && weekNumber()!==week && (done() || picks.length===0)) location.reload(); });
 start(false);
 try{ if (!localStorage.getItem("triage:seen")){ dlgHelp.showModal(); localStorage.setItem("triage:seen","1"); } }catch(e){}
 </script>

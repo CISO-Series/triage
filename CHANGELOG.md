@@ -48,3 +48,9 @@ All notable changes to the CISO Series Triage repo are logged here.
 - Game-over screen now promotes the next Super Cyber Friday: "If you enjoyed this game, you might also enjoy <event>, live on Super Cyber Friday, <date>, 1 PM ET", linked to its Crowdcast page. The event lives in the `scf-event` block in `index.html` and starts on Hacking Managed Services (2026-11-20).
 - Added `tools/set_event.py` to set or clear that block (crowdcast.io links only). A scheduled task runs it every Friday at 3 PM ET from ClickUp's Super Cyber Friday list (Episode Title before the colon, plus Event Link), skipping no-show weeks.
 - The promo hides itself after 3 PM ET on the event's day, so a missed update never promotes a past show. — Rich
+
+## 2026-11-19
+- Changed Triage from a streak game to a 10-question accuracy game. Every run is 10 pairs; a wrong pick shows both scores, marks the higher card and moves on with **Next question** instead of ending the run.
+- Difficulty still climbs through the same gap bands: P5 for Q1–2, P4 for Q3–4, P3 for Q5–6, P2 for Q7–8, P1 for Q9, P0 for Q10 (`PLAN`). Checked over 2,000 simulated weeks: every pair lands in its band.
+- New share: "🩺 SCF Triage #N · 7/10" plus one ✅/❌ per question in order, and the link. The results screen lists all 10 pairs with both scores, plus a rank out of 10.
+- The top strip shows question number, correct so far, priority and a dot per question. Official progress saves per answer (`triage3:` key), so a reload resumes at the next question. — Rich
