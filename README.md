@@ -21,8 +21,8 @@ Live version: https://claude.ai/artifact/5uQCPWFWQWrd8q6gsmpaHF
   | P0 | 10 | 0.1–0.2 |
 
   Ties never come up, and which side holds the higher score is random.
-- **Sharing.** "Copy result for chat" gives the score out of 10, one ✅/❌ per question in order (so position shows difficulty) and the link. It never names the CVEs. The results screen also lists each pair with both scores and a rank.
-- **Score image.** "Share image" draws a 1080×1080 PNG of the result with the next Super Cyber Friday (from the `scf-event` block) and the public game link (`PUBLIC_URL`), and offers Share (phones), Copy image and Download.
+- **Sharing.** "Copy result for chat" gives the score out of 10, one ✅/❌ per question in order (so position shows difficulty) and the game link. It never names the CVEs. The results screen also lists each pair with both scores and a rank.
+- **Social sharing.** The results screen previews a 1080×1080 score card (score, rank, a tile per question, the next Super Cyber Friday and the game link) with LinkedIn, X, Bluesky and Facebook buttons. On a computer each button opens a new post with the score text, game link and Super Cyber Friday link filled in, and copies the image to paste in (Facebook only takes the game link). On a phone each button opens the share menu with the image and that text together. "Download image" saves the card.
 - **Saved locally.** Official-run answers live in the player's browser (`localStorage`), so a reload mid-run picks up at the next question.
 
 ## The cards
@@ -83,7 +83,7 @@ After refreshing, republish the artifact to the same URL. The artifact copy is `
 | Difficulty curve | `LEVELS` (gap in tenths of a point) and `PLAN` (level for each question; its length is the number of questions) |
 | Rank titles | `RANKS` (minimum correct, title) |
 | Rotation day, time zone, run #1 | `ROTATE_DAY`, `ROTATE_TZ`, `FIRST_WEEK` |
-| Link included in the share | `BASE` |
+| Link included in every share and on the image | `PUBLIC_URL` |
 
 ## Next-event promo
 

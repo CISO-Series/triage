@@ -75,3 +75,8 @@ All notable changes to the CISO Series Triage repo are logged here.
 ## 2026-11-20 (5)
 - The share-image window now includes a caption with clickable links, since links inside an image can't be clicked: "I picked the more severe vulnerability in 7 of 10 CVE pairs on SCF Triage #N", the ✅/❌ row, "Play this week's Triage: https://ciso-series.github.io/triage/" and the next Super Cyber Friday with its Crowdcast link (or a general "every Friday at 1 PM ET" line with cisoseries.com when no event is set).
 - Share… on phones sends the image and this caption together. A new Copy caption button copies it for pasting under the image on a computer. The caption is shown in the window, and the buttons stay pinned at the bottom on small screens. — Rich
+
+## 2026-11-20 (6)
+- Replaced the share-image window with a "Share your score card" section on the results screen: a preview of the score card plus LinkedIn, X, Bluesky and Facebook buttons, and "Download image".
+- On a computer each button opens a new post with the text filled in and copies the image so it can be pasted in (Facebook takes only the game link). On a phone each button opens the share menu with the image and the text together, since that's the only way to hand an app an image. A "More…" button offers the share menu on computers that support it.
+- Trimmed the post text to the result, "Play: <game link>" and "Next Super Cyber Friday: <name>, <date>: <Crowdcast link>". The "Copy result for chat" text stays short with no Super Cyber Friday line, and now always links the public GitHub Pages game (ciso-series.github.io/triage), since the claude.ai artifact link only opens for the organization. Removed `BASE`; `PUBLIC_URL` is the one share link. — Rich

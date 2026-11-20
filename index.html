@@ -120,12 +120,13 @@
   dialog b{color:var(--text)}
   table.levels{border-collapse:collapse;font-size:12px;width:100%;margin:6px 0}
   table.levels td{padding:3px 6px;border-bottom:1px solid var(--line);color:var(--muted);font-family:var(--mono)}
-  .imgdlg{max-width:560px}
-  .imgdlg img{display:block;width:100%;aspect-ratio:1;border-radius:8px;border:1px solid var(--line);background:var(--bg);margin:6px 0 4px}
-  .imgdlg .imgnote{margin:4px 0 8px;font-size:12px}
-  .imgdlg .row{position:sticky;bottom:-18px;margin:0 -18px -18px;padding:10px 18px 14px;background:var(--panel);border-top:1px solid var(--line)}
-  .imgdlg .caption{font-family:var(--sans);font-size:12px;line-height:1.45;white-space:pre-wrap;overflow-wrap:anywhere;margin:0 0 10px;
-    background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:8px 10px;color:var(--text);user-select:all}
+  .social{width:100%;border-top:1px dashed var(--line);padding-top:12px;display:flex;flex-direction:column;align-items:center;gap:8px}
+  .social h3{margin:0;font-family:var(--mono);font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+  .social img{width:100%;max-width:300px;aspect-ratio:1;border-radius:8px;border:1px solid var(--line);background:var(--bg)}
+  .soc{background:var(--raise);border:1px solid var(--line);color:var(--text);border-radius:999px;padding:8px 16px;font-size:14px;font-weight:600;cursor:pointer}
+  .soc:hover{border-color:var(--accent)}
+  .imgnote{margin:0;font-size:12px;color:var(--muted);max-width:52ch}
+  .linkbtn{background:none;border:0;color:var(--accent);font-size:13px;cursor:pointer;text-decoration:underline;padding:2px}
   .dlgbtns{display:flex;justify-content:flex-end;margin-top:8px}
   /* Phones: both cards side by side so they're compared at a glance; the counter strip moves below them. */
   @media (max-width:700px){
@@ -191,8 +192,20 @@
     <pre id="overShare"></pre>
     <div class="row">
       <button class="primary" id="btnShare">Copy result for chat</button>
-      <button class="ghost" id="btnImage">Share image</button>
       <button class="ghost" id="btnPractice">Practice run</button>
+    </div>
+    <div class="social">
+      <h3>Share your score card</h3>
+      <img id="cardPrev" alt="Your Triage score card">
+      <div class="row">
+        <button class="soc" data-net="linkedin">LinkedIn</button>
+        <button class="soc" data-net="x">X</button>
+        <button class="soc" data-net="bluesky">Bluesky</button>
+        <button class="soc" data-net="facebook">Facebook</button>
+        <button class="soc" id="btnMore" hidden>More…</button>
+      </div>
+      <p class="imgnote" id="socNote"></p>
+      <button class="linkbtn" id="imgDownload">Download image</button>
     </div>
     <a id="cta" hidden target="_blank" rel="noopener"></a>
   </section>
@@ -200,20 +213,6 @@
   <footer id="foot"></footer>
 </div>
 <div id="toast" role="status"></div>
-
-<dialog id="dlgImg" class="imgdlg">
-  <h3>SHARE YOUR SCORE</h3>
-  <img id="imgPrev" alt="Your Triage score card">
-  <p class="imgnote">Links inside an image can't be clicked, so post this caption with it. <b>Share…</b> sends both on phones. On a computer, copy and paste the image, then copy and paste the caption.</p>
-  <pre class="caption" id="imgCaption"></pre>
-  <div class="row">
-    <button class="primary" id="imgShare" hidden>Share…</button>
-    <button class="ghost" id="imgCopy" hidden>Copy image</button>
-    <button class="ghost" id="imgCapCopy">Copy caption</button>
-    <button class="ghost" id="imgDownload">Download</button>
-    <button class="ghost" onclick="dlgImg.close()">Close</button>
-  </div>
-</dialog>
 
 <dialog id="dlgHelp">
   <h3>HOW TO PLAY</h3>
@@ -233,7 +232,6 @@
 <!--SCF-EVENT--><script type="application/json" id="scf-event">{"name": "Hacking Managed Services", "url": "https://www.crowdcast.io/c/hacking-managed-services", "date": "2026-11-20", "time": "1 PM ET", "clickup": "868edr1jt"}</script><!--/SCF-EVENT-->
 <script>
 // ---- Config ----
-const BASE = /\.github\.io$/.test(location.hostname) ? location.origin + location.pathname : "https://claude.ai/artifact/5uQCPWFWQWrd8q6gsmpaHF"; // on GitHub Pages share that page; elsewhere share the published artifact
 const ROTATE_TZ = "America/Los_Angeles", ROTATE_DAY = 5; // pairs rotate Friday 00:00 Pacific
 const FIRST_WEEK = Date.UTC(2026,10,20);           // Fri 2026-11-20 = run #1; earlier dates are practice
 // Difficulty: allowed score gap (in tenths) between the two cards, easiest to hardest.
@@ -408,7 +406,7 @@ function shareText(withLink=true){
   // One mark per question, in order, so the position shows how hard each one was.
   const lines = ["🩺 SCF Triage " + runLabel + " · " + correct() + "/" + N,
                  picks.map((_,k)=>isRight(k) ? "✅" : "❌").join("")];
-  if (withLink && BASE) lines.push(BASE);
+  if (withLink) lines.push(PUBLIC_URL);
   return lines.join("\n");
 }
 // Next Super Cyber Friday promo. tools/set_event.py rewrites the scf-event block every Friday from ClickUp.
@@ -426,7 +424,7 @@ function renderEventCta(){
   el.hidden = false;
 }
 // ---- Score image: a 1080×1080 PNG of the result, the game link and the next Super Cyber Friday ----
-const PUBLIC_URL = "https://ciso-series.github.io/triage/";   // printed on the image; open to anyone
+const PUBLIC_URL = "https://ciso-series.github.io/triage/";   // the link in every share and on the image; open to anyone
 function upcomingEvent(){                                       // same rules as the game-over promo
   let ev; try{ ev = JSON.parse($("scf-event").textContent); }catch(e){ return null; }
   if (!ev || !ev.name || !/^https:\/\/(www\.)?crowdcast\.io\//.test(ev.url||"") || !/^\d{4}-\d{2}-\d{2}$/.test(ev.date||"")) return null;
@@ -480,33 +478,53 @@ async function drawScoreImage(){
   g.fillStyle = v("--text"); font("600",30,MONO); g.textAlign = "right"; g.fillText(PUBLIC_URL.replace(/^https:\/\//,"").replace(/\/$/,""), S-P, 1000); g.textAlign = "left";
   return new Promise(res=>c.toBlob(res,"image/png"));
 }
-let imgBlob = null, imgUrl = null;
+let imgBlob = null, imgUrl = null, dlCap = null;
 const imgName = () => "scf-triage-" + (practice ? "practice" : "week-" + week) + "-" + correct() + "-of-" + N + ".png";
-// Links can't be clicked inside an image, so the image always travels with this caption.
-function caption(){
+const imgFile = () => new File([imgBlob], imgName(), {type:"image/png"});
+const canShareFile = () => !!(imgBlob && navigator.canShare && navigator.canShare({files:[imgFile()]}));
+// Social post text: the result, the game link and the next Super Cyber Friday. Links in the image itself can't be clicked.
+function socialText(){
   const ev = upcomingEvent();
-  return "🩺 I picked the more severe vulnerability in " + correct() + " of " + N + " CVE pairs on SCF Triage " + (practice ? "(practice run)" : runLabel) + ".\n" +
-    picks.map((_,k)=>isRight(k) ? "✅" : "❌").join("") + "\n\n" +
-    "Play this week's Triage: " + PUBLIC_URL + "\n" +
-    (ev ? "Next up on Super Cyber Friday: " + ev.name + ", " + ev.day + (ev.time ? ", " + ev.time : "") + ". Join live: " + ev.url
-        : "Join us live on Super Cyber Friday, every Friday at 1 PM ET: https://cisoseries.com");
+  return shareText(false) + "\nPlay: " + PUBLIC_URL + (ev ? "\nNext Super Cyber Friday: " + ev.name + ", " + ev.day + ": " + ev.url : "");
 }
-async function openImage(){
-  const d = $("dlgImg"); $("imgPrev").removeAttribute("src"); d.showModal();
+// Where each button opens a post. Facebook only takes a link, so its text can't be prefilled.
+const NETS = {
+  linkedin: t => "https://www.linkedin.com/feed/?shareActive=true&text=" + encodeURIComponent(t),
+  x:        t => "https://x.com/intent/post?text=" + encodeURIComponent(t),
+  bluesky:  t => "https://bsky.app/intent/compose?text=" + encodeURIComponent(t),
+  facebook: () => "https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(PUBLIC_URL),
+};
+async function prepareCard(){
+  $("cardPrev").removeAttribute("src");
   imgBlob = await drawScoreImage();
   if (imgUrl) URL.revokeObjectURL(imgUrl);
   imgUrl = URL.createObjectURL(imgBlob);
-  $("imgPrev").src = imgUrl;
-  $("imgCaption").textContent = caption();
+  $("cardPrev").src = imgUrl;
   // In the claude.ai viewer a save goes through its downloads capability; elsewhere a plain download link.
   $("imgDownload").hidden = !!(window.claude && !dlCap);
-  const file = new File([imgBlob], imgName(), {type:"image/png"});
-  $("imgShare").hidden = !(navigator.canShare && navigator.canShare({files:[file]}));
-  $("imgCopy").hidden = !(window.ClipboardItem && navigator.clipboard && navigator.clipboard.write);
+  $("btnMore").hidden = !canShareFile();
+  $("socNote").textContent = (narrow() && canShareFile())
+    ? "Each button opens your phone's share menu with the image and your score text with links. Pick the app to post to."
+    : "Each button opens a new post with your score and links filled in, and copies the image. Paste it into the post (" + (/Mac|iPhone|iPad/.test(navigator.platform) ? "⌘V" : "Ctrl+V") + ").";
 }
-let dlCap = null;
-if (window.claude && claude.use) claude.use("downloads").then(d=>{ dlCap = d; }).catch(()=>{});
-$("btnImage").onclick = openImage;
+async function systemShare(){
+  try{ await navigator.share({files:[imgFile()], text: socialText()}); }
+  catch(e){ if (e.name !== "AbortError") toast("Sharing isn't available here. Download the image instead."); }
+}
+function shareTo(net){
+  if (!imgBlob) return;
+  if (narrow() && canShareFile()){ systemShare(); return; }           // phones: the share sheet is the only way to hand an app the image
+  // Start the image copy while this page still has focus, then open the post.
+  let copying = null;
+  try{ if (window.ClipboardItem && navigator.clipboard && navigator.clipboard.write) copying = navigator.clipboard.write([new ClipboardItem({"image/png": imgBlob})]); }catch(e){}
+  window.open(NETS[net](socialText()), "_blank", "noopener");
+  (copying || Promise.reject()).then(
+    ()=>toast("Image copied. Paste it into your post"),
+    ()=>toast("Couldn't copy the image. Use Download image, then attach it"));
+}
+document.querySelectorAll("[data-net]").forEach(b=>b.onclick = ()=>shareTo(b.dataset.net));
+$("btnMore").onclick = systemShare;
+if (window.claude && claude.use) claude.use("downloads").then(d=>{ dlCap = d; if (!$("over").hidden) $("imgDownload").hidden = !d; }).catch(()=>{});
 $("imgDownload").onclick = async ()=>{
   if (!imgBlob) return;
   if (dlCap){
@@ -515,20 +533,6 @@ $("imgDownload").onclick = async ()=>{
     return;
   }
   const a = document.createElement("a"); a.href = imgUrl; a.download = imgName(); document.body.appendChild(a); a.click(); a.remove();
-};
-$("imgShare").onclick = async ()=>{
-  try{ await navigator.share({files:[new File([imgBlob], imgName(), {type:"image/png"})], text: caption()}); }
-  catch(e){ if (e.name !== "AbortError") toast("Sharing isn't available here. Download it instead."); }
-};
-$("imgCapCopy").onclick = async ()=>{
-  const t = caption();
-  try{ await navigator.clipboard.writeText(t); toast("Caption copied! Paste it with the image"); }
-  catch(e){ const ta=document.createElement("textarea"); ta.value=t; $("dlgImg").appendChild(ta); ta.select();
-    try{ document.execCommand("copy"); toast("Caption copied! Paste it with the image"); }catch(_){ toast("Select the caption and copy it"); } ta.remove(); }
-};
-$("imgCopy").onclick = async ()=>{
-  try{ await navigator.clipboard.write([new ClipboardItem({"image/png": imgBlob})]); toast("Image copied! Paste it, then copy the caption"); }
-  catch(e){ toast("Copying isn't allowed here. Download it instead."); }
 };
 function showOver(scroll){
   $("over").hidden = false;
@@ -542,6 +546,7 @@ function showOver(scroll){
   $("overShare").textContent = shareText(false);
   $("btnPractice").textContent = practice ? "Another practice run" : "Practice run";
   renderEventCta();
+  prepareCard();
   if (scroll) $("over").scrollIntoView({behavior:"smooth",block:"start"});
 }
 function toast(msg){ const t=$("toast"); t.textContent=msg; t.classList.add("show"); clearTimeout(toast.t); toast.t=setTimeout(()=>t.classList.remove("show"),1800); }
