@@ -56,10 +56,6 @@
   .board{display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:stretch}
   .vs{align-self:center;font-family:var(--mono);font-weight:700;font-size:13px;color:var(--muted);
       width:40px;height:40px;border:1px solid var(--line);border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--bg)}
-  @media (max-width:700px){
-    .board{grid-template-columns:1fr;gap:8px}
-    .vs{justify-self:center;width:34px;height:34px;font-size:12px}
-  }
 
   /* The cards are the answer buttons. */
   .card{all:unset;box-sizing:border-box;cursor:pointer;background:var(--panel);border:1px solid var(--line);border-top:4px solid var(--sevc,var(--line));
@@ -125,6 +121,32 @@
   table.levels{border-collapse:collapse;font-size:12px;width:100%;margin:6px 0}
   table.levels td{padding:3px 6px;border-bottom:1px solid var(--line);color:var(--muted);font-family:var(--mono)}
   .dlgbtns{display:flex;justify-content:flex-end;margin-top:8px}
+  /* Phones: both cards side by side so they're compared at a glance; the counter strip moves below them. */
+  @media (max-width:700px){
+    body{padding-block:10px 20px;padding-left:max(10px,env(safe-area-inset-left,0px));padding-right:max(10px,env(safe-area-inset-right,0px))}
+    .wrap{gap:8px}
+    header{order:0;flex-wrap:nowrap} .ask{order:1} .board{order:2} .verdict{order:3} .wrap>.row{order:4} .strip{order:5} #over{order:6} footer{order:7}
+    h1{font-size:20px;letter-spacing:.16em} .sub{display:none}
+    .hbtns button{padding:4px 9px;font-size:12px}
+    .ask h2{font-size:15px} .ask p{display:none}
+    .board{grid-template-columns:1fr 1fr;gap:6px}
+    .vs{display:none}
+    .card{padding:9px;gap:6px;border-radius:8px;border-top-width:3px}
+    .card:hover:not(:disabled){transform:none}
+    .cid{font-size:10px} .badge{font-size:9px;padding:1px 5px}
+    .vendor{font-size:14.5px}
+    .facts{grid-template-columns:1fr;gap:1px}
+    .facts dt{font-size:8.5px;padding-top:4px}
+    .facts dd{font-size:12px;line-height:1.32}
+    .meta{font-size:9.5px;gap:2px 8px} .meta .cwe{display:none}
+    .score{padding-top:6px;gap:6px;flex-wrap:wrap}
+    .score .n{font-size:24px} .score .s{font-size:9.5px}
+    .score .tap{font-size:11px;margin-left:0;width:100%}
+    .verdict{font-size:13px;min-height:0}
+    .strip{padding:6px 10px;gap:6px 14px}
+    .stat .v{font-size:15px}
+    .gaphint{margin-left:0;width:100%}
+  }
   @media (prefers-reduced-motion: reduce){ *{transition:none!important;animation:none!important} }
 </style>
 </head>
@@ -268,6 +290,7 @@ function start(isPractice){
 const SEV = {LOW:"var(--low)", MEDIUM:"var(--medium)", HIGH:"var(--high)", CRITICAL:"var(--critical)", NONE:"var(--muted)"};
 function esc(s){ return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
 function fmtDate(iso){ return new Date(iso+"T00:00:00Z").toLocaleDateString("en-US",{timeZone:"UTC",month:"short",day:"numeric"}); }
+const narrow = () => matchMedia("(max-width:700px)").matches;
 function setVerdict(text, cls){ const v = $("verdict"); v.textContent = text; v.className = "verdict" + (cls ? " " + cls : ""); }
 function cardHTML(c, side){
   return '<div class="top"><span class="cid">'+esc(c.id)+'</span><span class="badge" data-badge></span></div>' +
@@ -278,8 +301,8 @@ function cardHTML(c, side){
       '<dt>Access</dt><dd>'+esc(c.access)+'</dd>' +
       '<dt>Impact</dt><dd>'+esc(c.impact)+'</dd>' +
     '</dl>' +
-    '<div class="meta">'+(c.cwe?'<span>'+esc(c.cwe)+'</span>':'')+'<span>Published '+fmtDate(c.pub)+'</span>'+(c.kev?'<span class="kev">🔥 Exploited in the wild</span>':'')+'</div>' +
-    '<div class="score"><span class="n">?.?</span><span class="s">HIDDEN</span><span class="tap">'+(side ? 'Pick right →' : '← Pick left')+'</span></div>';
+    '<div class="meta">'+(c.cwe?'<span class="cwe">'+esc(c.cwe)+'</span>':'')+'<span>Published '+fmtDate(c.pub)+'</span>'+(c.kev?'<span class="kev">🔥 Exploited in the wild</span>':'')+'</div>' +
+    '<div class="score"><span class="n">?.?</span><span class="s">HIDDEN</span><span class="tap">'+(narrow() ? 'Tap to pick' : side ? 'Pick right →' : '← Pick left')+'</span></div>';
 }
 function renderStrip(){
   const L = LEVELS[PLAN[q]];
