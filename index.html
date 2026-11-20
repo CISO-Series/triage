@@ -196,8 +196,9 @@
 
 <dialog id="dlgHelp">
   <h3>HOW TO PLAY</h3>
-  <p>You get <b>10 pairs</b> of recent CVEs. Both CVSS scores are hidden. <b>Tap the one you think scores higher.</b> Both scores are revealed, right or wrong, and you move on to the next pair. Your result is how many of the 10 you get right.</p>
-  <p>The pairs get harder as you go: the <b>priority</b> rises and the two scores get closer together.</p>
+  <p>Each round shows two recent CVEs with their CVSS scores hidden. <b>A higher CVSS score means a more severe vulnerability</b>: more risk if it's exploited. <b>Tap the one you think is more severe.</b> Both scores are then revealed, right or wrong, and you move on.</p>
+  <p>There are <b>10 rounds</b>. Your final score is how many of the 10 more severe vulnerabilities you correctly picked, like <b>7/10</b>.</p>
+  <p>The pairs get <b>progressively harder</b> as you advance: the two scores get closer together, so the call gets tougher.</p>
   <table class="levels" id="levelTable"></table>
   <p>Everyone gets the same pairs each week. They rotate every <b>Friday at 12:00 AM PT</b>. Your first run counts; after that, practice as much as you like.</p>
   <p>Keys: <b>←</b> left card, <b>→</b> right card. 🔥 means the CVE is on CISA's Known Exploited list.</p>
@@ -406,7 +407,7 @@ function renderEventCta(){
 function showOver(scroll){
   $("over").hidden = false;
   $("overTitle").textContent = correct() + " / " + N;
-  $("overMsg").innerHTML = "Rank: <b>"+esc(rank().replace(/^\S+ /,""))+"</b>." + (practice ? " Practice runs don't count." : "");
+  $("overMsg").innerHTML = "You picked the more severe vulnerability in <b>" + correct() + " of " + N + "</b> pairs. Rank: <b>"+esc(rank().replace(/^\S+ /,""))+"</b>." + (practice ? " Practice runs don't count." : "");
   $("recap").innerHTML = rounds.map((pair,k)=>{
     const ok = isRight(k), hi = pair[0].t > pair[1].t ? pair[0] : pair[1], lo = hi===pair[0] ? pair[1] : pair[0], L = LEVELS[PLAN[k]];
     return '<li class="'+(ok?"ok":"no")+'"><span class="m">'+(ok?"✓":"✗")+'</span><span class="lv" style="color:'+L.color+'">'+L.p+'</span>' +

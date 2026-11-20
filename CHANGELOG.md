@@ -63,3 +63,7 @@ All notable changes to the CISO Series Triage repo are logged here.
 ## 2026-11-20 (2)
 - Phone layout (screens 700px wide or less): the two cards now sit side by side so both are on screen at once, with smaller type, bullet labels above their text and "Tap to pick". The Question/Correct/Priority strip moves below the cards, the subtitle and the "Tap a card" line are hidden, and the header is one compact row. Measured across all 102 CVEs: the tallest pair ends about 565px down the page at 360–390px wide, so the cards, verdict and Next button fit a typical phone screen without scrolling.
 - Layout only: this week's pairs and saved runs are unchanged. — Rich
+
+## 2026-11-20 (3)
+- Rewrote the How to Play card from review notes: it now says a higher CVSS score means a more severe vulnerability (more risk if exploited), asks players to tap the one they think is more severe, frames the final score as how many of the 10 more severe vulnerabilities they correctly picked (e.g. 7/10), and says the pairs get progressively harder, with closer scores, as the game advances.
+- The results screen opens with "You picked the more severe vulnerability in N of 10 pairs." before the rank. Copy only; pairs, saved runs and the share are unchanged. — Rich
