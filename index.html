@@ -122,7 +122,10 @@
   table.levels td{padding:3px 6px;border-bottom:1px solid var(--line);color:var(--muted);font-family:var(--mono)}
   .imgdlg{max-width:560px}
   .imgdlg img{display:block;width:100%;aspect-ratio:1;border-radius:8px;border:1px solid var(--line);background:var(--bg);margin:6px 0 4px}
-  .imgdlg .imgnote{margin:4px 0 10px;font-size:12px}
+  .imgdlg .imgnote{margin:4px 0 8px;font-size:12px}
+  .imgdlg .row{position:sticky;bottom:-18px;margin:0 -18px -18px;padding:10px 18px 14px;background:var(--panel);border-top:1px solid var(--line)}
+  .imgdlg .caption{font-family:var(--sans);font-size:12px;line-height:1.45;white-space:pre-wrap;overflow-wrap:anywhere;margin:0 0 10px;
+    background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:8px 10px;color:var(--text);user-select:all}
   .dlgbtns{display:flex;justify-content:flex-end;margin-top:8px}
   /* Phones: both cards side by side so they're compared at a glance; the counter strip moves below them. */
   @media (max-width:700px){
@@ -201,10 +204,12 @@
 <dialog id="dlgImg" class="imgdlg">
   <h3>SHARE YOUR SCORE</h3>
   <img id="imgPrev" alt="Your Triage score card">
-  <p class="imgnote">On a phone, you can also press and hold the image to save or share it.</p>
+  <p class="imgnote">Links inside an image can't be clicked, so post this caption with it. <b>Share…</b> sends both on phones. On a computer, copy and paste the image, then copy and paste the caption.</p>
+  <pre class="caption" id="imgCaption"></pre>
   <div class="row">
     <button class="primary" id="imgShare" hidden>Share…</button>
     <button class="ghost" id="imgCopy" hidden>Copy image</button>
+    <button class="ghost" id="imgCapCopy">Copy caption</button>
     <button class="ghost" id="imgDownload">Download</button>
     <button class="ghost" onclick="dlgImg.close()">Close</button>
   </div>
@@ -477,9 +482,14 @@ async function drawScoreImage(){
 }
 let imgBlob = null, imgUrl = null;
 const imgName = () => "scf-triage-" + (practice ? "practice" : "week-" + week) + "-" + correct() + "-of-" + N + ".png";
-function imgShareText(){
+// Links can't be clicked inside an image, so the image always travels with this caption.
+function caption(){
   const ev = upcomingEvent();
-  return shareText(false) + "\nPlay: " + PUBLIC_URL + (ev ? "\nNext Super Cyber Friday: " + ev.name + ", " + ev.day + (ev.time ? ", " + ev.time : "") + ", " + ev.url : "");
+  return "🩺 I picked the more severe vulnerability in " + correct() + " of " + N + " CVE pairs on SCF Triage " + (practice ? "(practice run)" : runLabel) + ".\n" +
+    picks.map((_,k)=>isRight(k) ? "✅" : "❌").join("") + "\n\n" +
+    "Play this week's Triage: " + PUBLIC_URL + "\n" +
+    (ev ? "Next up on Super Cyber Friday: " + ev.name + ", " + ev.day + (ev.time ? ", " + ev.time : "") + ". Join live: " + ev.url
+        : "Join us live on Super Cyber Friday, every Friday at 1 PM ET: https://cisoseries.com");
 }
 async function openImage(){
   const d = $("dlgImg"); $("imgPrev").removeAttribute("src"); d.showModal();
@@ -487,6 +497,7 @@ async function openImage(){
   if (imgUrl) URL.revokeObjectURL(imgUrl);
   imgUrl = URL.createObjectURL(imgBlob);
   $("imgPrev").src = imgUrl;
+  $("imgCaption").textContent = caption();
   // In the claude.ai viewer a save goes through its downloads capability; elsewhere a plain download link.
   $("imgDownload").hidden = !!(window.claude && !dlCap);
   const file = new File([imgBlob], imgName(), {type:"image/png"});
@@ -506,11 +517,17 @@ $("imgDownload").onclick = async ()=>{
   const a = document.createElement("a"); a.href = imgUrl; a.download = imgName(); document.body.appendChild(a); a.click(); a.remove();
 };
 $("imgShare").onclick = async ()=>{
-  try{ await navigator.share({files:[new File([imgBlob], imgName(), {type:"image/png"})], text: imgShareText()}); }
+  try{ await navigator.share({files:[new File([imgBlob], imgName(), {type:"image/png"})], text: caption()}); }
   catch(e){ if (e.name !== "AbortError") toast("Sharing isn't available here. Download it instead."); }
 };
+$("imgCapCopy").onclick = async ()=>{
+  const t = caption();
+  try{ await navigator.clipboard.writeText(t); toast("Caption copied! Paste it with the image"); }
+  catch(e){ const ta=document.createElement("textarea"); ta.value=t; $("dlgImg").appendChild(ta); ta.select();
+    try{ document.execCommand("copy"); toast("Caption copied! Paste it with the image"); }catch(_){ toast("Select the caption and copy it"); } ta.remove(); }
+};
 $("imgCopy").onclick = async ()=>{
-  try{ await navigator.clipboard.write([new ClipboardItem({"image/png": imgBlob})]); toast("Image copied! Paste it anywhere"); }
+  try{ await navigator.clipboard.write([new ClipboardItem({"image/png": imgBlob})]); toast("Image copied! Paste it, then copy the caption"); }
   catch(e){ toast("Copying isn't allowed here. Download it instead."); }
 };
 function showOver(scroll){
