@@ -5,6 +5,17 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="claude:viewport-fit-sides" content="cover">
 <title>Triage</title>
+<meta name="description" content="Which CVE is more severe? A weekly CVSS game from Super Cyber Friday: 10 pairs of real, recent CVEs with the scores hidden.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="CISO Series">
+<meta property="og:title" content="Triage: which CVE is more severe?">
+<meta property="og:description" content="A weekly CVSS game from Super Cyber Friday: 10 pairs of real, recent CVEs with the scores hidden. It gets harder as you go.">
+<meta property="og:url" content="https://ciso-series.github.io/triage/">
+<meta property="og:image" content="https://ciso-series.github.io/triage/img/game.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://ciso-series.github.io/triage/img/game.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
@@ -482,17 +493,21 @@ let imgBlob = null, imgUrl = null, dlCap = null;
 const imgName = () => "scf-triage-" + (practice ? "practice" : "week-" + week) + "-" + correct() + "-of-" + N + ".png";
 const imgFile = () => new File([imgBlob], imgName(), {type:"image/png"});
 const canShareFile = () => !!(imgBlob && navigator.canShare && navigator.canShare({files:[imgFile()]}));
-// Social post text: the result, the game link and the next Super Cyber Friday. Links in the image itself can't be clicked.
-function socialText(){
-  const ev = upcomingEvent();
-  return shareText(false) + "\nPlay: " + PUBLIC_URL + (ev ? "\nNext Super Cyber Friday: " + ev.name + ", " + ev.day + ": " + ev.url : "");
+// Each result has its own page, r/<pattern>, whose link preview is that result's score card (built by
+// tools/make_cards.py). Networks can't be handed an image from a share link, but they all show a link's preview.
+const resultUrl = () => PUBLIC_URL + "r/" + picks.map((_,k)=>isRight(k) ? "1" : "0").join("");
+// Social post text: the result, the result link (which previews as the card) and the next Super Cyber Friday.
+// X builds its card from the last link in a post, the others from the first.
+function socialText(net){
+  const ev = upcomingEvent(), play = "Play: " + resultUrl(), next = ev ? "Next Super Cyber Friday: " + ev.name + ", " + ev.day + ": " + ev.url : "";
+  return [shareText(false)].concat(net === "x" ? [next, play] : [play, next]).filter(Boolean).join("\n");
 }
 // Where each button opens a post. Facebook only takes a link, so its text can't be prefilled.
 const NETS = {
   linkedin: t => "https://www.linkedin.com/feed/?shareActive=true&text=" + encodeURIComponent(t),
   x:        t => "https://x.com/intent/post?text=" + encodeURIComponent(t),
   bluesky:  t => "https://bsky.app/intent/compose?text=" + encodeURIComponent(t),
-  facebook: () => "https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(PUBLIC_URL),
+  facebook: () => "https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(resultUrl()),
 };
 async function prepareCard(){
   $("cardPrev").removeAttribute("src");
@@ -505,22 +520,15 @@ async function prepareCard(){
   $("btnMore").hidden = !canShareFile();
   $("socNote").textContent = (narrow() && canShareFile())
     ? "Each button opens your phone's share menu with the image and your score text with links. Pick the app to post to."
-    : "Each button opens a new post with your score and links filled in, and copies the image. Paste it into the post (" + (/Mac|iPhone|iPad/.test(navigator.platform) ? "⌘V" : "Ctrl+V") + ").";
+    : "Each button opens a new post with your score and links filled in. Your score card shows as the link's preview.";
 }
 async function systemShare(){
   try{ await navigator.share({files:[imgFile()], text: socialText()}); }
   catch(e){ if (e.name !== "AbortError") toast("Sharing isn't available here. Download the image instead."); }
 }
 function shareTo(net){
-  if (!imgBlob) return;
-  if (narrow() && canShareFile()){ systemShare(); return; }           // phones: the share sheet is the only way to hand an app the image
-  // Start the image copy while this page still has focus, then open the post.
-  let copying = null;
-  try{ if (window.ClipboardItem && navigator.clipboard && navigator.clipboard.write) copying = navigator.clipboard.write([new ClipboardItem({"image/png": imgBlob})]); }catch(e){}
-  window.open(NETS[net](socialText()), "_blank", "noopener");
-  (copying || Promise.reject()).then(
-    ()=>toast("Image copied. Paste it into your post"),
-    ()=>toast("Couldn't copy the image. Use Download image, then attach it"));
+  if (narrow() && canShareFile()){ systemShare(); return; }           // phones: the share sheet hands the app the image itself
+  window.open(NETS[net](socialText(net)), "_blank", "noopener");
 }
 document.querySelectorAll("[data-net]").forEach(b=>b.onclick = ()=>shareTo(b.dataset.net));
 $("btnMore").onclick = systemShare;
