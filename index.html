@@ -120,6 +120,9 @@
   dialog b{color:var(--text)}
   table.levels{border-collapse:collapse;font-size:12px;width:100%;margin:6px 0}
   table.levels td{padding:3px 6px;border-bottom:1px solid var(--line);color:var(--muted);font-family:var(--mono)}
+  .imgdlg{max-width:560px}
+  .imgdlg img{display:block;width:100%;aspect-ratio:1;border-radius:8px;border:1px solid var(--line);background:var(--bg);margin:6px 0 4px}
+  .imgdlg .imgnote{margin:4px 0 10px;font-size:12px}
   .dlgbtns{display:flex;justify-content:flex-end;margin-top:8px}
   /* Phones: both cards side by side so they're compared at a glance; the counter strip moves below them. */
   @media (max-width:700px){
@@ -185,6 +188,7 @@
     <pre id="overShare"></pre>
     <div class="row">
       <button class="primary" id="btnShare">Copy result for chat</button>
+      <button class="ghost" id="btnImage">Share image</button>
       <button class="ghost" id="btnPractice">Practice run</button>
     </div>
     <a id="cta" hidden target="_blank" rel="noopener"></a>
@@ -193,6 +197,18 @@
   <footer id="foot"></footer>
 </div>
 <div id="toast" role="status"></div>
+
+<dialog id="dlgImg" class="imgdlg">
+  <h3>SHARE YOUR SCORE</h3>
+  <img id="imgPrev" alt="Your Triage score card">
+  <p class="imgnote">On a phone, you can also press and hold the image to save or share it.</p>
+  <div class="row">
+    <button class="primary" id="imgShare" hidden>Share…</button>
+    <button class="ghost" id="imgCopy" hidden>Copy image</button>
+    <button class="ghost" id="imgDownload">Download</button>
+    <button class="ghost" onclick="dlgImg.close()">Close</button>
+  </div>
+</dialog>
 
 <dialog id="dlgHelp">
   <h3>HOW TO PLAY</h3>
@@ -404,6 +420,99 @@ function renderEventCta(){
     h(day) + (ev.time ? ", " + h(ev.time) : "") + ". <span>Join us on Crowdcast →</span>";
   el.hidden = false;
 }
+// ---- Score image: a 1080×1080 PNG of the result, the game link and the next Super Cyber Friday ----
+const PUBLIC_URL = "https://ciso-series.github.io/triage/";   // printed on the image; open to anyone
+function upcomingEvent(){                                       // same rules as the game-over promo
+  let ev; try{ ev = JSON.parse($("scf-event").textContent); }catch(e){ return null; }
+  if (!ev || !ev.name || !/^https:\/\/(www\.)?crowdcast\.io\//.test(ev.url||"") || !/^\d{4}-\d{2}-\d{2}$/.test(ev.date||"")) return null;
+  if (Date.now() > Date.parse(ev.date + "T20:00:00Z")) return null;
+  ev.day = new Date(ev.date + "T12:00:00Z").toLocaleDateString("en-US",{weekday:"short",month:"short",day:"numeric",timeZone:"UTC"});
+  return ev;
+}
+async function drawScoreImage(){
+  const S = 1080, P = 72, c = document.createElement("canvas"); c.width = c.height = S;
+  const g = c.getContext("2d"), css = getComputedStyle(document.documentElement), v = n => css.getPropertyValue(n).trim();
+  const MONO = '"IBM Plex Mono", ui-monospace, Menlo, monospace', SANS = '"IBM Plex Sans", system-ui, sans-serif';
+  try{ await Promise.all(["700 40px "+MONO, "400 40px "+MONO, "700 40px "+SANS, "400 40px "+SANS].map(f=>document.fonts.load(f))); }catch(e){}
+  const font = (w,px,fam) => g.font = w + " " + px + "px " + fam;
+  const fit = (text, w, px, fam, max) => { do { font(w,px,fam); px -= 2; } while (g.measureText(text).width > max && px > 16); };
+  const rr = (x,y,w,h,r) => { g.beginPath(); g.roundRect ? g.roundRect(x,y,w,h,r) : g.rect(x,y,w,h); };
+  const n = correct(), ev = upcomingEvent();
+  g.fillStyle = v("--bg"); g.fillRect(0,0,S,S);
+  g.fillStyle = v("--accent"); g.fillRect(0,0,S,10);
+  // Header
+  g.textBaseline = "alphabetic"; g.fillStyle = v("--text"); font("700",54,MONO);
+  g.letterSpacing = "10px"; g.fillText("TRIAGE", P, 130); g.letterSpacing = "0px";
+  g.fillStyle = v("--muted"); font("400",28,SANS); g.textAlign = "right";
+  g.fillText("Super Cyber Friday · " + (practice ? "Practice run" : "Week " + runLabel), S-P, 126); g.textAlign = "left";
+  // Score
+  g.fillStyle = v("--text"); font("700",230,MONO); g.fillText(String(n), P-8, 380);
+  const nw = g.measureText(String(n)).width; g.fillStyle = v("--muted"); font("700",110,MONO); g.fillText("/" + N, P + nw, 380);
+  g.fillStyle = v("--text"); font("600",38,SANS); g.fillText("more severe vulnerabilities picked", P, 446);
+  g.fillStyle = v("--accent"); font("600",34,SANS); g.fillText(rank().replace(/^\S+ /,""), P, 498);
+  // One tile per question, easiest to hardest
+  const tw = 78, gap = (S - 2*P - N*tw)/(N-1), ty = 548;
+  picks.forEach((_,k)=>{
+    const x = P + k*(tw+gap), ok = isRight(k);
+    g.fillStyle = ok ? v("--good") : v("--bad"); rr(x,ty,tw,tw,10); g.fill();
+    g.strokeStyle = ok ? "#06180f" : "#ffffff"; g.lineWidth = 8; g.lineCap = g.lineJoin = "round"; g.beginPath();
+    if (ok){ g.moveTo(x+20,ty+41); g.lineTo(x+34,ty+55); g.lineTo(x+58,ty+26); }
+    else { g.moveTo(x+24,ty+24); g.lineTo(x+54,ty+54); g.moveTo(x+54,ty+24); g.lineTo(x+24,ty+54); }
+    g.stroke();
+    const L = LEVELS[PLAN[k]]; g.fillStyle = L.color; font("700",22,MONO); g.textAlign = "center"; g.fillText(L.p, x+tw/2, ty+tw+34); g.textAlign = "left";
+  });
+  g.fillStyle = v("--muted"); font("400",22,SANS); g.fillText("easier", P, ty+tw+70); g.textAlign = "right"; g.fillText("harder, closer scores →", S-P, ty+tw+70); g.textAlign = "left";
+  // Super Cyber Friday call to action
+  const by = 760, bh = 172;
+  g.fillStyle = v("--raise"); rr(P,by,S-2*P,bh,14); g.fill();
+  g.fillStyle = v("--accent"); g.fillRect(P,by,8,bh);
+  g.fillStyle = v("--muted"); font("600",24,SANS); g.letterSpacing = "3px"; g.fillText(ev ? "NEXT UP ON SUPER CYBER FRIDAY" : "SUPER CYBER FRIDAY", P+36, by+46); g.letterSpacing = "0px";
+  g.fillStyle = v("--text"); fit(ev ? ev.name : "Live every Friday, 1 PM ET", "700", 46, SANS, S-2*P-72); g.fillText(ev ? ev.name : "Live every Friday, 1 PM ET", P+36, by+104);
+  g.fillStyle = v("--accent"); const sub = ev ? ev.day + (ev.time ? " · " + ev.time : "") + " · " + ev.url.replace(/^https:\/\/(www\.)?/,"") : "cisoseries.com";
+  fit(sub, "500", 28, SANS, S-2*P-72); g.fillText(sub, P+36, by+148);
+  // Game link
+  g.fillStyle = v("--muted"); font("400",28,SANS); g.fillText("Play this week's Triage", P, 1000);
+  g.fillStyle = v("--text"); font("600",30,MONO); g.textAlign = "right"; g.fillText(PUBLIC_URL.replace(/^https:\/\//,"").replace(/\/$/,""), S-P, 1000); g.textAlign = "left";
+  return new Promise(res=>c.toBlob(res,"image/png"));
+}
+let imgBlob = null, imgUrl = null;
+const imgName = () => "scf-triage-" + (practice ? "practice" : "week-" + week) + "-" + correct() + "-of-" + N + ".png";
+function imgShareText(){
+  const ev = upcomingEvent();
+  return shareText(false) + "\nPlay: " + PUBLIC_URL + (ev ? "\nNext Super Cyber Friday: " + ev.name + ", " + ev.day + (ev.time ? ", " + ev.time : "") + ", " + ev.url : "");
+}
+async function openImage(){
+  const d = $("dlgImg"); $("imgPrev").removeAttribute("src"); d.showModal();
+  imgBlob = await drawScoreImage();
+  if (imgUrl) URL.revokeObjectURL(imgUrl);
+  imgUrl = URL.createObjectURL(imgBlob);
+  $("imgPrev").src = imgUrl;
+  // In the claude.ai viewer a save goes through its downloads capability; elsewhere a plain download link.
+  $("imgDownload").hidden = !!(window.claude && !dlCap);
+  const file = new File([imgBlob], imgName(), {type:"image/png"});
+  $("imgShare").hidden = !(navigator.canShare && navigator.canShare({files:[file]}));
+  $("imgCopy").hidden = !(window.ClipboardItem && navigator.clipboard && navigator.clipboard.write);
+}
+let dlCap = null;
+if (window.claude && claude.use) claude.use("downloads").then(d=>{ dlCap = d; }).catch(()=>{});
+$("btnImage").onclick = openImage;
+$("imgDownload").onclick = async ()=>{
+  if (!imgBlob) return;
+  if (dlCap){
+    try{ await dlCap.save({filename: imgName(), data: imgBlob}); toast("Saved"); }
+    catch(e){ if (e && e.code !== "declined") toast("Download isn't available here. Press and hold the image instead."); }
+    return;
+  }
+  const a = document.createElement("a"); a.href = imgUrl; a.download = imgName(); document.body.appendChild(a); a.click(); a.remove();
+};
+$("imgShare").onclick = async ()=>{
+  try{ await navigator.share({files:[new File([imgBlob], imgName(), {type:"image/png"})], text: imgShareText()}); }
+  catch(e){ if (e.name !== "AbortError") toast("Sharing isn't available here. Download it instead."); }
+};
+$("imgCopy").onclick = async ()=>{
+  try{ await navigator.clipboard.write([new ClipboardItem({"image/png": imgBlob})]); toast("Image copied! Paste it anywhere"); }
+  catch(e){ toast("Copying isn't allowed here. Download it instead."); }
+};
 function showOver(scroll){
   $("over").hidden = false;
   $("overTitle").textContent = correct() + " / " + N;

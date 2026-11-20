@@ -67,3 +67,7 @@ All notable changes to the CISO Series Triage repo are logged here.
 ## 2026-11-20 (3)
 - Rewrote the How to Play card from review notes: it now says a higher CVSS score means a more severe vulnerability (more risk if exploited), asks players to tap the one they think is more severe, frames the final score as how many of the 10 more severe vulnerabilities they correctly picked (e.g. 7/10), and says the pairs get progressively harder, with closer scores, as the game advances.
 - The results screen opens with "You picked the more severe vulnerability in N of 10 pairs." before the rank. Copy only; pairs, saved runs and the share are unchanged. — Rich
+
+## 2026-11-20 (4)
+- New "Share image" button on the results screen. It draws a 1080×1080 PNG score card in the game's style: the score out of 10, the rank, a ✓/✗ tile per question labeled P5→P0 (easier to harder), the next Super Cyber Friday (name, date, time and Crowdcast link, from the same `scf-event` block as the promo, or "Live every Friday, 1 PM ET · cisoseries.com" when none is set) and the public game link, ciso-series.github.io/triage (`PUBLIC_URL`).
+- The image opens in a dialog with Share… (phones, using the system share sheet with the image plus a text version of the result, game link and event link), Copy image, and Download. Each button only shows where the browser supports it; pressing and holding the image also saves it on phones. On the claude.ai artifact, Download goes through the viewer's save prompt (the artifact now declares the `downloads` capability). — Rich

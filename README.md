@@ -22,6 +22,7 @@ Live version: https://claude.ai/artifact/5uQCPWFWQWrd8q6gsmpaHF
 
   Ties never come up, and which side holds the higher score is random.
 - **Sharing.** "Copy result for chat" gives the score out of 10, one ✅/❌ per question in order (so position shows difficulty) and the link. It never names the CVEs. The results screen also lists each pair with both scores and a rank.
+- **Score image.** "Share image" draws a 1080×1080 PNG of the result with the next Super Cyber Friday (from the `scf-event` block) and the public game link (`PUBLIC_URL`), and offers Share (phones), Copy image and Download.
 - **Saved locally.** Official-run answers live in the player's browser (`localStorage`), so a reload mid-run picks up at the next question.
 
 ## The cards
