@@ -54,3 +54,8 @@ All notable changes to the CISO Series Triage repo are logged here.
 - Difficulty still climbs through the same gap bands: P5 for Q1–2, P4 for Q3–4, P3 for Q5–6, P2 for Q7–8, P1 for Q9, P0 for Q10 (`PLAN`). Checked over 2,000 simulated weeks: every pair lands in its band.
 - New share: "🩺 SCF Triage #N · 7/10" plus one ✅/❌ per question in order, and the link. The results screen lists all 10 pairs with both scores, plus a rank out of 10.
 - The top strip shows question number, correct so far, priority and a dot per question. Official progress saves per answer (`triage3:` key), so a reload resumes at the next question. — Rich
+
+## 2026-11-20
+- Weekly CVE refresh: pulled CVEs published 2026-10-21 to 2026-11-20 from NVD. The game now has 102 CVEs, 8 of them on CISA KEV, rebuilt into `index.html` and republished to the live link.
+- Wrote new Affects/Flaw/Access/Impact cards for 86 CVEs from each description and CVSS vector, and kept the existing cards for 16 that stayed in the pool. Every card passed the build's vector check.
+- Skipped 7 CVEs. Description too thin: CVE-2026-54859 (Preservation) and CVE-2026-62005 (Muzicon), one-line "PHP object injection" notes that don't say what the product is; CVE-2026-76300 (Cisco hardening release, no product or impact named). Description contradicts the scoring: CVE-2026-101031 (Apache Airflow example Dag, needs a user who can trigger the Dag / scored no login), CVE-2026-123218 (IBM Aspera Faspex, KEV, described as an authorized user / scored no login), CVE-2026-121906 (Adobe Connect path traversal, described as file read only / scored full compromise), CVE-2026-133193 (JetBrains Junie GitHub Action, described as code execution / scored limited impact). — Rich
